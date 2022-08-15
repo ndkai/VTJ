@@ -26,7 +26,7 @@ class TextFieldWidget extends StatelessWidget {
     this.isEdit = true,
     this.style,
     this.textAlign,
-    this.suffix, this.labelStyle, this.controller,
+    this.suffix, this.labelStyle, this.controller, this.onTap, this.maxLine,
   }) : super(key: key);
 
   final FormFieldSetter<String> onSaved;
@@ -41,10 +41,12 @@ class TextFieldWidget extends StatelessWidget {
   final TextStyle style;
   final TextStyle labelStyle;
   final IconData iconData;
+  final int maxLine;
   final bool obscureText;
   final bool isFirst;
   final bool isLast;
   final bool isEdit;
+  final Function onTap;
   final Widget suffixIcon;
   final Widget suffix;
   final TextEditingController controller;
@@ -52,7 +54,7 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
       margin: EdgeInsets.only(left: 10, right: 10, top: 00, bottom: bottomMargin),
       decoration: BoxDecoration(
           color: Get.theme.primaryColor,
@@ -73,7 +75,8 @@ class TextFieldWidget extends StatelessWidget {
             textAlign: textAlign ?? TextAlign.start,
           ),
           TextFormField(
-            maxLines: keyboardType == TextInputType.multiline ? null : 1,
+            onTap: onTap,
+            maxLines: maxLine,
             key: key,
             enabled: isEdit,
             keyboardType: keyboardType ?? TextInputType.text,

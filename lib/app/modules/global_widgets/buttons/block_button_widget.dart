@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BlockButtonWidget extends StatelessWidget {
-  const BlockButtonWidget({Key key, @required this.color, @required this.text, @required this.onPressed}) : super(key: key);
-
+  const BlockButtonWidget({Key key, @required this.color, @required this.text, @required this.onPressed, this.borderRadius = 20}) : super(key: key);
+  final double borderRadius;
   final Color color;
   final Widget text;
   final VoidCallback onPressed;
@@ -26,7 +26,7 @@ class BlockButtonWidget extends StatelessWidget {
         color: color,
         disabledElevation: 0,
         disabledColor: Get.theme.focusColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
         child: text,
         elevation: 0,
       ),

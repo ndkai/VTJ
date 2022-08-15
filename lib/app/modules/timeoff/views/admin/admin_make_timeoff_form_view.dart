@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/global_widgets/pages/base_page.dart';
-import 'package:vkhealth/app/modules/timeoff/views/have_salary_do_view.dart';
+import 'package:vkhealth/app/modules/timeoff/views/admin/admin_have_salary_do_view.dart';
 import 'package:vkhealth/common/helper.dart';
 import 'package:vkhealth/common/size_config.dart';
 
-import '../controllers/timeoff_controller.dart';
+import '../../controllers/timeoff_controller.dart';
 
-class MakeTimeOffView extends GetView<TimeOffController> {
-  const MakeTimeOffView({Key key}) : super(key: key);
+class AdminMakeTimeOffView extends GetView<TimeOffController> {
+  const AdminMakeTimeOffView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class MakeTimeOffView extends GetView<TimeOffController> {
       child: Column(
         children: [
           const SizedBox(height: 20,),
-          item("Nghỉ phép có lương", onTap: () => Helper.changePage(context, const HaveSalaryDoView())),
-          item("Nghỉ phép không lương", onTap: () => Helper.changePage(context, const HaveSalaryDoView())),
+          item("Nghỉ phép có lương", onTap: () => Helper.changePage(context, const AdminHaveSalaryDOView())),
+          item("Nghỉ phép không lương", onTap: () => Helper.changePage(context, const AdminHaveSalaryDOView())),
           item("Nghỉ thai sản "),
         ],
       ),

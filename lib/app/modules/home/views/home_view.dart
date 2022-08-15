@@ -45,7 +45,8 @@ class HomeView extends GetView<HomeController> {
                     HomeFunctionCard(
                         title: "Lịch làm việc",
                         onTap: () {
-                          Get.toNamed(Routes.ATTENDANCE);
+                          Get.toNamed(Routes.E_ATTENDANCE);
+                          // Get.toNamed(Routes.ATTENDANCE);
                         },
                         image: "assets/icon/calendar.png",
                         bgColor: Ui.parseColor("#219653")),

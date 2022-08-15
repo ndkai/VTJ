@@ -32,7 +32,7 @@ class EmployeeTimeOff {
   String toDate;
   bool isAbsenteeism;
   String note;
-  Null sign;
+  String sign;
   String dateOfSign;
   Type type;
   List<Logs> logs;
@@ -132,7 +132,7 @@ class Type {
 class Logs {
   String dateCreated;
   int status;
-  Null note;
+  String note;
   User user;
 
   Logs({this.dateCreated, this.status, this.note, this.user});

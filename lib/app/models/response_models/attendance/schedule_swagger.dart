@@ -29,20 +29,15 @@ class ScheduleGroup {
   String code;
   String name;
   Leader leader;
-  List<Null> additionalLeaderIds;
   List<String> employeeIds;
-  Null scheduleLoopConfigurationId;
-  List<Null> scheduleLoops;
 
   ScheduleGroup(
       {this.id,
       this.code,
       this.name,
       this.leader,
-      this.additionalLeaderIds,
       this.employeeIds,
-      this.scheduleLoopConfigurationId,
-      this.scheduleLoops});
+});
 
   ScheduleGroup.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,20 +45,10 @@ class ScheduleGroup {
     name = json['name'];
     leader =
         json['leader'] != null ? Leader.fromJson(json['leader']) : null;
-    if (json['additionalLeaderIds'] != null) {
-      additionalLeaderIds = <Null>[];
-      // json['additionalLeaderIds'].forEach((v) {
-      //   additionalLeaderIds.add(Null.fromJson(v));
-      // });
+    if(json['employeeIds'] != null){
+      employeeIds = json['employeeIds'].cast<String>();
     }
-    employeeIds = json['employeeIds'].cast<String>();
-    scheduleLoopConfigurationId = json['scheduleLoopConfigurationId'];
-    // if (json['scheduleLoops'] != null) {
-    //   scheduleLoops = <Null>[];
-    //   json['scheduleLoops'].forEach((v) {
-    //     scheduleLoops.add(Null.fromJson(v));
-    //   });
-    // }
+
   }
 
   Map<String, dynamic> toJson() {

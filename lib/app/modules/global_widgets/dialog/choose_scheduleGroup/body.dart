@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:vkhealth/app/models/response_models/booking/doctor.dart';
 
 import '../../../../../common/size_config.dart';
 import '../../../../models/response_models/attendance/schedule_swagger.dart';

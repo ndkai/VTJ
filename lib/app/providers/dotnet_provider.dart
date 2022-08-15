@@ -8,9 +8,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:vkhealth/app/models/request_models/attendance/attendance_resquest.dart';
+import 'package:vkhealth/app/models/request_models/attendance/manuala_reuquest.dart';
 import 'package:vkhealth/app/models/request_models/auth/login_request.dart';
 import 'package:vkhealth/app/models/request_models/auth/register_request.dart';
+import 'package:vkhealth/app/models/request_models/timeoff/time_off_request.dart';
+import 'package:vkhealth/app/models/request_models/timeoff/time_off_type.dart';
 import 'package:vkhealth/app/models/request_models/user/password_change.dart';
+import 'package:vkhealth/app/models/response_models/attendance/attendance_detailed.dart';
 import 'package:vkhealth/app/models/response_models/attendance/employee_attendance.dart';
 import 'package:vkhealth/app/models/response_models/booking/interval_for_date.dart';
 import 'package:vkhealth/app/models/response_models/booking/service_model.dart';
@@ -21,9 +26,14 @@ import 'package:vkhealth/app/providers/api_provider.dart';
 import 'package:vkhealth/app/services/api_service_impl.dart';
 
 import '../../common/api_constant.dart';
+import '../models/request_models/attendance/all_schedule_request.dart';
+import '../models/request_models/attendance/create_shift_request.dart';
+import '../models/request_models/attendance/over_time_request.dart';
 import '../models/request_models/booking/bookinghis_query.dart';
 import '../models/request_models/booking/save_image_file.dart';
+import '../models/request_models/employees/employees_requets.dart';
 import '../models/response_models/attendance/schedule_swagger.dart';
+import '../models/response_models/attendance/shift_response.dart';
 import '../models/response_models/booking/booking-history.dart';
 import '../models/response_models/booking/date_for_service.dart';
 import '../models/user_model.dart';
@@ -187,7 +197,6 @@ class DotnetProvider extends GetxService with ApiProvider {
       }
       throw Exception(e);
     }
-    log('provider - getIntervalForDate ${response.data}');
     if (response.statusCode == 200) {
       List<dynamic> value = response.data
           .map<IntervalForDate>((dynamic i){
@@ -436,18 +445,19 @@ class DotnetProvider extends GetxService with ApiProvider {
     }
   }
 
-  Future<List<timeoff.EmployeeTimeOff>> getEmployeeTimeOff(String fromDate, String toDate, int index) async{
+  Future<List<timeoff.EmployeeTimeOff>> getEmployeeTimeOff(String fromDate, String toDate, int index, {String code = ""}) async{
     dio.Response response;
     try{
       Map<String, dynamic> queryParams = <String, dynamic>{
         "fromDate": fromDate,
         "toDate": toDate,
         "pageIndex": index,
-        "pageSize": 20,
+        "pageSize": 10000,
+        "code": code,
       };
       response = await _httpClient.dio.get(
           "${ApiConstants.mainApi}/TimeOffs",
-          // queryParameters: queryParams
+          queryParameters: queryParams
       );
 
     } catch(e){
@@ -464,27 +474,29 @@ class DotnetProvider extends GetxService with ApiProvider {
     }
   }
 
-  Future<List<EmployeeAttendance>> getEmployeeAttendance(String fromDate, String toDate, String scheduleGroupId) async{
+  Future<List<EmployeeAttendance>> getEmployeeAttendance(String fromDate, String toDate, String scheduleGroupId, String keyword) async{
     dio.Response response;
     try{
       Map<String, dynamic> queryParams = <String, dynamic>{
         "fromDate": fromDate,
         "toDate": toDate,
-        // "scheduleGroupId": scheduleGroupId,
-        "pageSize": 10,
+        "groupBy": 1,
+        "scheduleGroupId": scheduleGroupId,
+        "pageSize": 10000,
+        "pageIndex": 0,
+        "keyword": keyword
       };
       response = await _httpClient.dio.get(
         "${ApiConstants.mainApi}/Attendances",
         queryParameters: queryParams
       );
     } catch(e){
-      print('provider - getEmployeeAttendance ${e}');
+      print('provider - getEmployeeAttendance $e');
       if(e is dio.DioError){
         throw Exception("Lấy thông tin thất bại");
       }
       throw Exception("Lấy thông tin thất bại");
     }
-    log('provider - getEmployeeAttendance ${response.data}');
     if (response.statusCode == 200) {
       return EmployeeAttendanceSwagger.fromJson(response.data as Map<String, dynamic>).data;
     } else {
@@ -500,17 +512,221 @@ class DotnetProvider extends GetxService with ApiProvider {
       );
 
     } catch(e){
-      print('provider - getScheduleGroup ${e}');
+      print('provider - getScheduleGroup $e');
       // if(e is dio.DioError){
       //   throw Exception("Lấy thông tin thất bại");
       // }
       throw Exception("Lấy thông tin thất bại");
     }
-    log('provider - getEmployeeAttendance ${response.data}');
     if (response.statusCode == 200) {
       return ScheduleGroupSwagger.fromJson(response.data as Map<String, dynamic>).data;
     } else {
       throw Exception(response.data);
     }
   }
+
+  Future<bool> postTimeOff(PostTimeOffRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+        "${ApiConstants.mainApi}/TimeOffs",
+        data: request.toJson()
+      );
+
+    } catch(e){
+      print('provider - postTimeOff $e');
+      throw Exception("Tạo đơn không thành công");
+    }
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+
+  Future<EmployeeSwagger> getEmployee(GetEmployeeRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/Employees",
+        queryParameters: request.toJson()
+      );
+
+    } catch(e){
+      print('provider - getEmployees $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - getEmployees ${response.data}');
+    if (response.statusCode == 200) {
+      return EmployeeSwagger.fromJson(response.data);
+
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+  Future<AttendanceDetailSwagger> getDetailedAttendance(AttendanceRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/Attendances/History/${request.id}?fromDate=${request.fromDate}&toDate=${request.toDate}&pageIndex=0&pageSize=129129129",
+          // queryParameters: request.toJson()
+      );
+
+    } catch(e){
+      log('provider - getDetailedAttendance $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - getDetailedAttendance ${response.data}');
+    if (response.statusCode == 200) {
+      return AttendanceDetailSwagger.fromJson(response.data);
+    } else {
+      throw Exception(response.data);
+    }
+  }
+
+  Future<void> attendanceManual(EmployeeManualRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+        "${ApiConstants.mainApi}/Attendances/AttendanceByManual",
+        data: request.toJson()
+      );
+
+    } catch(e){
+      print('provider - attendanceManual $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - attendanceManual ${response.data}');
+  }
+
+  Future<void> overtimeSignUp(OverTimeRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+          "${ApiConstants.mainApi}/Schedules/${request.id}/AddOvertime",
+        data: request.toJson()
+      );
+
+    } catch(e){
+      print('provider - overtimeSignUp $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - overtimeSignUp ${response.data}');
+  }
+
+  Future<void> deleteSchedule(String id) async{
+    dio.Response response;
+    try{
+      print("lll ${ApiConstants.mainApi}/Schedules/${id}");
+      response = await _httpClient.dio.delete(
+        "${ApiConstants.mainApi}/Schedules/${id}",
+      );
+
+    } catch(e){
+      print('provider - deleteSchedule er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - deleteSchedule ${response.data}');
+  }
+
+  Future<void> createSchedule(CreateScheduleRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+        "${ApiConstants.mainApi}/Schedules",
+        data: request.toJson()
+      );
+
+    } catch(e){
+      print('provider - createSchedule er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+    print('provider - createSchedule ${response.data}');
+  }
+
+  Future<ShiftResponse> getShift() async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/Shifts?pageIndex=0&pageSize=2147483647",
+      );
+      print('provider - getShift ${response.data}');
+      if (response.statusCode == 200) {
+        return ShiftResponse.fromJson(response.data);
+      } else {
+        throw Exception(response.data);
+      }
+    } catch(e){
+      print('provider - getShift er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+  Future<void> overallCreateSchedule(OverallScheduleRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+        "${ApiConstants.mainApi}/Schedules/Batch",
+        data: request.toJson()
+      );
+      print('provider - overallCreateSchedule ${response.data}');
+    } catch(e){
+      print('provider - overallCreateSchedule er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+
+  }
+
+  Future<void> overTimeBatch(OverallScheduleRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+          "${ApiConstants.mainApi}/Schedules/AddOvertimeBatch",
+          data: request.toJson()
+      );
+      print('provider - overTimeBatch ${response.data}');
+    } catch(e){
+      print('provider - overTimeBatch er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+
+  }
+
+  Future<TimeOffType> getTimeOffType() async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/TimeOffTypes",
+      );
+      print('provider - getTimeOffType ${response.data}');
+      return TimeOffType.fromJson(response.data);
+    } catch(e){
+      print('provider - getTimeOffType er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+

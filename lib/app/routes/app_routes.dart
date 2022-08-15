@@ -32,4 +32,6 @@ class Routes{
   static const MEAL_MANAGE = '/meal_manage';
 
   static const ATTENDANCE = '/attendance';
+
+  static const E_ATTENDANCE = '/employee_attendance';
 }

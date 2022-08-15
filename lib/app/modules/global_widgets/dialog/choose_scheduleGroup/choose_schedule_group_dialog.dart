@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:vkhealth/app/models/response_models/attendance/schedule_swagger.dart';
-import 'package:vkhealth/app/models/response_models/booking/doctor.dart';
 
 import '../../../../../common/size_config.dart';
 import 'body.dart';
 
-void showScheduleGroupDialog(BuildContext context,List<ScheduleGroup> schedule, Function onSuccessTap(Districts)){
+void showScheduleGroupDialog(BuildContext context,List<ScheduleGroup> schedule, Function onSuccessTap(ScheduleGroup)){
 
   showDialog<void>(
     context: context,

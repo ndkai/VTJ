@@ -36,6 +36,8 @@ dependencies:
   otp_pin_field: ^1.0.1
   fluttericon: ^2.0.0
   gradient_like_css: ^1.0.0
+  #POPUP
+  custom_pop_up_menu: ^1.2.3+1
   # WEB
   webview_flutter: 3.0.0
   flutter_html: 3.0.0-alpha.2
@@ -54,6 +56,7 @@ dependencies:
   isoweek: ^1.1.4
   #System
   file_picker: ^4.6.1
+  provider: ^6.0.3
 
 
 dev_dependencies:

@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../app/models/provice.dart';
+import '../app/models/user_model.dart';
+import '../app/services/auth_service.dart';
 import 'ui.dart';
 
 class Helper {
@@ -22,6 +24,36 @@ class Helper {
     var files = io.Directory(path).listSync();
     print(files);
     // return rootBundle.(path).then(convert.jsonDecode);
+  }
+
+  static bool hourComparison(TimeOfDay t1, TimeOfDay t2) {
+    if(t1.hour > t2.hour){
+      return true;
+    }
+    if(t1.hour == t2.hour){
+      if(t1.minute > t2.minute){
+        return true;
+      }
+    }
+
+    return false;
+  }
+  
+
+  static void changePageWithPermission(Function function, String pageCode){
+    final authService = Get.find<AuthService>();
+    List<Role> permissions = authService.user.value.userInfo.permissions;
+    if(permissions.firstWhere((element) => element.code == pageCode) != null){
+      function();
+    } else {
+      Get.showSnackbar(Ui.RemindSnackBar(message: "Không có quyền truy cập chức năng này"));
+    }
+  }
+
+  static bool checkHavePermission(String pageCode){
+    final authService = Get.find<AuthService>();
+    List<Role> permissions = authService.user.value.userInfo.permissions;
+    return permissions.firstWhere((element) => element.code == pageCode) != null;
   }
 
   static String getWeekDateString(int wd) {
@@ -65,13 +97,63 @@ class Helper {
     return path;
   }
 
-  static String getVietnameseTime(String isoString){
+  static String getVietnameseTime(String isoString, {bool showYear = true}){
      try{
          DateTime dateTime = DateTime.parse(isoString);
+         if(!showYear){
+           return  "${dateTime.day}/${dateTime.month} ";
+         }
          return "${dateTime.day}/${dateTime.month}/${dateTime.year} ";
      } catch(e){
        return "";
      }
+  }
+
+  static String getHourByDate(String isoDate){
+    try{
+     DateTime dateTime = DateTime.parse(isoDate);
+      return "${dateTime.hour}:${dateTime.minute}";
+    } catch(e){
+      return "";
+    }
+  }
+
+  static String getHour(TimeOfDay tod, {bool showSecond = false}){
+    try{
+      if(showSecond) {
+        return "${tod.hour > 10 ? tod.hour : "0${tod.hour}"}:${tod.minute > 10 ? tod.minute : "0${tod.minute}"}";
+      }
+      return "${tod.hour > 10 ? tod.hour : "0${tod.hour}"}:${tod.minute > 10 ? tod.minute : "0${tod.minute}"}";
+    } catch(e){
+      return "";
+    }
+  }
+  static String getHourByDateTime(DateTime datetime, {bool showSecond = false}){
+    try{
+      if(showSecond) {
+        return "${datetime.hour > 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute > 10 ? datetime.minute : "0${datetime.minute}"}";
+      }
+      return "${datetime.hour > 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute > 10 ? datetime.minute : "0${datetime.minute}"}";
+    } catch(e){
+      return "";
+    }
+  }
+
+
+  static String nonNullCheck(dynamic value){
+    try{
+       return value.toString();
+    } catch(e){
+      return "";
+    }
+  }
+
+  static String getApiDate(DateTime dateTime){
+    try{
+      return "${dateTime.year}-${dateTime.month}-${dateTime.day}";
+    } catch(e){
+      return "";
+    }
   }
 
   Future<bool> onWillPop() {

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:vkhealth/app/models/response_models/booking/booking_response.dart';
 
 class BookingHistory {

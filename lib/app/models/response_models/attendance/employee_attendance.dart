@@ -91,26 +91,28 @@ class Statistic {
   String id;
   int status;
   CheckIn checkIn;
-  Null checkOut;
-  int workingHours;
-  int breakingHours;
-  int overtimeWorkingHours;
+  CheckIn checkOut;
+  double workingHours;
+  double breakingHours;
+  double overtimeWorkingHours;
 
   Statistic(
       {this.id,
-      this.status,
-      this.checkIn,
-      this.checkOut,
-      this.workingHours,
-      this.breakingHours,
-      this.overtimeWorkingHours});
+        this.status,
+        this.checkIn,
+        this.checkOut,
+        this.workingHours,
+        this.breakingHours,
+        this.overtimeWorkingHours});
 
   Statistic.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     status = json['status'];
     checkIn =
-        json['checkIn'] != null ? CheckIn.fromJson(json['checkIn']) : null;
-    checkOut = json['checkOut'];
+    json['checkIn'] != null ? CheckIn.fromJson(json['checkIn']) : null;
+    checkOut = json['checkOut'] != null
+        ? CheckIn.fromJson(json['checkOut'])
+        : null;
     workingHours = json['workingHours'];
     breakingHours = json['breakingHours'];
     overtimeWorkingHours = json['overtimeWorkingHours'];
@@ -123,7 +125,9 @@ class Statistic {
     if (checkIn != null) {
       data['checkIn'] = checkIn.toJson();
     }
-    data['checkOut'] = checkOut;
+    if (checkOut != null) {
+      data['checkOut'] = checkOut.toJson();
+    }
     data['workingHours'] = workingHours;
     data['breakingHours'] = breakingHours;
     data['overtimeWorkingHours'] = overtimeWorkingHours;
@@ -136,22 +140,22 @@ class CheckIn {
   String time;
   double temperature;
   int attendanceMethod;
-  Null note;
-  Null employee;
-  Null user;
+  String note;
+  Employee employee;
+  // User user;
   String unitId;
   String deviceId;
 
   CheckIn(
       {this.id,
-      this.time,
-      this.temperature,
-      this.attendanceMethod,
-      this.note,
-      this.employee,
-      this.user,
-      this.unitId,
-      this.deviceId});
+        this.time,
+        this.temperature,
+        this.attendanceMethod,
+        this.note,
+        this.employee,
+        // this.user,
+        this.unitId,
+        this.deviceId});
 
   CheckIn.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -160,7 +164,7 @@ class CheckIn {
     attendanceMethod = json['attendanceMethod'];
     note = json['note'];
     employee = json['employee'];
-    user = json['user'];
+    // user = json['user'];
     unitId = json['unitId'];
     deviceId = json['deviceId'];
   }
@@ -173,7 +177,7 @@ class CheckIn {
     data['attendanceMethod'] = attendanceMethod;
     data['note'] = note;
     data['employee'] = employee;
-    data['user'] = user;
+    // data['user'] = user;
     data['unitId'] = unitId;
     data['deviceId'] = deviceId;
     return data;
@@ -185,7 +189,7 @@ class Schedule {
   String date;
   String employeeId;
   Shift shift;
-  Null overtimeShift;
+  Shift overtimeShift;
   TimeOff timeOff;
 
   Schedule(
@@ -201,7 +205,7 @@ class Schedule {
     date = json['date'];
     employeeId = json['employeeId'];
     shift = json['shift'] != null ? Shift.fromJson(json['shift']) : null;
-    overtimeShift = json['overtimeShift'];
+    overtimeShift = json['overtimeShift'] != null ? Shift.fromJson(json['overtimeShift']) : null;
     timeOff =
         json['timeOff'] != null ? TimeOff.fromJson(json['timeOff']) : null;
   }
@@ -232,10 +236,9 @@ class Shift {
   bool isPeriodLock;
   String timeBegin;
   String timeEnd;
-  int workingHours;
-  int shortBreakingHours;
-  int longBreakingHours;
-  Null shiftDetails;
+  double workingHours;
+  double shortBreakingHours;
+  double longBreakingHours;
 
   Shift(
       {this.id,
@@ -250,14 +253,14 @@ class Shift {
       this.workingHours,
       this.shortBreakingHours,
       this.longBreakingHours,
-      this.shiftDetails});
+     });
 
   Shift.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];
     colour = json['colour'];
-    types = json['types'].cast<int>();
+    // types = json['types'].cast<int>();
     if (json['limitedFactors'] != null) {
       limitedFactors = <LimitedFactors>[];
       json['limitedFactors'].forEach((v) {
@@ -270,7 +273,6 @@ class Shift {
     workingHours = json['workingHours'];
     shortBreakingHours = json['shortBreakingHours'];
     longBreakingHours = json['longBreakingHours'];
-    shiftDetails = json['shiftDetails'];
   }
 
   Map<String, dynamic> toJson() {
@@ -290,14 +292,13 @@ class Shift {
     data['workingHours'] = workingHours;
     data['shortBreakingHours'] = shortBreakingHours;
     data['longBreakingHours'] = longBreakingHours;
-    data['shiftDetails'] = shiftDetails;
     return data;
   }
 }
 
 class LimitedFactors {
   String name;
-  int hour;
+  double hour;
 
   LimitedFactors({this.name, this.hour});
 
@@ -319,8 +320,8 @@ class TimeOff {
   String fromDate;
   String toDate;
   bool isAbsenteeism;
-  Null note;
-  Null sign;
+  String note;
+  String sign;
   String dateOfSign;
   Type type;
   List<Logs> logs;
@@ -413,7 +414,6 @@ class Unit {
   int prescribedPersonnel;
   int actualPersonnel;
   int unitPriceOfMeal;
-  List<Null> childUnits;
 
   Unit(
       {this.id,
@@ -422,8 +422,7 @@ class Unit {
       this.type,
       this.prescribedPersonnel,
       this.actualPersonnel,
-      this.unitPriceOfMeal,
-      this.childUnits});
+      this.unitPriceOfMeal,});
 
   Unit.fromJson(Map<String, dynamic> json) {
     id = json['id'];

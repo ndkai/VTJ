@@ -7,8 +7,8 @@ import 'package:vkhealth/app/modules/global_widgets/pages/base_page.dart';
 import 'package:vkhealth/common/helper.dart';
 import 'package:vkhealth/common/size_config.dart';
 
-import '../../global_widgets/text_field_widget.dart';
-import '../controllers/timeoff_controller.dart';
+import '../../../global_widgets/text_field_widget.dart';
+import '../../controllers/timeoff_controller.dart';
 
 class HaveSalaryDoView extends GetView<TimeOffController> {
   const HaveSalaryDoView({Key key}) : super(key: key);
@@ -68,7 +68,7 @@ class HaveSalaryDoView extends GetView<TimeOffController> {
                 color: Colors.black ,
                 fontSize: 18
             ),
-            initialValue: "Nghĩ phép có lương",
+            initialValue: "Nghĩ phép không lương",
           ),
           Container(
             padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),

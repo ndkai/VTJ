@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_void_to_null
 
 class EmployeeSwagger {
-  List<Data> data;
+  List<EmployeeData> data;
 
   EmployeeSwagger({this.data});
 
   EmployeeSwagger.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <EmployeeData>[];
       json['data'].forEach((v) {
-        data.add(Data.fromJson(v));
+        data.add(EmployeeData.fromJson(v));
       });
     }
   }
@@ -23,7 +23,7 @@ class EmployeeSwagger {
   }
 }
 
-class Data {
+class EmployeeData {
   String id;
   String code;
   String name;
@@ -33,27 +33,28 @@ class Data {
   String email;
   String permanentAddress;
   String presentResidence;
-  Null ethnic;
+  String ethnic;
   String nationality;
-  Null placeOfOrigin;
-  Null religion;
-  Null image;
+  String placeOfOrigin;
+  String religion;
+  String image;
   String imageRecognition;
   Null numberOfTax;
   bool isMarriaged;
   String dateJoined;
   int bonusType;
   IdentityCard identityCard;
-  Null citizenIdentification;
-  Null socialInsuranceId;
-  Null healthInsuranceId;
-  Null certificateId;
+  CitizenIdentification citizenIdentification;
+  String socialInsuranceId;
+  String healthInsuranceId;
+  String certificateId;
   String positionId;
   String siteId;
   String unitId;
   String scheduleGroupId;
+  bool isChoose;
 
-  Data(
+  EmployeeData(
       {this.id,
         this.code,
         this.name,
@@ -83,7 +84,7 @@ class Data {
         this.unitId,
         this.scheduleGroupId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  EmployeeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];
@@ -102,11 +103,13 @@ class Data {
     numberOfTax = json['numberOfTax'];
     isMarriaged = json['isMarriaged'];
     dateJoined = json['dateJoined'];
-    // bonusType = json['bonusType'];
+    bonusType = json['bonusType'];
     identityCard = json['identityCard'] != null
         ? IdentityCard.fromJson(json['identityCard'])
         : null;
-    citizenIdentification = json['citizenIdentification'];
+    citizenIdentification = json['citizenIdentification'] != null
+        ? CitizenIdentification.fromJson(json['citizenIdentification'])
+        : null;
     socialInsuranceId = json['socialInsuranceId'];
     healthInsuranceId = json['healthInsuranceId'];
     certificateId = json['certificateId'];
@@ -114,6 +117,7 @@ class Data {
     siteId = json['siteId'];
     unitId = json['unitId'];
     scheduleGroupId = json['scheduleGroupId'];
+    isChoose = false;
   }
 
   Map<String, dynamic> toJson() {
@@ -140,7 +144,9 @@ class Data {
     if (identityCard != null) {
       data['identityCard'] = identityCard.toJson();
     }
-    data['citizenIdentification'] = citizenIdentification;
+    if (citizenIdentification != null) {
+      data['citizenIdentification'] = citizenIdentification.toJson();
+    }
     data['socialInsuranceId'] = socialInsuranceId;
     data['healthInsuranceId'] = healthInsuranceId;
     data['certificateId'] = certificateId;
@@ -167,6 +173,39 @@ class IdentityCard {
         this.employeeId});
 
   IdentityCard.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    number = json['number'];
+    placeOfReleased = json['placeOfReleased'];
+    dateReleased = json['dateReleased'];
+    employeeId = json['employeeId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['number'] = number;
+    data['placeOfReleased'] = placeOfReleased;
+    data['dateReleased'] = dateReleased;
+    data['employeeId'] = employeeId;
+    return data;
+  }
+}
+
+class CitizenIdentification {
+  String id;
+  String number;
+  String placeOfReleased;
+  String dateReleased;
+  String employeeId;
+
+  CitizenIdentification(
+      {this.id,
+        this.number,
+        this.placeOfReleased,
+        this.dateReleased,
+        this.employeeId});
+
+  CitizenIdentification.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     number = json['number'];
     placeOfReleased = json['placeOfReleased'];
