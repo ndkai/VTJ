@@ -24,7 +24,7 @@ class _ToggleWidgetState extends State<ToggleWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          item(selected==0, "Hôm nay", 0),
+          item(selected==0, "Đăng kí", 0),
           item(selected==1, "Thống kê", 1),
         ],
     );
@@ -39,7 +39,7 @@ class _ToggleWidgetState extends State<ToggleWidget> {
          });
       },
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
             color: isEnable ? Colors.blue : Colors.white,
             borderRadius: BorderRadius.circular(10)

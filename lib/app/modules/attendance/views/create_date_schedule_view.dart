@@ -5,17 +5,11 @@ import 'package:vkhealth/app/modules/attendance/views/component/data_item.dart';
 import 'package:vkhealth/app/modules/global_widgets/text_field_widget.dart';
 
 import '../../../../common/helper.dart';
-import '../../../../common/size_config.dart';
-import '../../../../common/ui.dart';
 import '../../../models/response_models/attendance/employee_attendance.dart';
 import '../../global_widgets/buttons/block_button_widget.dart';
-import '../../global_widgets/circular_loading_widget.dart';
-import '../../global_widgets/dialog/choose_scheduleGroup/choose_schedule_group_dialog.dart';
 import '../../global_widgets/dialog/choose_shift/choose_shift_dialog.dart';
 import '../../global_widgets/pages/base_page.dart';
-import '../../global_widgets/search_widget.dart';
 import '../controllers/attendance_controller.dart';
-import 'component/employee_item.dart';
 
 class CreateDateScheduleView extends GetView<AttendanceController> {
   final EmployeeAttendance employeeAttendance;

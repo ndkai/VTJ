@@ -14,11 +14,12 @@ void showComfirmDialog(BuildContext context, String comfirmText, {Function onSuc
             borderRadius: BorderRadius.all(Radius.circular(SizeConfig.screenWidth * 0.05))
         ),
         content: SizedBox(
-            height: SizeConfig.screenHeight * 0.14,
+            height: SizeConfig.screenHeight * 0.16,
+            width: SizeConfig.screenWidth * 0.9,
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.03,),
-              Text(comfirmText, style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
+              SizedBox(height: SizeConfig.screenHeight * 0.04,),
+              Text(comfirmText, style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500), textAlign: TextAlign.center,),
              SizedBox(height: SizeConfig.screenHeight * 0.03,),
              const Divider(color: Colors.black, height: 1,),
              Expanded(

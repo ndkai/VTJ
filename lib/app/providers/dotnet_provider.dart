@@ -12,6 +12,7 @@ import 'package:vkhealth/app/models/request_models/attendance/attendance_resques
 import 'package:vkhealth/app/models/request_models/attendance/manuala_reuquest.dart';
 import 'package:vkhealth/app/models/request_models/auth/login_request.dart';
 import 'package:vkhealth/app/models/request_models/auth/register_request.dart';
+import 'package:vkhealth/app/models/request_models/meal/meal_statistic.dart';
 import 'package:vkhealth/app/models/request_models/timeoff/time_off_request.dart';
 import 'package:vkhealth/app/models/request_models/timeoff/time_off_type.dart';
 import 'package:vkhealth/app/models/request_models/user/password_change.dart';
@@ -32,6 +33,10 @@ import '../models/request_models/attendance/over_time_request.dart';
 import '../models/request_models/booking/bookinghis_query.dart';
 import '../models/request_models/booking/save_image_file.dart';
 import '../models/request_models/employees/employees_requets.dart';
+import '../models/request_models/meal/meal_batch_request.dart';
+import '../models/request_models/meal/meal_request.dart';
+import '../models/request_models/meal/meal_sign_up-reuquest.dart';
+import '../models/response_models/meal/meal_overview.dart';
 import '../models/response_models/attendance/schedule_swagger.dart';
 import '../models/response_models/attendance/shift_response.dart';
 import '../models/response_models/booking/booking-history.dart';
@@ -90,6 +95,7 @@ class DotnetProvider extends GetxService with ApiProvider {
     if (response.statusCode == 200) {
       User user = UserSwagger.fromJson(response.data).data;
       user.auth = true;
+      user.dateExpired = DateTime.now().add(Duration(milliseconds: user.expiresIn)).toIso8601String();
       _httpClient.setupToken(user.token);
       return user;
     } else {
@@ -619,9 +625,9 @@ class DotnetProvider extends GetxService with ApiProvider {
   Future<void> deleteSchedule(String id) async{
     dio.Response response;
     try{
-      print("lll ${ApiConstants.mainApi}/Schedules/${id}");
+      print("lll ${ApiConstants.mainApi}/Schedules/$id");
       response = await _httpClient.dio.delete(
-        "${ApiConstants.mainApi}/Schedules/${id}",
+        "${ApiConstants.mainApi}/Schedules/$id",
       );
 
     } catch(e){
@@ -707,6 +713,64 @@ class DotnetProvider extends GetxService with ApiProvider {
       throw Exception("Lấy thông tin thất bại");
     }
 
+  }
+
+  Future<MealOverView> getMealOverview(MealRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+        "${ApiConstants.mainApi}/Meals/GetByEmployee?hasUnitChild=true&pageIndex=0&pageSize=101111",
+        queryParameters: request.toJson()
+      );
+      print('provider - getMealOverview ${response.data}');
+      return MealOverView.fromJson(response.data);
+    } catch(e){
+      print('provider - getMealOverview er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+
+  Future<void> postMeal4Employee(MealSignUpRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+          "${ApiConstants.mainApi}/Meals/Batch",
+          data: request.toJson()
+      );
+      print('provider - mealBatchpostMeal4Employee ${response.data}');
+    } catch(e){
+      print('provider - mealBatchpostMeal4Employee er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+  Future<void> confirmMeal(MealBatchRequest request) async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.post(
+          "${ApiConstants.mainApi}/Meals/Batch",
+          data: request.toJson()
+      );
+      print('provider - confirmMeal ${response.data}');
+    } catch(e){
+      print('provider - confirmMeal er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+  Future<MealStatistic> getMealStatistic() async{
+    dio.Response response;
+    try{
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/Statistics/Meal/Unit?unitType=0&hasChildUnit=true&pageIndex=0&pageSize=10",
+      );
+      print('provider - getMealStatistic ${response.data}');
+      return MealStatistic.fromJson(response.data);
+    } catch(e){
+      print('provider - getMealStatistic er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
   }
 
 

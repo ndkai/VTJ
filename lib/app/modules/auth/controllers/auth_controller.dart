@@ -14,6 +14,7 @@ import '../../global_widgets/dialog/loading_dialog.dart';
 
 class AuthController extends GetxController{
   final Rx<LoginRequest> loginRequest = LoginRequest().obs;
+  final authService = Get.find<AuthService>();
   final Rx<User> currentUser = Get.find<AuthService>().user;
   final loading = false.obs;
   final hidePassword = true.obs;
@@ -70,21 +71,25 @@ class AuthController extends GetxController{
     } finally {}
   }
 
-  void login() async{
+  void login(BuildContext context) async{
     Get.focusScope.unfocus();
     if(loginFormKey.currentState.validate()){
       loginFormKey.currentState.save();
       loading.value = true;
       try{
-        currentUser.value  = await _userRepository.login(loginRequest.value);
+        User user  = await _userRepository.login(loginRequest.value);
+        currentUser.value = user;
+        currentUser.value.dateExpired = user.dateExpired;
+        await authService.changeUser(user);
+        authService.user.value.auth = true;
         await Get.toNamed(Routes.ROOT, arguments: 0);
       } catch(e){
-        Get.showSnackbar(Ui.ErrorSnackBar(message: "Tài khoản hoặc mật khẩu không đúng"));
+        Get.showSnackbar(Ui.RemindSnackBar(message: "Tài khoản hoặc mật khẩu không đúng"));
       } finally {
         loading.value = false;
       }
     }
-    
+
   }
 
   Future<void> goToRegisterPage(BuildContext context) async {

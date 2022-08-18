@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/attendance/controllers/attendance_controller.dart';
 import 'package:vkhealth/app/modules/global_widgets/circular_loading_widget.dart';
-import 'package:vkhealth/app/modules/global_widgets/dialog/choose_scheduleGroup/choose_schedule_group_dialog.dart';
 import 'package:vkhealth/app/modules/global_widgets/pages/base_page.dart';
-import 'package:vkhealth/common/size_config.dart';
 
 import '../../../../common/helper.dart';
 import '../../../../common/ui.dart';
-import '../../../models/response_models/attendance/schedule_swagger.dart';
-import 'attendance_function_view.dart';
 import 'component/attendance_status_item.dart';
 import 'component/attendance_widget.dart';
 

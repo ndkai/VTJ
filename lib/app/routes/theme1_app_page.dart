@@ -12,16 +12,16 @@ import 'package:vkhealth/app/modules/auth/views/components/otp_view.dart';
 import 'package:vkhealth/app/modules/auth/views/forget_pass_view.dart';
 import 'package:vkhealth/app/modules/meal/bindings/meal_binding.dart';
 import 'package:vkhealth/app/modules/meal/views/meal_manage_view.dart';
-import 'package:vkhealth/app/modules/timeoff/views/admin/admin_timeoff_manage_view.dart';
 
 import '../middlewares/auth_middleware.dart';
 import '../modules/attendance/views/employee-attendance-view.dart';
 import '../modules/auth/views/login_view.dart';
 import '../modules/auth/views/register_view.dart';
+import '../modules/meal/views/meal_statistic_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/timeoff/bindings/timeoff_binding.dart';
-import '../modules/timeoff/views/user/user_timeoff_manage_view.dart';
+import '../modules/timeoff/views/admin/admin_timeoff_manage_view.dart';
 import 'app_routes.dart';
 
 class Theme1AppPages{
@@ -30,8 +30,8 @@ class Theme1AppPages{
   static final routes = [
     GetPage(name: Routes.ROOT, page: () => const RootView(), binding: RootBinding(), middlewares: [AuthMiddleware()]),
     GetPage(name: Routes.LOGIN, page: () => const LoginView(), binding: AuthBinding()),
-    GetPage(name: Routes.TIMEOFF, page: () => const UserTimeOffViewManager(), binding: TimeoffBinding()),
-    // GetPage(name: Routes.TIMEOFF, page: () => const AdminTimeOffViewManager(), binding: TimeoffBinding()),
+    // GetPage(name: Routes.TIMEOFF, page: () => const UserTimeOffViewManager(), binding: TimeoffBinding()),
+    GetPage(name: Routes.TIMEOFF, page: () => const AdminTimeOffViewManager(), binding: TimeoffBinding()),
     GetPage(name: Routes.CONFIRM_OTP, page: () => const OtpView(), binding: AuthBinding()),
     GetPage(name: Routes.REGISTER, page: () => const RegisterView(), binding: AuthBinding()),
     GetPage(name: Routes.ACCOUNT, page: () => const AccountView(), binding: AccountBinding()),

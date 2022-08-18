@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/attendance/views/component/data_item.dart';
-import 'package:vkhealth/app/modules/global_widgets/text_field_widget.dart';
 
 import '../../../../common/app_constant.dart';
 import '../../../../common/helper.dart';
@@ -10,8 +9,6 @@ import '../../../../common/size_config.dart';
 import '../../../../common/ui.dart';
 import '../../global_widgets/buttons/block_button_widget.dart';
 import '../../global_widgets/circular_loading_widget.dart';
-import '../../global_widgets/dialog/choose_scheduleGroup/choose_schedule_group_dialog.dart';
-import '../../global_widgets/dialog/choose_shift/choose_shift_dialog.dart';
 import '../../global_widgets/dialog/loading_dialog.dart';
 import '../../global_widgets/pages/base_page.dart';
 import '../../global_widgets/search_widget.dart';

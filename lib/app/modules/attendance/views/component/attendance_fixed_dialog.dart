@@ -76,9 +76,8 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
               hintText: "",
               isEdit: false,
               initialValue: checkinTime,
-              suffixIcon: InkWell(
-
-                child: const Icon(Icons.lock_clock),
+              suffixIcon: const InkWell(
+                child: Icon(Icons.lock_clock),
               ),
               labelStyle:
               const TextStyle(color: Colors.grey, fontSize: 22),
@@ -115,9 +114,9 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
                   cocl.text  = Helper.getHourByDateTime(cotime);
                 }
               },
-              suffixIcon: InkWell(
+              suffixIcon: const InkWell(
 
-                child: const Icon(Icons.lock_clock),
+                child: Icon(Icons.lock_clock),
               ),
               labelStyle:
               const TextStyle(color: Colors.grey, fontSize: 22),

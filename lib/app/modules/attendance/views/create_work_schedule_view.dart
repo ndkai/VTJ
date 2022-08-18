@@ -5,13 +5,11 @@ import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/attendance/controllers/attendance_controller.dart';
 import 'package:vkhealth/app/modules/attendance/views/component/data_item.dart';
 import 'package:vkhealth/app/modules/global_widgets/circular_loading_widget.dart';
-import 'package:vkhealth/app/modules/global_widgets/dialog/choose_scheduleGroup/choose_schedule_group_dialog.dart';
 import 'package:vkhealth/app/modules/global_widgets/pages/base_page.dart';
 import 'package:vkhealth/app/modules/global_widgets/search_widget.dart';
 import 'package:vkhealth/common/size_config.dart';
 import 'package:vkhealth/common/ui.dart';
 
-import '../../../../common/api_constant.dart';
 import '../../../../common/app_constant.dart';
 import '../../../../common/helper.dart';
 import '../../global_widgets/buttons/block_button_widget.dart';

@@ -102,7 +102,7 @@ class AttendanceView extends GetView<AttendanceController>{
                       child: const Icon(Icons.arrow_forward_ios, size: 17,color: Colors.black54),
                     ),
                     Row(
-                      children: [
+                      children: const [
 
                       ],
                     )

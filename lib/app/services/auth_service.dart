@@ -15,6 +15,11 @@ class AuthService extends GetxService{
     _box = GetStorage();
   }
 
+  Future changeUser(User user) async {
+    _box.write("current_user", user.toJson());
+    await getCurrentUser();
+  }
+
   Future<AuthService> init() async {
     user.listen((_user) {
       // ignore: avoid_print

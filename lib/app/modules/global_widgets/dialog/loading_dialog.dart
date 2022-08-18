@@ -21,7 +21,7 @@ void showLoadingDialog(BuildContext context){
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset("assets/img/loading_gif.gif", width: SizeConfig.screenWidth * 0.15,),
-              const Text("Đang tải...")
+              const Text("Đang tải...", style: TextStyle(color: Colors.black),)
             ],
           ),
         ),

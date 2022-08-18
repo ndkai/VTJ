@@ -8,9 +8,15 @@ class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings redirect(String route) {
     final authService = Get.find<AuthService>();
-    if (!authService.isAuth) {
-      return const RouteSettings(name: Routes.LOGIN);
+    if (authService.isAuth) {
+      try{
+        if(DateTime.now().compareTo(DateTime.parse(authService.user.value.dateExpired)) < 0){
+          return null;
+        }
+      } catch(e){
+        return const RouteSettings(name: Routes.LOGIN);
+      }
     }
-    return null;
+    return const RouteSettings(name: Routes.LOGIN);
   }
 }

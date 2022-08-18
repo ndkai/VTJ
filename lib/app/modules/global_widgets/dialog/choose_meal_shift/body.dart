@@ -3,20 +3,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../common/size_config.dart';
-import '../../../../models/request_models/timeoff/time_off_type.dart';
+import '../../../../models/request_models/meal/meal_shift.dart';
 
-class TimeOffSelectBody extends StatefulWidget {
-  final Function(TimeOffTypeData) onSuccess;
-  final List<TimeOffTypeData> doctors;
-  const TimeOffSelectBody({Key key, this.onSuccess, this.doctors}) : super(key: key);
+class MealShiftSelectBody extends StatefulWidget {
+  final Function(MealShift) onSuccess;
+  final List<MealShift> list;
+  const MealShiftSelectBody({Key key, this.onSuccess, this.list}) : super(key: key);
 
   @override
-  _TimeOffSelectBodyState createState() => _TimeOffSelectBodyState();
+  _MealShiftSelectBodyState createState() => _MealShiftSelectBodyState();
 }
 
-class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
+class _MealShiftSelectBodyState extends State<MealShiftSelectBody> {
   int val = -1;
-  TimeOffTypeData scheduleGroup;
+  MealShift shiftData;
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -65,7 +65,7 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
                       onTap: (){
                         Navigator.of(context).pop();
                         widget.onSuccess
-                          (scheduleGroup);
+                          (shiftData);
                       },
 
                       child: Container(
@@ -91,11 +91,11 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
   }
 
   List<Widget> lists(){
-    return widget.doctors.map((e) =>
+    return widget.list.map((e) =>
         MediaQuery.removePadding(context: context,
             removeLeft: true,
             child: ListTile(
-          title: Text(e.description, style: const TextStyle(color: Colors.black),),
+          title: Text(e.name, style: const TextStyle(color: Colors.black),),
           leading: Radio(
             value: e.hashCode,
             groupValue: val,
@@ -103,7 +103,7 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
               setState(() {
                 print("value $value");
                 val = value as int;
-                scheduleGroup = e;
+                shiftData = e;
               });
             },
             activeColor: Colors.green,

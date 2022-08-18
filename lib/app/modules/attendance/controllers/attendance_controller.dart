@@ -18,7 +18,6 @@ import '../../../models/request_models/attendance/all_schedule_request.dart';
 import '../../../models/request_models/attendance/create_shift_request.dart';
 import '../../../models/request_models/attendance/over_time_request.dart';
 import '../../../models/user_model.dart';
-import '../../global_widgets/dialog/loading_dialog.dart';
 
 class AttendanceController extends GetxController {
   AttendanceRepository _attendanceRepository;
@@ -163,7 +162,7 @@ class AttendanceController extends GetxController {
                 fromDate: fromDate.value.toIso8601String(),
                 toDate: toDate.value.toIso8601String(),
                 employeeIds:
-                    employees.value.data.map((element) => element.id).toList(),
+                    employees.value.data.where((element) => element.isChoose).map((element) => element.id).toList(),
                 daysOfWeek: dayoffWeek,
                 overtimeShift: OvertimeShift(
                     factor: factor.value,
@@ -179,7 +178,7 @@ class AttendanceController extends GetxController {
           fromDate: fromDate.value.toIso8601String(),
           toDate: toDate.value.toIso8601String(),
           employeeIds:
-              employees.value.data.map((element) => element.id).toList(),
+          employees.value.data.where((element) => element.isChoose).map((element) => element.id).toList(),
           daysOfWeek: dayoffWeek,
         ));
       }
@@ -236,9 +235,7 @@ class AttendanceController extends GetxController {
   Future<void> getShift() async {
     try {
       shiftResponse.value = await _attendanceRepository.getShift();
-      print("shiftResponse ${shiftResponse.value.data.length}");
       chooseShift.value = shiftResponse.value.data.first;
-    } catch (e) {
     } finally {}
   }
 

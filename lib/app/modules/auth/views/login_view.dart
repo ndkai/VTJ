@@ -111,7 +111,7 @@ class LoginView extends GetView<AuthController> {
                       const SizedBox(height: 20,),
                       BlockButtonWidget(
                         onPressed: () {
-                          controller.login();
+                          controller.login(context);
                         },
                         color: Get.theme.colorScheme.secondary,
                         text: Text(

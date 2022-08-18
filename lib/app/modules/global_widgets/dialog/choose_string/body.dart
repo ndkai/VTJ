@@ -3,20 +3,19 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../common/size_config.dart';
-import '../../../../models/request_models/timeoff/time_off_type.dart';
 
-class TimeOffSelectBody extends StatefulWidget {
-  final Function(TimeOffTypeData) onSuccess;
-  final List<TimeOffTypeData> doctors;
-  const TimeOffSelectBody({Key key, this.onSuccess, this.doctors}) : super(key: key);
+class MealTypeSelectBody extends StatefulWidget {
+  final Function(String) onSuccess;
+  final List<String> list;
+  const MealTypeSelectBody({Key key, this.onSuccess, this.list}) : super(key: key);
 
   @override
-  _TimeOffSelectBodyState createState() => _TimeOffSelectBodyState();
+  _MealTypeSelectBodyState createState() => _MealTypeSelectBodyState();
 }
 
-class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
+class _MealTypeSelectBodyState extends State<MealTypeSelectBody> {
   int val = -1;
-  TimeOffTypeData scheduleGroup;
+  String shiftData;
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -65,7 +64,7 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
                       onTap: (){
                         Navigator.of(context).pop();
                         widget.onSuccess
-                          (scheduleGroup);
+                          (shiftData);
                       },
 
                       child: Container(
@@ -91,11 +90,11 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
   }
 
   List<Widget> lists(){
-    return widget.doctors.map((e) =>
+    return widget.list.map((e) =>
         MediaQuery.removePadding(context: context,
             removeLeft: true,
             child: ListTile(
-          title: Text(e.description, style: const TextStyle(color: Colors.black),),
+          title: Text(e, style: const TextStyle(color: Colors.black),),
           leading: Radio(
             value: e.hashCode,
             groupValue: val,
@@ -103,7 +102,7 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
               setState(() {
                 print("value $value");
                 val = value as int;
-                scheduleGroup = e;
+                shiftData = e;
               });
             },
             activeColor: Colors.green,

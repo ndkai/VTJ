@@ -24,12 +24,14 @@ class User {
   int expiresIn;
   UserInfo userInfo;
   bool auth;
+  String dateExpired;
 
-  User({this.token, this.tokenType, this.expiresIn, this.userInfo});
+  User({this.token, this.tokenType, this.expiresIn, this.userInfo, this.dateExpired});
 
   User.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     tokenType = json['tokenType'];
+    dateExpired = json['dateExpired'];
     expiresIn = json['expiresIn'];
     userInfo = json['userInfo'] != null
         ? UserInfo.fromJson(json['userInfo'])
@@ -41,6 +43,7 @@ class User {
     data['token'] = token;
     data['tokenType'] = tokenType;
     data['expiresIn'] = expiresIn;
+    data['dateExpired'] = dateExpired;
     if (userInfo != null) {
       data['userInfo'] = userInfo.toJson();
     }

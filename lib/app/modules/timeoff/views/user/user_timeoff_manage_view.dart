@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/global_widgets/circular_loading_widget.dart';
-import 'package:vkhealth/app/modules/timeoff/views/admin/admin_make_timeoff_form_view.dart';
 import 'package:vkhealth/common/helper.dart';
 import 'package:vkhealth/common/size_config.dart';
 
@@ -99,61 +98,60 @@ class UserTimeOffViewManager extends GetView<TimeOffController> {
                   )
                 ],
               ).paddingSymmetric(vertical: 10, horizontal: 8),
-              Expanded(child: Container(
-                  child: ListView(
-                    children: (id != null ? controller.employeesTimeOff.where((
-                        element) => element.logs.last.status == id) : controller
-                        .employeesTimeOff).map((e) {
-                      return InkWell(
-                        onTap: onTap,
-                        child: Container(
-                            margin: const EdgeInsets.all(15),
-                            padding: const EdgeInsets.all(15),
-                            width: SizeConfig.screenWidth,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(color: Colors.grey.withOpacity(0.3),
-                                    blurRadius: 40,
-                                    offset: const Offset(0, 15)),
-                                BoxShadow(color: Colors.grey.withOpacity(0.2),
-                                    blurRadius: 13,
-                                    offset: const Offset(0, 3))
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  e.type.description,
-                                  style: const TextStyle(
-                                      fontSize: 22,
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.w200
-                                  ),
-                                ).marginOnly(bottom: 10),
-                                rowField("Nhân viên", e.employee.name),
-                                rowField("Lý do nghỉ", e.type.description),
-                                rowField("Từ ngày - đến ngày",
-                                    "${Helper.getVietnameseTime(
-                                        e.fromDate)} - ${Helper
-                                        .getVietnameseTime(e.toDate)}"),
-                                rowField("Tổng ngày", (DateTime
-                                    .parse(e.toDate)
-                                    .difference(DateTime.parse(e.fromDate))
-                                    .inDays + 1).toString()),
-                                rowField("Trạng thái",
-                                    controller.mapStatusToState(
-                                        e.logs.last.status),
-                                    contentColor: controller.mapStatusToColor(
-                                        e.logs.last.status)),
-                              ],
-                            )
+              Expanded(child: ListView(
+                children: (id != null ? controller.employeesTimeOff.where((
+                    element) => element.logs.last.status == id) : controller
+                    .employeesTimeOff).map((e) {
+                  return InkWell(
+                    onTap: onTap,
+                    child: Container(
+                        margin: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
+                        width: SizeConfig.screenWidth,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(color: Colors.grey.withOpacity(0.3),
+                                blurRadius: 40,
+                                offset: const Offset(0, 15)),
+                            BoxShadow(color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 13,
+                                offset: const Offset(0, 3))
+                          ],
                         ),
-                      );
-                    }).toList(),
-                  )))
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              e.type.description,
+                              style: const TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w200
+                              ),
+                            ).marginOnly(bottom: 10),
+                            rowField("Nhân viên", e.employee.name),
+                            rowField("Lý do nghỉ", e.type.description),
+                            rowField("Từ ngày - đến ngày",
+                                "${Helper.getVietnameseTime(
+                                    e.fromDate)} - ${Helper
+                                    .getVietnameseTime(e.toDate)}"),
+                            rowField("Tổng ngày", (DateTime
+                                .parse(e.toDate)
+                                .difference(DateTime.parse(e.fromDate))
+                                .inDays + 1).toString()),
+                            rowField("Trạng thái",
+                                controller.mapStatusToState(
+                                    e.logs.last.status),
+                                contentColor: controller.mapStatusToColor(
+                                    e.logs.last.status)),
+                          ],
+                        )
+                    ),
+                  );
+                }).toList(),
+              ))
             ],
           );
         }

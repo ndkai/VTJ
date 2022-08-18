@@ -26,7 +26,7 @@ class TextFieldWidget extends StatelessWidget {
     this.isEdit = true,
     this.style,
     this.textAlign,
-    this.suffix, this.labelStyle, this.controller, this.onTap, this.maxLine,
+    this.suffix, this.labelStyle, this.controller, this.onTap, this.maxLine = 1,
   }) : super(key: key);
 
   final FormFieldSetter<String> onSaved;
@@ -53,50 +53,53 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
-      margin: EdgeInsets.only(left: 10, right: 10, top: 00, bottom: bottomMargin),
-      decoration: BoxDecoration(
-          color: Get.theme.primaryColor,
-          borderRadius: buildBorderRadius,
-          boxShadow: [
-            BoxShadow(color: Get.theme.focusColor.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5)),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
+        margin: EdgeInsets.only(left: 10, right: 10, top: 00, bottom: bottomMargin),
+        decoration: BoxDecoration(
+            color: Get.theme.primaryColor,
+            borderRadius: buildBorderRadius,
+            boxShadow: [
+              BoxShadow(color: Get.theme.focusColor.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 5)),
+            ],
+            border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              labelText ?? "",
+              style: labelStyle ?? const TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+              ),
+              textAlign: textAlign ?? TextAlign.start,
+            ),
+            TextFormField(
+
+              maxLines: maxLine,
+              key: key,
+              enabled: isEdit,
+              keyboardType: keyboardType ?? TextInputType.text,
+              onSaved: onSaved,
+              controller: controller,
+              onChanged: onChanged,
+              validator: validator,
+              initialValue: controller != null ? null : initialValue ?? '',
+              style: style ?? Get.textTheme.bodyText2,
+              obscureText: obscureText ?? false,
+              textAlign: textAlign ?? TextAlign.start,
+              decoration: Ui.getInputDecoration(
+                hintText: hintText ?? '',
+                iconData: iconData,
+                suffixIcon: suffixIcon,
+                suffix: suffix,
+                errorText: errorText,
+              ),
+            ),
           ],
-          border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            labelText ?? "",
-            style: labelStyle ?? const TextStyle(
-              color: Colors.black,  
-              fontSize: 17,
-            ),
-            textAlign: textAlign ?? TextAlign.start,
-          ),
-          TextFormField(
-            onTap: onTap,
-            maxLines: maxLine,
-            key: key,
-            enabled: isEdit,
-            keyboardType: keyboardType ?? TextInputType.text,
-            onSaved: onSaved,
-            controller: controller,
-            onChanged: onChanged,
-            validator: validator,
-            initialValue: controller != null ? null : initialValue ?? '',
-            style: style ?? Get.textTheme.bodyText2,
-            obscureText: obscureText ?? false,
-            textAlign: textAlign ?? TextAlign.start,
-            decoration: Ui.getInputDecoration(
-              hintText: hintText ?? '',
-              iconData: iconData,
-              suffixIcon: suffixIcon,
-              suffix: suffix,
-              errorText: errorText,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
