@@ -33,7 +33,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 80,
+      padding: EdgeInsets.only(bottom: 15),
       color: widget.backgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

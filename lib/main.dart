@@ -1,10 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vkhealth/app/providers/dotnet_provider.dart';
-import 'package:vkhealth/app/providers/firebase_provider.dart';
 import 'package:vkhealth/app/providers/setting_providers.dart';
 import 'package:vkhealth/app/services/auth_service.dart';
 import 'package:vkhealth/app/services/firebase_massage_service.dart';
@@ -17,12 +15,10 @@ import 'app/routes/theme1_app_page.dart';
 Future<void> initServices() async{
   Get.log('starting service ...');
   await GetStorage.init();
-  await Firebase.initializeApp(); 
   await Get.putAsync(() => TranslationService().init());
   await Get.putAsync(() => GlobalServices().init());
   await Get.putAsync(() => AuthService().init());
   await Get.putAsync(() => SettingProvider().init());
-  await Get.putAsync(() => FirebaseProvider().init());
   await Get.putAsync(() => SettingsService().init());
   await Get.putAsync(() => DotnetProvider().init());
   Get.log('all service started ...');
@@ -45,9 +41,9 @@ void main() async {
         GetMaterialApp(
           title: "Duy",
           initialRoute: Theme1AppPages.INITIAL,
-          onReady: () async {
-            await Get.putAsync(() => FireBaseMessageService().init());
-          },
+          // onReady: () async {
+          //  await Get.putAsync(() => FireBaseMessageService().init());
+          // },
           getPages: Theme1AppPages.routes,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
           supportedLocales: Get.find<TranslationService>().supportedLocales(),

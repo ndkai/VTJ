@@ -42,12 +42,6 @@ dependencies:
   webview_flutter: 3.0.0
   flutter_html: 3.0.0-alpha.2
   url_launcher: 6.0.20
-  # FIREBASE
-  firebase_messaging: 11.2.6
-  cloud_firestore: 3.1.8
-  firebase_auth: 3.3.7
-  firebase_core: 1.12.0
-  firebase_storage: 10.2.7
   # GOOGLE MAPS
   google_maps_flutter: 2.1.1
   map_launcher: 2.2.1+1

@@ -16,12 +16,18 @@
 	<string>vkhealth</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Chúng tôi muốn sử dụng vị trí của bạn khi mở và chạy nền</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Chúng tôi muốn sử dụng cị trí của bạn khi chạy nền</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Chúng tôi muốn sử dụng vị trí của bạn khi mở</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Chúng tôi muốn truy cập ảnh của bạn để cập nhật hình ảnh</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>UISupportsDocumentBrowser</key>
-    <true/>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -43,6 +49,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
