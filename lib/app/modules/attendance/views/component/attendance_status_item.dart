@@ -5,7 +5,8 @@ class AttendanceStatusItem extends StatelessWidget {
   final double size;
   final Color color;
   final String title;
-  const AttendanceStatusItem({Key key, this.size, this.color, this.title}) : super(key: key);
+  const AttendanceStatusItem({Key key, this.size, this.color, this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,14 @@ class AttendanceStatusItem extends StatelessWidget {
           Container(
             height: size,
             width: size,
-            decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
-          Text("  $title", style: TextStyle(color: color, fontSize: 17),)
+          Text(
+            "  $title",
+            style: TextStyle(color: color, fontSize: 14),
+          )
         ],
       ),
     );
   }
 }
-

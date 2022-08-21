@@ -5,6 +5,7 @@ import 'package:vkhealth/app/routes/app_routes.dart';
 import 'package:vkhealth/common/helper.dart';
 import 'package:vkhealth/common/size_config.dart';
 import 'package:vkhealth/common/ui.dart';
+
 import 'components/home_function_card.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -30,12 +31,8 @@ class HomeView extends GetView<HomeController> {
               children: [
                 const Text(
                   "Dịch vụ của tôi",
-                  style: TextStyle(fontSize: 18, color: Colors.black54),
+                  style: TextStyle(fontSize: 20, color: Colors.black54),
                 ).paddingOnly(left: 15, bottom: 10),
-                const Divider(
-                  height: 2,
-                  color: Colors.grey,
-                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -65,7 +62,6 @@ class HomeView extends GetView<HomeController> {
                         },
                         image: "assets/icon/meal.png",
                         bgColor: Ui.parseColor("#F47048")),
-
                   ],
                 ).marginOnly(bottom: 20),
                 // const Text(

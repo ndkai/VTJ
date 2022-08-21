@@ -25,7 +25,11 @@ class AttendanceWidget extends StatefulWidget {
   final bool haveFunction;
 
   const AttendanceWidget(
-      {Key key, this.week, this.employeesAttendance, this.deleteSchedule, this.haveFunction = true})
+      {Key key,
+      this.week,
+      this.employeesAttendance,
+      this.deleteSchedule,
+      this.haveFunction = true})
       : super(key: key);
 
   @override
@@ -55,8 +59,8 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
 
   Widget table() {
     return HorizontalDataTable(
-      leftHandSideColumnWidth: 120,
-      rightHandSideColumnWidth: week.days.length * 150.0,
+      leftHandSideColumnWidth: 60,
+      rightHandSideColumnWidth: week.days.length * 70.0,
       isFixedHeader: true,
       headerWidgets: _getTitleWidget(),
       leftSideItemBuilder: _generateFirstColumnRow,
@@ -64,7 +68,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
       itemCount: widget.employeesAttendance.length,
       rowSeparatorWidget: const Divider(
         color: Colors.black54,
-        height: 1.0,
+        height: 0.6,
         thickness: 0.0,
       ),
       leftHandSideColBackgroundColor: const Color(0xFFFFFFFF),
@@ -76,12 +80,12 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
     List<Widget> data = <Widget>[];
     data.add(FlatButton(
       padding: const EdgeInsets.all(0),
-      child: _getTitleItemWidget('Tên NV', 200),
+      child: _getTitleItemWidget('Tên NV', 80),
       onPressed: () {},
     ));
 
     data.addAll(
-        week.days.map((e) => _getSecondTitleItemWidget(e, 150)).toList());
+        week.days.map((e) => _getSecondTitleItemWidget(e, 60)).toList());
     return data;
   }
 
@@ -91,23 +95,9 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
       onTap: () {},
       child: CustomPopupMenu(
         child: Container(
-            width: 150,
+            width: 80,
             height: 100,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: index == widget.employeesAttendance.length - 1
-                  ? const Border.symmetric(
-                      vertical: BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ),
-                      horizontal: BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ))
-                  : const Border.symmetric(
-                      vertical: BorderSide(color: Colors.black, width: 0.5)),
-            ),
             child: InkWell(
               child: Container(
                 child: Column(
@@ -115,7 +105,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     UserAvatar(
-                      radius: 18,
+                      radius: 15,
                       urlImage:
                           widget.employeesAttendance[index].employee.image,
                       name: widget.employeesAttendance[index].employee.name,
@@ -125,7 +115,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                     ),
                     Text(
                       widget.employeesAttendance[index].employee.name,
-                      style: const TextStyle(color: Colors.black, fontSize: 15),
+                      style: const TextStyle(color: Colors.black, fontSize: 12),
                       textAlign: TextAlign.center,
                     )
                   ],
@@ -272,7 +262,8 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                         .handlePointerEvent(const PointerDownEvent(
                       position: Offset(0, 0),
                     ));
-                    Helper.changePage(context, DateOverTimeView(currentAttendance, employee));
+                    Helper.changePage(
+                        context, DateOverTimeView(currentAttendance, employee));
                   },
                   child: Container(
                     padding:
@@ -297,9 +288,10 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               : Container(),
           InkWell(
             onTap: () {
-             showComfirmDialog(context, "Có chắc chắn muốn xóa không?", onSuccessTap: (){
-               widget.deleteSchedule(currentAttendance.schedule.id);
-             });
+              showComfirmDialog(context, "Có chắc chắn muốn xóa không?",
+                  onSuccessTap: () {
+                widget.deleteSchedule(currentAttendance.schedule.id);
+              });
             },
             child: Container(
               color: Colors.lightBlueAccent.withOpacity(.2),
@@ -335,33 +327,19 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
             .firstWhere((element) => e.day == DateTime.parse(element.date).day);
         return CustomPopupMenu(
           child: Container(
-            decoration: BoxDecoration(
-              border: index == widget.employeesAttendance.length - 1
-                  ? const Border.symmetric(
-                      vertical: BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ),
-                      horizontal: BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ))
-                  : const Border.symmetric(
-                      vertical: BorderSide(color: Colors.black, width: 0.5)),
-            ),
             child: Center(
               child: attendanceInfo(
                 widget.employeesAttendance[index],
                 currentAttendance,
               ),
             ),
-            width: 150,
+            width: 60,
             height: 100,
             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
             alignment: Alignment.centerLeft,
           ),
           menuBuilder: () {
-            if(widget.haveFunction){
+            if (widget.haveFunction) {
               return _buildFunctionDialog(
                   widget.employeesAttendance[index].employee,
                   widget.employeesAttendance[index],
@@ -390,21 +368,21 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height: 15,
-                        width: 15,
+                        height: 8,
+                        width: 8,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: getShiftColor(currentAttendance)),
                       ),
                       const SizedBox(
-                        width: 5,
+                        width: 8,
                       ),
                       Text(
                         getShiftCode(currentAttendance),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 13,
                           color: Colors.black,
                         ),
                       ),
@@ -418,10 +396,10 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 13,
                             color: Colors.black,
                           ),
-                        ).marginOnly(top: 8),
+                        ).marginOnly(top: 5),
                   const SizedBox(
                     height: 8,
                   ),
@@ -430,22 +408,26 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 13,
                       color: Colors.black,
                     ),
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 6,
                   ),
-                  currentAttendance.schedule.timeOff != null ?
-                      Center(
-                        child: Text(currentAttendance.schedule.timeOff.type.description, textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.green,
-                            )),
-                      ):Container()
+                  currentAttendance.schedule.timeOff != null
+                      ? Center(
+                          child: Text(
+                              currentAttendance
+                                  .schedule.timeOff.type.description,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.green,
+                              )),
+                        )
+                      : Container()
                 ],
               )
             : InkWell(
@@ -459,7 +441,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                     child: Center(
                         child: Icon(
                       Icons.add,
-                      size: 20,
+                      size: 13,
                     ))),
               )
         : Container();
@@ -515,11 +497,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
 
   Widget _getTitleItemWidget(String label, double width) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
+        decoration: const BoxDecoration(),
         width: width,
         height: 60,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -530,7 +508,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: 14,
               color: Colors.grey,
             ),
           ),
@@ -539,11 +517,6 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
 
   Widget _getSecondTitleItemWidget(DateTime label, double width) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
         width: width,
         height: 60,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -557,7 +530,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 14,
                 color: Colors.grey,
               ),
             ),
@@ -566,7 +539,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 28,
+                fontSize: 18,
                 color: Colors.black,
               ),
             )
