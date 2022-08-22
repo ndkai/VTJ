@@ -6,7 +6,13 @@ class HomeFunctionCard extends StatelessWidget {
   final Function onTap;
   final Color bgColor;
   final String image;
-  const HomeFunctionCard({Key key, this.title, this.onTap, this.bgColor = Colors.white, this.image}) : super(key: key);
+  const HomeFunctionCard(
+      {Key key,
+      this.title,
+      this.onTap,
+      this.bgColor = Colors.white,
+      this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +22,7 @@ class HomeFunctionCard extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.circular(20)
-            ),
+                color: bgColor, borderRadius: BorderRadius.circular(20)),
             padding: const EdgeInsets.all(13),
             child: Image.asset(
               image,
@@ -26,9 +30,9 @@ class HomeFunctionCard extends StatelessWidget {
               color: Colors.white,
             ),
           ).paddingOnly(bottom: 10),
-           Text(
+          Text(
             title,
-            style: const TextStyle(fontSize: 16, color: Colors.black54),
+            style: const TextStyle(fontSize: 14, color: Colors.black54),
           )
         ],
       ),

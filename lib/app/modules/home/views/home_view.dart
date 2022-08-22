@@ -26,54 +26,60 @@ class HomeView extends GetView<HomeController> {
             margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.3),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(15)),
-            child: ListView(
-              primary: true,
-              children: [
-                const Text(
-                  "Dịch vụ của tôi",
-                  style: TextStyle(fontSize: 20, color: Colors.black54),
-                ).paddingOnly(left: 15, bottom: 10),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView(
+                  primary: true,
                   children: [
-                    HomeFunctionCard(
-                        title: "Lịch làm việc",
-                        onTap: () {
-                          // Get.toNamed(Routes.E_ATTENDANCE);
-                          Get.toNamed(Routes.ATTENDANCE);
-                        },
-                        image: "assets/icon/calendar.png",
-                        bgColor: Ui.parseColor("#219653")),
-                    HomeFunctionCard(
-                      title: "Quản lý nghỉ phép",
-                      onTap: () {
-                        Get.toNamed(Routes.TIMEOFF);
-                      },
-                      image: "assets/icon/calendar-tick.png",
-                      bgColor: Ui.parseColor("#E86993"),
+                    const SizedBox(
+                      height: 30,
                     ),
-                    HomeFunctionCard(
-                        title: "Quản lý cơm",
-                        onTap: () {
-                          Get.toNamed(Routes.MEAL_MANAGE);
-                        },
-                        image: "assets/icon/meal.png",
-                        bgColor: Ui.parseColor("#F47048")),
+                    const Text(
+                      "Dịch vụ của tôi",
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ).paddingOnly(left: 15, bottom: 10),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        HomeFunctionCard(
+                            title: "Lịch làm việc",
+                            onTap: () {
+                              // Get.toNamed(Routes.E_ATTENDANCE);
+                              Get.toNamed(Routes.ATTENDANCE);
+                            },
+                            image: "assets/icon/calendar.png",
+                            bgColor: Ui.parseColor("#219653")),
+                        HomeFunctionCard(
+                          title: "Quản lý nghỉ phép",
+                          onTap: () {
+                            Get.toNamed(Routes.TIMEOFF);
+                          },
+                          image: "assets/icon/calendar-tick.png",
+                          bgColor: Ui.parseColor("#E86993"),
+                        ),
+                        HomeFunctionCard(
+                            title: "Quản lý cơm",
+                            onTap: () {
+                              Get.toNamed(Routes.MEAL_MANAGE);
+                            },
+                            image: "assets/icon/meal.png",
+                            bgColor: Ui.parseColor("#F47048")),
+                      ],
+                    ).marginOnly(bottom: 20),
+                    // const Text(
+                    //   "Lịch hẹn sắp tới của bạn",
+                    //   style: TextStyle(fontSize: 18, color: Colors.black54),
+                    // ).paddingOnly(left: 15, bottom: 10, top: 35),
+                    // const Divider(
+                    //   height: 2,
+                    //   color: Colors.grey,
+                    // ),
                   ],
-                ).marginOnly(bottom: 20),
-                // const Text(
-                //   "Lịch hẹn sắp tới của bạn",
-                //   style: TextStyle(fontSize: 18, color: Colors.black54),
-                // ).paddingOnly(left: 15, bottom: 10, top: 35),
-                // const Divider(
-                //   height: 2,
-                //   color: Colors.grey,
-                // ),
-              ],
-            ),
+                )),
           )
         ],
       )),

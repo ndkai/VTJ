@@ -23,7 +23,7 @@ class AttendanceStatusItem extends StatelessWidget {
           ),
           Text(
             "  $title",
-            style: TextStyle(color: color, fontSize: 14),
+            style: TextStyle(color: color, fontSize: 12),
           )
         ],
       ),

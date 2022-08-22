@@ -1,3 +1,4 @@
+// ignore_for_file: missing_return
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
@@ -13,84 +14,102 @@ import '../controllers/attendance_controller.dart';
 
 class CreateDateScheduleView extends GetView<AttendanceController> {
   final EmployeeAttendance employeeAttendance;
-  const CreateDateScheduleView(this.employeeAttendance, {Key key}) : super(key: key);
+  const CreateDateScheduleView(this.employeeAttendance, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BasePage(
       title: "Tạo lịch làm việc",
-      child: ListView(
-        children: [
-          const Text("Thông tin nhân viên", style: TextStyle(
-              color: Colors.black,
-              fontSize: 24
-          ),),
-          TextFieldWidget(
-            keyboardType: TextInputType.none,
-            labelText: "Mã nhân viên",
-            hintText: "",
-            initialValue: employeeAttendance.employee.code,
-            labelStyle: const TextStyle(color: Colors.grey, fontSize: 22),
-            // controller: controller.genderEdt,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-            ),
-          ),
-          TextFieldWidget(
-            keyboardType: TextInputType.none,
-            labelText: "Họ và tên",
-            hintText: "",
-            initialValue: employeeAttendance.employee.name,
-            labelStyle: const TextStyle(color: Colors.grey, fontSize: 22),
-            // controller: controller.genderEdt,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-            ),
-          ),
-          const SizedBox(height: 10,),
-          const Text("Đăng kí làm việc", style: TextStyle(
-              color: Colors.black,
-              fontSize: 24
-          ),),
-          Obx(
-              (){
-                return dataItem("Ngày đăng kí", TextButton(child: Text(Helper.getVietnameseTime(controller.fromDate.value.toIso8601String()), style: const TextStyle(color: Colors.blue, fontSize: 18),), onPressed: (){
-                  DateTime now = DateTime.now();
-                  DatePicker.showDatePicker(context,
-                      showTitleActions: true,
-                      minTime: now.subtract(const Duration(days: 10)),
-                      maxTime: now.add(const Duration(days: 365)),
-                      onChanged: (date) {}, onConfirm: (date) {
+      child: MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: ListView(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Thông tin nhân viên",
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
+              TextFieldWidget(
+                keyboardType: TextInputType.none,
+                labelText: "Mã nhân viên",
+                hintText: "",
+                initialValue: employeeAttendance.employee.code,
+                labelStyle: const TextStyle(color: Colors.grey, fontSize: 18),
+                // controller: controller.genderEdt,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 13,
+                ),
+              ),
+              TextFieldWidget(
+                keyboardType: TextInputType.none,
+                labelText: "Họ và tên",
+                hintText: "",
+                initialValue: employeeAttendance.employee.name,
+                labelStyle: const TextStyle(color: Colors.grey, fontSize: 18),
+                // controller: controller.genderEdt,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 13,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Đăng kí làm việc",
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
+              Obx(() {
+                return dataItem(
+                  "Ngày đăng kí",
+                  TextButton(
+                    child: Text(
+                      Helper.getVietnameseTime(
+                          controller.fromDate.value.toIso8601String()),
+                      style: const TextStyle(color: Colors.blue, fontSize: 16),
+                    ),
+                    onPressed: () {
+                      DateTime now = DateTime.now();
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: now.subtract(const Duration(days: 10)),
+                          maxTime: now.add(const Duration(days: 365)),
+                          onChanged: (date) {}, onConfirm: (date) {
                         controller.fromDate.value = date;
                       }, currentTime: DateTime.now(), locale: LocaleType.vi);
-                },),);
-              }
-          ),
-          Obx(
-              (){
+                    },
+                  ),
+                );
+              }),
+              Obx(() {
                 return TextFieldWidget(
                   keyboardType: TextInputType.none,
                   labelText: "Chọn ca làm việc".tr,
                   hintText: "",
+                  onTap: () {
+                    showShiftDialog(
+                        context, controller.shiftResponse.value.data, (v) {
+                      controller.chooseShift.value = v;
+                      controller.chooseScheduleCl.text =
+                          controller.chooseShift.value.name;
+                    });
+                  },
+                  isEdit: false,
                   initialValue: controller.chooseShift.value.name,
                   controller: controller.chooseScheduleCl,
-                  labelStyle:
-                  const TextStyle(color: Colors.grey, fontSize: 22),
+                  labelStyle: const TextStyle(color: Colors.grey, fontSize: 18),
                   // controller: controller.genderEdt,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 17,
+                    fontSize: 13,
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () {
-                      //ignore: missing_return
-                      showShiftDialog(context, controller.shiftResponse.value.data, (v){
-                        controller.chooseShift.value = v;
-                        controller.chooseScheduleCl.text =  controller.chooseShift.value.name;
-                      });
-                    },
+                    onPressed: () {},
                     color: Theme.of(context).focusColor,
                     icon: const Icon(
                       Icons.keyboard_arrow_down,
@@ -98,21 +117,25 @@ class CreateDateScheduleView extends GetView<AttendanceController> {
                     ),
                   ),
                 );
-              }
-          ),
-          Row(
-            children: [
-              Obx((){
-                return Checkbox(value: controller.overtimeCheck.value, onChanged: (v){
-                  controller.overtimeCheck.value = !controller.overtimeCheck.value;
-                });
               }),
-              const Text("Đăng kí tăng ca", style: TextStyle(color: Colors.black, fontSize: 18),),
-            ],
-          ),
-          Obx(
-              (){
-                if(controller.overtimeCheck.value){
+              Row(
+                children: [
+                  Obx(() {
+                    return Checkbox(
+                        value: controller.overtimeCheck.value,
+                        onChanged: (v) {
+                          controller.overtimeCheck.value =
+                              !controller.overtimeCheck.value;
+                        });
+                  }),
+                  const Text(
+                    "Đăng kí tăng ca",
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ],
+              ),
+              Obx(() {
+                if (controller.overtimeCheck.value) {
                   return Column(
                     children: [
                       dataItem(
@@ -120,7 +143,8 @@ class CreateDateScheduleView extends GetView<AttendanceController> {
                         TextButton(
                           child: Text(
                             Helper.getHour(controller.startTime.value),
-                            style: const TextStyle(color: Colors.blue, fontSize: 18),
+                            style: const TextStyle(
+                                color: Colors.blue, fontSize: 16),
                           ),
                           onPressed: () async {
                             TimeOfDay tod = await showTimePicker(
@@ -137,7 +161,8 @@ class CreateDateScheduleView extends GetView<AttendanceController> {
                         TextButton(
                           child: Text(
                             Helper.getHour(controller.endTime.value),
-                            style: const TextStyle(color: Colors.blue, fontSize: 18),
+                            style: const TextStyle(
+                                color: Colors.blue, fontSize: 16),
                           ),
                           onPressed: () async {
                             TimeOfDay tod = await showTimePicker(
@@ -152,49 +177,71 @@ class CreateDateScheduleView extends GetView<AttendanceController> {
                       dataItem(
                           "Hệ số lương",
                           DropdownButton<String>(
-                              items:  ['1.0', '1.3', '1.5', '2.0', '2.15', '2.7', '3.0', '3.9'].map((String val) {
+                              items: [
+                                '1.0',
+                                '1.3',
+                                '1.5',
+                                '2.0',
+                                '2.15',
+                                '2.7',
+                                '3.0',
+                                '3.9'
+                              ].map((String val) {
                                 return DropdownMenuItem<String>(
                                   value: val,
-                                  child: Text(val, style: const TextStyle(color: Colors.black, fontSize: 18),),
+                                  child: Text(
+                                    val,
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                  ),
                                 );
                               }).toList(),
                               value: controller.factor.value,
-                              hint: Text(controller.factor.value, style: const TextStyle(color: Colors.black, fontSize: 18),),
+                              hint: Text(
+                                controller.factor.value,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 16),
+                              ),
                               onChanged: (newVal) {
                                 controller.factor.value = newVal;
                               }),
-                          showArrow: false
-                      ),
+                          showArrow: false),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Obx((){
-                            return Checkbox(value: controller.mealSignUp.value, onChanged: (v){controller.mealSignUp.value = !controller.mealSignUp.value;});
+                          Obx(() {
+                            return Checkbox(
+                                value: controller.mealSignUp.value,
+                                onChanged: (v) {
+                                  controller.mealSignUp.value =
+                                      !controller.mealSignUp.value;
+                                });
                           }),
-                          const Text("Đăng kí cơm tăng ca", style: TextStyle(color: Colors.black, fontSize: 18),),
+                          const Text(
+                            "Đăng kí cơm tăng ca",
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
                         ],
                       ),
                     ],
                   );
                 }
                 return Container();
-              }
-          ),
-
-          BlockButtonWidget(
-            onPressed: () {
-              controller.createSchedule(context, employeeAttendance);
-            },
-            color: Colors.blue,
-            text: Text(
-              "Xác nhận",
-              style: Get.textTheme.headline6.merge(
-                  TextStyle(color: Get.theme.primaryColor)),
-            ),
-            borderRadius: 10,
-          ).paddingSymmetric(vertical: 15, horizontal: 10),
-        ],
-      ),
+              }),
+              BlockButtonWidget(
+                onPressed: () {
+                  controller.createSchedule(context, employeeAttendance);
+                },
+                color: Colors.blue,
+                text: Text(
+                  "Xác nhận",
+                  style: Get.textTheme.headline6
+                      .merge(TextStyle(color: Get.theme.primaryColor)),
+                ),
+                borderRadius: 10,
+              ).paddingSymmetric(vertical: 15, horizontal: 10),
+            ],
+          )),
     );
   }
 }

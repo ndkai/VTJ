@@ -55,7 +55,7 @@ class _MealShiftSelectBodyState extends State<MealShiftSelectBody> {
                           child: Center(
                             child: Text("Hủy bỏ", style: TextStyle(
                               color: Colors.blue,
-                              fontSize: SizeConfig.screenWidth * 0.045,
+                              fontSize: SizeConfig.screenWidth * 0.035,
 
                             )),
                           )
@@ -75,7 +75,7 @@ class _MealShiftSelectBodyState extends State<MealShiftSelectBody> {
                           child: Center(
                             child: Text("Đồng ý", style: TextStyle(
                                 color: Colors.blue,
-                                fontSize: SizeConfig.screenWidth * 0.045,
+                                fontSize: SizeConfig.screenWidth * 0.035,
                                 fontWeight: FontWeight.bold
                             ),),
                           )

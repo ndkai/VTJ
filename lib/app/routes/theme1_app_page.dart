@@ -17,30 +17,68 @@ import '../middlewares/auth_middleware.dart';
 import '../modules/attendance/views/employee-attendance-view.dart';
 import '../modules/auth/views/login_view.dart';
 import '../modules/auth/views/register_view.dart';
-import '../modules/meal/views/meal_statistic_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/timeoff/bindings/timeoff_binding.dart';
-import '../modules/timeoff/views/admin/admin_timeoff_manage_view.dart';
+import '../modules/timeoff/views/user/user_timeoff_manage_view.dart';
 import 'app_routes.dart';
 
-class Theme1AppPages{
+class Theme1AppPages {
   static const INITIAL = Routes.ROOT;
 
   static final routes = [
-    GetPage(name: Routes.ROOT, page: () => const RootView(), binding: RootBinding(), middlewares: [AuthMiddleware()]),
-    GetPage(name: Routes.LOGIN, page: () => const LoginView(), binding: AuthBinding()),
-    // GetPage(name: Routes.TIMEOFF, page: () => const UserTimeOffViewManager(), binding: TimeoffBinding()),
-    GetPage(name: Routes.TIMEOFF, page: () => const AdminTimeOffViewManager(), binding: TimeoffBinding()),
-    GetPage(name: Routes.CONFIRM_OTP, page: () => const OtpView(), binding: AuthBinding()),
-    GetPage(name: Routes.REGISTER, page: () => const RegisterView(), binding: AuthBinding()),
-    GetPage(name: Routes.ACCOUNT, page: () => const AccountView(), binding: AccountBinding()),
-    GetPage(name: Routes.USER_INFOR, page: () => const UserInfoView(), binding: AccountBinding()),
-    GetPage(name: Routes.PASSWORD_SETTING, page: () => const PasswordSettingView(), binding: AccountBinding()),
-    GetPage(name: Routes.FORGET_PASS, page: () => const ForgetPassView(), binding: AccountBinding()),
-    GetPage(name: Routes.MEAL_MANAGE, page: () => const MealManagePage(), binding: MealBinding()),
-    GetPage(name: Routes.ATTENDANCE, page: () => const AttendanceView(), binding: AttendanceBinding()),
-    GetPage(name: Routes.E_ATTENDANCE, page: () => const EmployeeAttendanceView(), binding: AttendanceBinding()),
-
+    GetPage(
+        name: Routes.ROOT,
+        page: () => const RootView(),
+        binding: RootBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.LOGIN,
+        page: () => const LoginView(),
+        binding: AuthBinding()),
+    GetPage(
+        name: Routes.TIMEOFF,
+        page: () => const UserTimeOffViewManager(),
+        binding: TimeoffBinding()),
+    // GetPage(
+    //     name: Routes.TIMEOFF,
+    //     page: () => const AdminTimeOffViewManager(),
+    //     binding: TimeoffBinding()),
+    GetPage(
+        name: Routes.CONFIRM_OTP,
+        page: () => const OtpView(),
+        binding: AuthBinding()),
+    GetPage(
+        name: Routes.REGISTER,
+        page: () => const RegisterView(),
+        binding: AuthBinding()),
+    GetPage(
+        name: Routes.ACCOUNT,
+        page: () => const AccountView(),
+        binding: AccountBinding()),
+    GetPage(
+        name: Routes.USER_INFOR,
+        page: () => const UserInfoView(),
+        binding: AccountBinding()),
+    GetPage(
+        name: Routes.PASSWORD_SETTING,
+        page: () => const PasswordSettingView(),
+        binding: AccountBinding()),
+    GetPage(
+        name: Routes.FORGET_PASS,
+        page: () => const ForgetPassView(),
+        binding: AccountBinding()),
+    GetPage(
+        name: Routes.MEAL_MANAGE,
+        page: () => const MealManagePage(),
+        binding: MealBinding()),
+    GetPage(
+        name: Routes.ATTENDANCE,
+        page: () => const AttendanceView(),
+        binding: AttendanceBinding()),
+    GetPage(
+        name: Routes.E_ATTENDANCE,
+        page: () => const EmployeeAttendanceView(),
+        binding: AttendanceBinding()),
   ];
 }

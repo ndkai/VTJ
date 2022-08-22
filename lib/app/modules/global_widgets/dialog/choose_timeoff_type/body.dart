@@ -8,7 +8,8 @@ import '../../../../models/request_models/timeoff/time_off_type.dart';
 class TimeOffSelectBody extends StatefulWidget {
   final Function(TimeOffTypeData) onSuccess;
   final List<TimeOffTypeData> doctors;
-  const TimeOffSelectBody({Key key, this.onSuccess, this.doctors}) : super(key: key);
+  const TimeOffSelectBody({Key key, this.onSuccess, this.doctors})
+      : super(key: key);
 
   @override
   _TimeOffSelectBodyState createState() => _TimeOffSelectBodyState();
@@ -19,10 +20,9 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
   TimeOffTypeData scheduleGroup;
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.4)
-        ),
+            borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.4)),
         child: SizedBox(
           height: SizeConfig.screenHeight * 0.5,
           child: Column(
@@ -36,79 +36,84 @@ class _TimeOffSelectBodyState extends State<TimeOffSelectBody> {
                   children: lists(),
                 ),
               ),
-
-              SizedBox(height: SizeConfig.screenHeight * 0.01,),
-              const Divider(color: Colors.black, height: 1,),
-              SizedBox(height: SizeConfig.screenHeight * 0.02,),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.01,
+              ),
+              const Divider(
+                color: Colors.black,
+                height: 1,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.02,
+              ),
               Expanded(
-                child:  Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.of(context).pop();
                       },
                       child: Container(
-                          decoration: const BoxDecoration(
-                          ),
+                          decoration: const BoxDecoration(),
                           width: SizeConfig.screenWidth * 0.25,
                           child: Center(
-                            child: Text("Hủy bỏ", style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: SizeConfig.screenWidth * 0.045,
-
-                            )),
-                          )
-                      ),
+                            child: Text("Hủy bỏ",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: SizeConfig.screenWidth * 0.035,
+                                )),
+                          )),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.of(context).pop();
-                        widget.onSuccess
-                          (scheduleGroup);
+                        widget.onSuccess(scheduleGroup);
                       },
-
                       child: Container(
-                          decoration: const BoxDecoration(
-                          ),
+                          decoration: const BoxDecoration(),
                           width: SizeConfig.screenWidth * 0.25,
                           child: Center(
-                            child: Text("Đồng ý", style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: SizeConfig.screenWidth * 0.045,
-                                fontWeight: FontWeight.bold
-                            ),),
-                          )
-                      ),
+                            child: Text(
+                              "Đồng ý",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: SizeConfig.screenWidth * 0.035,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )),
                     ),
                   ],
                 ),
               )
             ],
           ),
-        )
-    );
+        ));
   }
 
-  List<Widget> lists(){
-    return widget.doctors.map((e) =>
-        MediaQuery.removePadding(context: context,
+  List<Widget> lists() {
+    return widget.doctors
+        .map((e) => MediaQuery.removePadding(
+            context: context,
             removeLeft: true,
             child: ListTile(
-          title: Text(e.description, style: const TextStyle(color: Colors.black),),
-          leading: Radio(
-            value: e.hashCode,
-            groupValue: val,
-            onChanged: (value) {
-              setState(() {
-                print("value $value");
-                val = value as int;
-                scheduleGroup = e;
-              });
-            },
-            activeColor: Colors.green,
-          ),
-        ))
-    ).toList();
+              title: Text(
+                e.description,
+                style: const TextStyle(color: Colors.black),
+              ),
+              leading: Radio(
+                value: e.hashCode,
+                groupValue: val,
+                onChanged: (value) {
+                  setState(() {
+                    print("value $value");
+                    val = value as int;
+                    scheduleGroup = e;
+                  });
+                },
+                activeColor: Colors.green,
+              ),
+            )))
+        .toList();
   }
 }

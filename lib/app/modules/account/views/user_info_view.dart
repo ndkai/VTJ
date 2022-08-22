@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/account/controllers/account_controller.dart';
@@ -12,7 +13,6 @@ class UserInfoView extends GetView<AccountController> {
 
   @override
   Widget build(BuildContext context) {
-
     return BasePage(
       title: "Thông tin cá nhân",
       child: SizedBox(
@@ -20,111 +20,103 @@ class UserInfoView extends GetView<AccountController> {
         child: Obx(() {
           return Form(
             key: controller.infoFormKey,
-            child: ListView(
-              primary: true,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+            child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView(primary: true, children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                  labelText: "Mã nhân viên".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Mã nhân viên".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: controller.employeeInfo.value.data.code,
                   ),
-                  initialValue: controller.employeeInfo.value.data.first.code,
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Họ và tên".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: controller.employeeInfo.value.data.name,
                   ),
-                  labelText: "Họ và tên".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Giởi tính".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: controller.employeeInfo.value.data.gender == 1
+                        ? "Nam"
+                        : "Nữ",
                   ),
-                  initialValue: controller.employeeInfo.value.data.first.name,
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Ngày sinh".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: Helper.getVietnameseTime(
+                        controller.employeeInfo.value.data.dateOfBirth),
                   ),
-                  labelText: "Giởi tính".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Số điện thoại".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue:
+                        controller.employeeInfo.value.data.phoneNumber,
                   ),
-                  initialValue: controller.employeeInfo.value.data.first.gender == 1 ? "Nam" : "Nữ",
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Chi nhánh".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: "",
                   ),
-                  labelText: "Ngày sinh".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
+                  TextFieldWidget(
+                    isEdit: false,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                    labelText: "Ngày vào công ty".tr,
+                    hintText: "",
+                    labelStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    initialValue: Helper.getVietnameseTime(
+                        controller.employeeInfo.value.data.dateJoined),
                   ),
-                  initialValue: Helper.getVietnameseTime(controller.employeeInfo.value.data.first.dateOfBirth),
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
-                  labelText: "Số điện thoại".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
-                  ),
-                  initialValue: controller.employeeInfo.value.data.first.phoneNumber,
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
-                  labelText: "Chi nhánh".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
-                  ),
-                  initialValue: "",
-                ),
-                TextFieldWidget(
-                  isEdit: false,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
-                  labelText: "Ngày vào công ty".tr,
-                  hintText: "",
-                  labelStyle: const TextStyle(
-                      color: Colors.black ,
-                      fontSize: 18
-                  ),
-                  initialValue: Helper.getVietnameseTime(controller.employeeInfo.value.data.first.dateJoined),
-                ),
-            ]),
+                ])),
           );
         }),
       ),

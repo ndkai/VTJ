@@ -39,7 +39,7 @@ class MealSignUpView extends GetView<MealController> {
                           Helper.getVietnameseTime(
                               controller.fromDate.value.toIso8601String()),
                           style:
-                              const TextStyle(color: Colors.blue, fontSize: 18),
+                              const TextStyle(color: Colors.blue, fontSize: 16),
                         ),
                         onPressed: () {
                           DateTime now = DateTime.now();
@@ -61,50 +61,21 @@ class MealSignUpView extends GetView<MealController> {
                     labelText: "Chọn ca làm việc".tr,
                     hintText: "",
                     isEdit: false,
-                    onTap: (){
+                    onTap: () {
                       showMealShiftDialog(context,
-                              // ignore: missing_return
-                              (v) {
-                            controller.chooseShift.value = v;
-                            controller.chooseScheduleCl.text =
-                                v.name;
-                          });
+                          // ignore: missing_return
+                          (v) {
+                        controller.chooseShift.value = v;
+                        controller.chooseScheduleCl.text = v.name;
+                      });
                     },
                     controller: controller.chooseScheduleCl,
                     labelStyle:
-                        const TextStyle(color: Colors.grey, fontSize: 22),
+                        const TextStyle(color: Colors.grey, fontSize: 18),
                     // controller: controller.genderEdt,
                     style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 17,
-                    ),
-                    suffixIcon: IconButton(
-                      color: Theme.of(context).focusColor,
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.black,
-                      ), onPressed: () {  },
-                    ),
-                  ),
-                  TextFieldWidget(
-                    keyboardType: TextInputType.none,
-                    labelText: "Chọn loại cơm".tr,
-                    hintText: "",
-                    isEdit: false,
-                    onTap: (){
-                      showMealTypeDialog(context,
-                              // ignore: missing_return
-                              (v) {
-                            controller.chooseMealTypeCl.text = v;
-                          });
-                    },
-                    controller: controller.chooseMealTypeCl,
-                    labelStyle:
-                        const TextStyle(color: Colors.grey, fontSize: 22),
-                    // controller: controller.genderEdt,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
+                      fontSize: 15,
                     ),
                     suffixIcon: IconButton(
                       color: Theme.of(context).focusColor,
@@ -112,6 +83,36 @@ class MealSignUpView extends GetView<MealController> {
                         Icons.keyboard_arrow_down,
                         color: Colors.black,
                       ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  TextFieldWidget(
+                    keyboardType: TextInputType.none,
+                    labelText: "Chọn loại cơm".tr,
+                    hintText: "",
+                    isEdit: false,
+                    onTap: () {
+                      showMealTypeDialog(context,
+                          // ignore: missing_return
+                          (v) {
+                        controller.chooseMealTypeCl.text = v;
+                      });
+                    },
+                    controller: controller.chooseMealTypeCl,
+                    labelStyle:
+                        const TextStyle(color: Colors.grey, fontSize: 18),
+                    // controller: controller.genderEdt,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                    suffixIcon: IconButton(
+                      color: Theme.of(context).focusColor,
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {},
                     ),
                   ),
                   const SizedBox(
@@ -123,7 +124,7 @@ class MealSignUpView extends GetView<MealController> {
                 "Danh sách nhân viên",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 20,
                     color: Colors.black),
               ),
               const SizedBox(
@@ -252,7 +253,7 @@ class MealSignUpView extends GetView<MealController> {
                   Obx(() {
                     return Text(
                       "Đã chọn(${controller.employees.value.data.where((element) => element.isChoose).toList().length})",
-                      style: const TextStyle(fontSize: 18, color: Colors.black),
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
                     );
                   }),
                   BlockButtonWidget(

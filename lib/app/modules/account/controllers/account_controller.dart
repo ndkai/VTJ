@@ -1,9 +1,10 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vkhealth/app/models/request_models/user/password_change.dart';
-import 'package:vkhealth/app/models/response_models/user/employee_swagger.dart';
 import 'package:vkhealth/app/models/response_models/user/profile.dart';
 import 'package:vkhealth/app/modules/global_widgets/dialog/loading_dialog.dart';
 import 'package:vkhealth/app/repositories/user_repository.dart';
@@ -11,6 +12,7 @@ import 'package:vkhealth/app/repositories/user_repository.dart';
 import '../../../../common/helper.dart';
 import '../../../../common/ui.dart';
 import '../../../models/provice.dart';
+import '../../../models/response_models/user/employeeData.dart';
 import '../../../models/user_model.dart';
 import '../../../routes/app_routes.dart';
 import '../../../services/auth_service.dart';
@@ -26,7 +28,7 @@ class AccountController extends GetxController {
   var hideNPassword = true.obs;
   var hideCPassword = true.obs;
   var profile = Profile().obs;
-  var employeeInfo = EmployeeSwagger().obs;
+  var employeeInfo = EmployeeUserData().obs;
   var oldPass = "".obs;
   var newPass = "".obs;
   var cnPass = "".obs;
@@ -48,11 +50,11 @@ class AccountController extends GetxController {
 
   Future<void> getEmployeeInfo(BuildContext context) async {
     try {
-      employeeInfo.value = await _userRepository.getEmployeeInfo(currentUser.value.userInfo.employee.code);
+      employeeInfo.value = await _userRepository
+          .getEmployeeInfo(currentUser.value.userInfo.employee.code);
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
-    } finally { 
-    }
+    } finally {}
   }
 
   Future<void> uploadProfile(BuildContext context) async {
@@ -123,7 +125,7 @@ class AccountController extends GetxController {
     }
     showDistrictSelectDialog(context, province, (v) {
       district = v;
-      districtEdt.text= district.label;
+      districtEdt.text = district.label;
       profile.value.district = district.label;
       return;
     });

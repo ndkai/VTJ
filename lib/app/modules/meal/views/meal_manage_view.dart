@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/meal/controllers/meal_controller.dart';
@@ -43,15 +45,12 @@ class MealManagePage extends GetView<MealController> {
                     },
                     selected: controller.selectedStatic.value,
                   ).marginOnly(bottom: 20),
-
-                  Obx(
-                      (){
-                        if(controller.selectedStatic.value == 0){
-                          return signWidget(context);
-                        }
-                        return statisticWidget(context);
-                      }
-                  )
+                  Obx(() {
+                    if (controller.selectedStatic.value == 0) {
+                      return signWidget(context);
+                    }
+                    return statisticWidget(context);
+                  })
                 ],
               ).marginOnly(top: 15));
         }),
@@ -59,7 +58,7 @@ class MealManagePage extends GetView<MealController> {
     );
   }
 
-  Widget signWidget(BuildContext context){
+  Widget signWidget(BuildContext context) {
     controller.getOverviewMeal(context);
     return Column(
       children: [
@@ -68,11 +67,7 @@ class MealManagePage extends GetView<MealController> {
           children: [
             InkWell(
               onTap: () {
-                // ignore: missing_return
-                showScheduleGroupDialog(
-                  // ignore: missing_return
-                    context,
-                    controller.scheduleGroup, (v) {
+                showScheduleGroupDialog(context, controller.scheduleGroup, (v) {
                   controller.currentScheduleGroup.value = v;
                   controller.getOverviewMeal(context);
                 });
@@ -84,8 +79,7 @@ class MealManagePage extends GetView<MealController> {
                     border: Border.all(color: Colors.blue, width: 1),
                     borderRadius: BorderRadius.circular(5)),
                 child: Obx(() {
-                  if (controller.currentScheduleGroup.value.name ==
-                      null) {
+                  if (controller.currentScheduleGroup.value.name == null) {
                     return Container();
                   }
                   return Row(
@@ -97,20 +91,18 @@ class MealManagePage extends GetView<MealController> {
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontSize: 20),
+                            fontSize: 18),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            controller
-                                .currentScheduleGroup.value.name,
+                            controller.currentScheduleGroup.value.name,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
-                                fontSize: 16,
+                                fontSize: 14,
                                 overflow: TextOverflow.fade),
                           ),
                           Text(
@@ -118,7 +110,7 @@ class MealManagePage extends GetView<MealController> {
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
-                                fontSize: 16,
+                                fontSize: 14,
                                 overflow: TextOverflow.fade),
                           ),
                         ],
@@ -147,11 +139,10 @@ class MealManagePage extends GetView<MealController> {
                       ),
                       Obx(() {
                         return Text(
-                          Helper.getVietnameseTime(controller
-                              .currentDate.value
-                              .toIso8601String()),
+                          Helper.getVietnameseTime(
+                              controller.currentDate.value.toIso8601String()),
                           style: const TextStyle(
-                              color: Colors.black54, fontSize: 17),
+                              color: Colors.black54, fontSize: 14),
                         );
                       }),
                       InkWell(
@@ -165,7 +156,7 @@ class MealManagePage extends GetView<MealController> {
                             size: 17, color: Colors.black54),
                       ),
                       Row(
-                        children: [],
+                        children: const [],
                       )
                     ],
                   ),
@@ -174,11 +165,11 @@ class MealManagePage extends GetView<MealController> {
                   ),
                   InkWell(
                     onTap: () {
-                      showComfirmDialog(context,
-                          "Có chắn chắn muốn xác nhận đăng kí",
+                      showComfirmDialog(
+                          context, "Có chắn chắn muốn xác nhận đăng kí?",
                           onSuccessTap: () {
-                            controller.comfirmSignUp(context);
-                          });
+                        controller.comfirmSignUp(context);
+                      });
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -189,8 +180,7 @@ class MealManagePage extends GetView<MealController> {
                       child: const Center(
                         child: Text(
                           "Xác nhận",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 16),
+                          style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ),
                     ),
@@ -223,7 +213,7 @@ class MealManagePage extends GetView<MealController> {
     );
   }
 
-  Widget statisticWidget(BuildContext context){
+  Widget statisticWidget(BuildContext context) {
     controller.getMealStatistic(context);
     return Column(
       children: [
@@ -249,9 +239,8 @@ class MealManagePage extends GetView<MealController> {
                       ),
                       Obx(() {
                         return Text(
-                          Helper.getVietnameseTime(controller
-                              .currentDate.value
-                              .toIso8601String()),
+                          Helper.getVietnameseTime(
+                              controller.currentDate.value.toIso8601String()),
                           style: const TextStyle(
                               color: Colors.black54, fontSize: 17),
                         );
@@ -287,8 +276,8 @@ class MealManagePage extends GetView<MealController> {
           }
           return OverallMealStatisticView(
             data: controller.mealStatistic.value.data.data,
-            onChanged: (l){
-              Helper.changePage(context, SubMealView(l ));
+            onChanged: (l) {
+              Helper.changePage(context, SubMealView(l));
             },
           );
         })

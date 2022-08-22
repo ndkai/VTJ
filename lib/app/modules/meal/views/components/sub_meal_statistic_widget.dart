@@ -1,12 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:vkhealth/app/models/request_models/meal/meal_statistic.dart';
-import 'package:vkhealth/app/models/response_models/meal/meal_overview.dart';
 import 'package:vkhealth/app/modules/global_widgets/tables/horizontal_data_table/horizontal_data_table.dart';
 import 'package:vkhealth/common/size_config.dart';
 
 import '../../../../../common/app_constant.dart';
-import '../../../global_widgets/avatar.dart';
-import '../../../global_widgets/checkbox/my_check_box.dart';
 
 class SubMealStatisticWidget extends StatefulWidget {
   final List<ChildUnits> data;
@@ -18,8 +17,7 @@ class SubMealStatisticWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SubMealStatisticWidget> createState() =>
-      _SubMealStatisticWidgetState();
+  State<SubMealStatisticWidget> createState() => _SubMealStatisticWidgetState();
 }
 
 class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
@@ -63,10 +61,9 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
 
   List<Widget> _getTitleWidget() {
     List<Widget> data = <Widget>[];
-    // ignore: deprecated_member_use
     data.add(FlatButton(
       padding: const EdgeInsets.all(0),
-      child: _getTitleItemWidget('Tên NV', 200),
+      child: _getTitleItemWidget('Tên phòng', 200),
       onPressed: () {},
     ));
 
@@ -159,27 +156,29 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
         //tca dem chay //tca dem chay
         mealTypeCountItem(
             (data[index].estimate.normalShift.carnivore +
-                data[index].estimate.normalShift.vegetarian +
-                data[index].estimate.nightShift.carnivore +
-                data[index].estimate.nightShift.vegetarian +
-                data[index].estimate.overtimeDayShift.carnivore +
-                data[index].estimate.overtimeDayShift.vegetarian +
-                data[index].estimate.overtimeNightShift.vegetarian +
-                data[index].actual.overtimeNightShift.carnivore)
+                    data[index].estimate.normalShift.vegetarian +
+                    data[index].estimate.nightShift.carnivore +
+                    data[index].estimate.nightShift.vegetarian +
+                    data[index].estimate.overtimeDayShift.carnivore +
+                    data[index].estimate.overtimeDayShift.vegetarian +
+                    data[index].estimate.overtimeNightShift.vegetarian +
+                    data[index].actual.overtimeNightShift.carnivore)
                 .toString(),
-            index, width: 70),
+            index,
+            width: 70),
         // tong
         mealTypeCountItem(
             (data[index].actual.normalShift.carnivore +
-                data[index].actual.normalShift.vegetarian +
-                data[index].actual.nightShift.carnivore +
-                data[index].actual.nightShift.vegetarian +
-                data[index].actual.overtimeDayShift.carnivore +
-                data[index].actual.overtimeDayShift.vegetarian +
-                data[index].actual.overtimeNightShift.vegetarian +
-                data[index].actual.overtimeNightShift.carnivore)
+                    data[index].actual.normalShift.vegetarian +
+                    data[index].actual.nightShift.carnivore +
+                    data[index].actual.nightShift.vegetarian +
+                    data[index].actual.overtimeDayShift.carnivore +
+                    data[index].actual.overtimeDayShift.vegetarian +
+                    data[index].actual.overtimeNightShift.vegetarian +
+                    data[index].actual.overtimeNightShift.carnivore)
                 .toString(),
-            index, width: 70),
+            index,
+            width: 70),
       ],
     );
   }
@@ -187,27 +186,13 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
   Widget mealTypeCountItem(String val, int index, {double width = 62.5}) {
     return InkWell(
         onTap: () {},
-        child: Container(
+        child: SizedBox(
             width: width,
-            height: 50,
-            decoration: BoxDecoration(
-              border: index == data.length - 1
-                  ? const Border.symmetric(
-                  vertical: BorderSide(
-                    color: Colors.black,
-                    width: 0.5,
-                  ),
-                  horizontal: BorderSide(
-                    color: Colors.black,
-                    width: 0.5,
-                  ))
-                  : const Border.symmetric(
-                  vertical: BorderSide(color: Colors.black, width: 0.5)),
-            ),
+            height: 80,
             child: Center(
               child: Text(
                 val,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                style: const TextStyle(color: Colors.black, fontSize: 13),
                 textAlign: TextAlign.center,
               ),
             )));
@@ -217,27 +202,13 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
       {Alignment alignment = Alignment.center}) {
     return InkWell(
         onTap: () {},
-        child: Container(
-            width: 150,
-            height: 50,
-            decoration: BoxDecoration(
-              border: index == data.length - 1
-                  ? const Border.symmetric(
-                  vertical: BorderSide(
-                    color: Colors.black,
-                    width: 0.5,
-                  ),
-                  horizontal: BorderSide(
-                    color: Colors.black,
-                    width: 0.5,
-                  ))
-                  : const Border.symmetric(
-                  vertical: BorderSide(color: Colors.black, width: 0.5)),
-            ),
+        child: SizedBox(
+            width: 130,
+            height: 80,
             child: Center(
               child: Text(
                 data[index].unit.name,
-                style: const TextStyle(color: Colors.black, fontSize: 15),
+                style: const TextStyle(color: Colors.black, fontSize: 13),
                 textAlign: TextAlign.center,
               ),
             )));
@@ -245,13 +216,8 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
 
   Widget _getTitleItemWidget(String label, double width) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
         width: width,
-        height: 108,
+        height: 110,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
         child: Center(
@@ -260,7 +226,7 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: 16,
               color: Colors.grey,
             ),
           ),
@@ -269,15 +235,13 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
 
   Widget _getTotalTitleWidget(String label) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
         width: 141,
-        height: 108,
+        height: 110,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
+        decoration: const BoxDecoration(
+            border:
+                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         child: Column(
           children: [
             Container(
@@ -285,58 +249,48 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Center(
                   child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  )),
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              )),
             ),
             const Divider(
               color: Colors.black,
               height: 1,
             ),
             Row(
-              children: [
-                Container(
-                  width: 70,
+              children: const [
+                SizedBox(
+                  width: 69,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: Colors.black, width: 0.5),
-                        horizontal: BorderSide(color: Colors.black, width: 1)),
-                  ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "Kế hoạch",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "Kế hoạch",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
-                Container(
-                  width: 70,
+                SizedBox(
+                  width: 69,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: Colors.black, width: 0.5),
-                        horizontal: BorderSide(color: Colors.black, width: 1)),
-                  ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "Thực tế",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "Thực tế",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
               ],
             )
@@ -346,15 +300,13 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
 
   Widget _getEmployeeTitleWidget(String label) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
         width: 200,
-        height: 108,
+        height: 110,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
+        decoration: const BoxDecoration(
+            border:
+                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         child: Column(
           children: [
             Container(
@@ -362,77 +314,62 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Center(
                   child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  )),
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              )),
             ),
             const Divider(
               color: Colors.black,
               height: 1,
             ),
             Row(
-              children: [
-                Container(
-                  width: 66.3,
+              children: const [
+                SizedBox(
+                  width: 66,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: Colors.black, width: 0.5),
-                        horizontal: BorderSide(color: Colors.black, width: 1)),
-                  ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "Định mức",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "Định mức",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
-                Container(
-                  width: 66.3,
+                SizedBox(
+                  width: 66,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: Colors.black, width: 0.5),
-                        horizontal: BorderSide(color: Colors.black, width: 1)),
-                  ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "Danh sách",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "Danh sách",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
-                Container(
-                  width: 66.3,
+                SizedBox(
+                  width: 66,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: Colors.black, width: 0.5),
-                        horizontal: BorderSide(color: Colors.black, width: 1)),
-                  ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                        "Đk Cơm",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "Đk Cơm",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
               ],
             )
@@ -442,13 +379,11 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
 
   Widget _getShiftTitleItemWidget(String label, double width) {
     return Container(
-        decoration: const BoxDecoration(
-          border: Border.symmetric(
-              vertical: BorderSide(color: Colors.black, width: 0.5),
-              horizontal: BorderSide(color: Colors.black, width: 0.5)),
-        ),
         width: 500,
-        height: 108,
+        height: 110,
+        decoration: const BoxDecoration(
+            border:
+                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
         child: Column(
@@ -457,14 +392,14 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Center(
                   child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  )),
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              )),
             ),
             const Divider(
               color: Colors.black,
@@ -473,78 +408,57 @@ class _SubMealStatisticWidgetState extends State<SubMealStatisticWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: AppConstants.shiftTypes
-                  .map((e) => Container(
-                width: 500 / AppConstants.shiftTypes.length - 1,
-                height: 40,
-                decoration: const BoxDecoration(
-                  border: Border.symmetric(
-                      vertical:
-                      BorderSide(color: Colors.black, width: 0.5),
-                      horizontal:
-                      BorderSide(color: Colors.black, width: 1)),
-                ),
-                child: Center(
-                    child: Text(
-                      e.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.grey,
-                      ),
-                    )),
-              ))
+                  .map((e) => SizedBox(
+                        width: 500 / AppConstants.shiftTypes.length - 1,
+                        height: 40,
+                        child: Center(
+                            child: Text(
+                          e.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Colors.grey,
+                          ),
+                        )),
+                      ))
                   .toList(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: AppConstants.shiftTypes
                   .map((e) => Row(
-                children: [
-                  Container(
-                    width: 250 ~/ AppConstants.shiftTypes.length * 1.0,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      border: Border.symmetric(
-                          vertical: BorderSide(
-                              color: Colors.black, width: 0.5),
-                          horizontal: BorderSide(
-                              color: Colors.black, width: 1)),
-                    ),
-                    child: const Center(
-                        child: Text(
-                          "Mặn",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey,
+                        children: [
+                          SizedBox(
+                            width: 250 ~/ AppConstants.shiftTypes.length * 1.0,
+                            height: 40,
+                            child: const Center(
+                                child: Text(
+                              "Mặn",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            )),
                           ),
-                        )),
-                  ),
-                  Container(
-                    width: 250 ~/ AppConstants.shiftTypes.length * 1.0,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      border: Border.symmetric(
-                          vertical: BorderSide(
-                              color: Colors.black, width: 0.5),
-                          horizontal: BorderSide(
-                              color: Colors.black, width: 1)),
-                    ),
-                    child: const Center(
-                        child: Text(
-                          "Chay",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Colors.grey,
+                          SizedBox(
+                            width: 250 ~/ AppConstants.shiftTypes.length * 1.0,
+                            height: 40,
+                            child: const Center(
+                                child: Text(
+                              "Chay",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            )),
                           ),
-                        )),
-                  ),
-                ],
-              ))
+                        ],
+                      ))
                   .toList(),
             ),
           ],

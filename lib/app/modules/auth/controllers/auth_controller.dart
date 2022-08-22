@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,7 +14,7 @@ import '../../../routes/app_routes.dart';
 import '../../../services/auth_service.dart';
 import '../../global_widgets/dialog/loading_dialog.dart';
 
-class AuthController extends GetxController{
+class AuthController extends GetxController {
   final Rx<LoginRequest> loginRequest = LoginRequest().obs;
   final authService = Get.find<AuthService>();
   final Rx<User> currentUser = Get.find<AuthService>().user;
@@ -28,32 +30,33 @@ class AuthController extends GetxController{
   UserRepository _userRepository;
   GetStorage _box;
 
-  AuthController(){
+  AuthController() {
     _userRepository = UserRepository();
     _box = GetStorage();
   }
 
   Future<void> generateOTP(BuildContext context) async {
-      forgotPasswordFormKey.currentState.save();
-      if(forgotPasswordFormKey.currentState.validate()){
-        try{
-          showLoadingDialog(context);
-          await _userRepository.generateOtp(phoneNumber.value);
-          Navigator.pop(context);
-          Get.toNamed(Routes.CONFIRM_OTP);
-        } catch(e){
-          Navigator.pop(context);
-          Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
-        }
+    forgotPasswordFormKey.currentState.save();
+    if (forgotPasswordFormKey.currentState.validate()) {
+      try {
+        showLoadingDialog(context);
+        await _userRepository.generateOtp(phoneNumber.value);
+        Navigator.pop(context);
+        Get.toNamed(Routes.CONFIRM_OTP);
+      } catch (e) {
+        Navigator.pop(context);
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
       }
+    }
   }
 
   Future<void> confirmOtp(BuildContext context) async {
-    try{
+    try {
       await _userRepository.confirmOtp(phoneNumber.value, otp.value);
       resetPass(context);
-    } catch(e){
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString().replaceAll("Exception: ", "")));
+    } catch (e) {
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message: e.toString().replaceAll("Exception: ", "")));
     }
   }
 
@@ -62,39 +65,38 @@ class AuthController extends GetxController{
       showLoadingDialog(context);
       await _userRepository.resetPass(newPass.value);
       Navigator.of(context).pop();
-      Get.showSnackbar(
-          Ui.SuccessSnackBar(message: "Đổi mật khẩu thành công"));
+      Get.showSnackbar(Ui.SuccessSnackBar(message: "Đổi mật khẩu thành công"));
       Get.toNamed(Routes.LOGIN);
     } catch (e) {
       Navigator.of(context).pop();
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString().replaceAll("Exception: ", "")));
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message: e.toString().replaceAll("Exception: ", "")));
     } finally {}
   }
 
-  void login(BuildContext context) async{
+  void login(BuildContext context) async {
     Get.focusScope.unfocus();
-    if(loginFormKey.currentState.validate()){
+    if (loginFormKey.currentState.validate()) {
       loginFormKey.currentState.save();
       loading.value = true;
-      try{
-        User user  = await _userRepository.login(loginRequest.value);
+      try {
+        User user = await _userRepository.login(loginRequest.value);
         currentUser.value = user;
         currentUser.value.dateExpired = user.dateExpired;
         await authService.changeUser(user);
         authService.user.value.auth = true;
         await Get.toNamed(Routes.ROOT, arguments: 0);
-      } catch(e){
-        Get.showSnackbar(Ui.RemindSnackBar(message: "Tài khoản hoặc mật khẩu không đúng"));
+      } catch (e) {
+        Get.showSnackbar(
+            Ui.RemindSnackBar(message: "Tài khoản hoặc mật khẩu không đúng"));
       } finally {
         loading.value = false;
       }
     }
-
   }
 
   Future<void> goToRegisterPage(BuildContext context) async {
     Provinces provinces = await Helper().getProvinceFormJson(context);
     Get.toNamed(Routes.REGISTER, arguments: provinces);
   }
-
 }

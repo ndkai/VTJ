@@ -1,12 +1,10 @@
 // ignore_for_file: deprecated_member_use
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:isoweek/isoweek.dart';
 import 'package:vkhealth/app/models/user_model.dart';
-import 'package:vkhealth/app/modules/global_widgets/dialog/comfirm_dialog.dart';
 import 'package:vkhealth/app/modules/global_widgets/tables/horizontal_data_table/horizontal_data_table.dart';
 import 'package:vkhealth/common/ui.dart';
 
@@ -15,7 +13,6 @@ import '../../../../../common/size_config.dart';
 import '../../../../models/response_models/attendance/employee_attendance.dart';
 import '../../../global_widgets/avatar.dart';
 import '../create_date_schedule_view.dart';
-import '../date_over_time_view.dart';
 import '../detailed_schedule_view.dart';
 
 class AttendanceWidget extends StatefulWidget {
@@ -38,8 +35,6 @@ class AttendanceWidget extends StatefulWidget {
 
 class _AttendanceWidgetState extends State<AttendanceWidget> {
   Week week;
-  final CustomPopupMenuController _customPopupMenuController =
-      CustomPopupMenuController();
 
   @override
   void initState() {
@@ -80,7 +75,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
     List<Widget> data = <Widget>[];
     data.add(FlatButton(
       padding: const EdgeInsets.all(0),
-      child: _getTitleItemWidget('Tên NV', 80),
+      child: _getTitleItemWidget('NV', 80),
       onPressed: () {},
     ));
 
@@ -111,11 +106,11 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                       name: widget.employeesAttendance[index].employee.name,
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     Text(
                       widget.employeesAttendance[index].employee.name,
-                      style: const TextStyle(color: Colors.black, fontSize: 12),
+                      style: const TextStyle(color: Colors.black, fontSize: 8),
                       textAlign: TextAlign.center,
                     )
                   ],
@@ -194,7 +189,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               ),
               Text(
                 employee.unit != null ? employee.unit.name : "",
-                style: const TextStyle(color: Colors.grey, fontSize: 15),
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
               ),
             ],
           ),
@@ -219,105 +214,6 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
     );
   }
 
-  Widget _buildFunctionDialog(Employee employee, EmployeeAttendance attendance,
-      Attendances currentAttendance) {
-    return Container(
-      height: SizeConfig.screenHeight * 0.2,
-      width: SizeConfig.screenWidth * 0.5,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: () {
-              GestureBinding.instance.handlePointerEvent(const PointerDownEvent(
-                position: Offset(0, 0),
-              ));
-              Helper.changePage(
-                  context, DetailedScheduleView(currentAttendance, employee));
-            },
-            child: Container(
-              color: Colors.lightBlueAccent.withOpacity(.2),
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              child: Row(
-                children: const [
-                  Icon(Icons.remove_red_eye_sharp),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    "Xem chi tiết",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          currentAttendance.schedule == null ||
-                  currentAttendance.schedule.overtimeShift == null
-              ? InkWell(
-                  onTap: () {
-                    GestureBinding.instance
-                        .handlePointerEvent(const PointerDownEvent(
-                      position: Offset(0, 0),
-                    ));
-                    Helper.changePage(
-                        context, DateOverTimeView(currentAttendance, employee));
-                  },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.add,
-                          color: Colors.green,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Text(
-                          "Đăng kí tăng ca",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              : Container(),
-          InkWell(
-            onTap: () {
-              showComfirmDialog(context, "Có chắc chắn muốn xóa không?",
-                  onSuccessTap: () {
-                widget.deleteSchedule(currentAttendance.schedule.id);
-              });
-            },
-            child: Container(
-              color: Colors.lightBlueAccent.withOpacity(.2),
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    "Xóa lịch làm việc",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return Row(
         children: week.days.map((e) {
@@ -325,31 +221,17 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
         Attendances currentAttendance = widget
             .employeesAttendance[index].attendances
             .firstWhere((element) => e.day == DateTime.parse(element.date).day);
-        return CustomPopupMenu(
-          child: Container(
-            child: Center(
-              child: attendanceInfo(
-                widget.employeesAttendance[index],
-                currentAttendance,
-              ),
+        return Container(
+          child: Center(
+            child: attendanceInfo(
+              widget.employeesAttendance[index],
+              currentAttendance,
             ),
-            width: 60,
-            height: 100,
-            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-            alignment: Alignment.centerLeft,
           ),
-          menuBuilder: () {
-            if (widget.haveFunction) {
-              return _buildFunctionDialog(
-                  widget.employeesAttendance[index].employee,
-                  widget.employeesAttendance[index],
-                  currentAttendance);
-            }
-            return null;
-          },
-          barrierColor: Colors.transparent,
-          position: PreferredPosition.top,
-          pressType: PressType.singleClick,
+          width: 60,
+          height: 100,
+          padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+          alignment: Alignment.centerLeft,
         );
       } catch (e) {
         return Container();
@@ -361,74 +243,82 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
       EmployeeAttendance employeeAttendance, Attendances currentAttendance) {
     return currentAttendance != null
         ? currentAttendance.schedule != null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: getShiftColor(currentAttendance)),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        getShiftCode(currentAttendance),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: Colors.black,
+            ? InkWell(
+                onTap: () {
+                  Helper.changePage(
+                      context,
+                      DetailedScheduleView(
+                          currentAttendance, employeeAttendance.employee));
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 8,
+                          width: 8,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: getShiftColor(currentAttendance)),
                         ),
-                      ),
-                    ],
-                  ),
-                  currentAttendance.schedule == null ||
-                          currentAttendance.schedule.overtimeShift == null
-                      ? Container()
-                      : const Text(
-                          "Tăng ca",
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          getShiftCode(currentAttendance),
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                            fontSize: 11,
                             color: Colors.black,
                           ),
-                        ).marginOnly(top: 5),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    checkingDataText(currentAttendance),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: Colors.black,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  currentAttendance.schedule.timeOff != null
-                      ? Center(
-                          child: Text(
-                              currentAttendance
-                                  .schedule.timeOff.type.description,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.green,
-                              )),
-                        )
-                      : Container()
-                ],
+                    currentAttendance.schedule == null ||
+                            currentAttendance.schedule.overtimeShift == null
+                        ? Container()
+                        : const Text(
+                            "Tăng ca",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: Colors.black,
+                            ),
+                          ).marginOnly(top: 5),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      checkingDataText(currentAttendance),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    currentAttendance.schedule.timeOff != null
+                        ? Center(
+                            child: Text(
+                                currentAttendance
+                                    .schedule.timeOff.type.description,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: Colors.green,
+                                )),
+                          )
+                        : Container()
+                  ],
+                ),
               )
             : InkWell(
                 onTap: () {
@@ -530,16 +420,19 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.grey,
               ),
+            ),
+            const SizedBox(
+              height: 6,
             ),
             Text(
               label.day.toString(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 16,
                 color: Colors.black,
               ),
             )

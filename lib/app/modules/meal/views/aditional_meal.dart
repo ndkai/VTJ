@@ -38,7 +38,7 @@ class AdditionalMealView extends GetView<MealController> {
                           Helper.getVietnameseTime(
                               controller.fromDate.value.toIso8601String()),
                           style:
-                          const TextStyle(color: Colors.blue, fontSize: 18),
+                              const TextStyle(color: Colors.blue, fontSize: 16),
                         ),
                         onPressed: () {
                           DateTime now = DateTime.now();
@@ -47,8 +47,8 @@ class AdditionalMealView extends GetView<MealController> {
                               minTime: now.subtract(const Duration(days: 10)),
                               maxTime: now.add(const Duration(days: 365)),
                               onChanged: (date) {}, onConfirm: (date) {
-                                controller.fromDate.value = date;
-                              },
+                            controller.fromDate.value = date;
+                          },
                               currentTime: DateTime.now(),
                               locale: LocaleType.vi);
                         },
@@ -60,29 +60,26 @@ class AdditionalMealView extends GetView<MealController> {
                     labelText: "Loại đơn vị".tr,
                     hintText: "",
                     isEdit: false,
-                    onTap: (){
+                    onTap: () {
                       showMealShiftDialog(context,
                           // ignore: missing_return
-                              (v) {
-                            controller.chooseShift.value = v;
-                            controller.chooseScheduleCl.text =
-                                v.name;
-                          });
+                          (v) {
+                        controller.chooseShift.value = v;
+                        controller.chooseScheduleCl.text = v.name;
+                      });
                     },
                     controller: controller.chooseScheduleCl,
                     labelStyle:
-                    const TextStyle(color: Colors.grey, fontSize: 22),
+                        const TextStyle(color: Colors.grey, fontSize: 18),
                     // controller: controller.genderEdt,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                    ),
+                    style: const TextStyle(color: Colors.black, fontSize: 15),
                     suffixIcon: IconButton(
                       color: Theme.of(context).focusColor,
                       icon: const Icon(
                         Icons.keyboard_arrow_down,
                         color: Colors.black,
-                      ), onPressed: () {  },
+                      ),
+                      onPressed: () {},
                     ),
                   ),
                   TextFieldWidget(
@@ -90,7 +87,7 @@ class AdditionalMealView extends GetView<MealController> {
                     labelText: "Đơn vị".tr,
                     hintText: "",
                     isEdit: false,
-                    onTap: (){
+                    onTap: () {
                       // showChooseStringDialog(context,
                       //     // ignore: missing_return
                       //         (v) {
@@ -99,11 +96,11 @@ class AdditionalMealView extends GetView<MealController> {
                     },
                     controller: controller.chooseMealTypeCl,
                     labelStyle:
-                    const TextStyle(color: Colors.grey, fontSize: 22),
+                        const TextStyle(color: Colors.grey, fontSize: 18),
                     // controller: controller.genderEdt,
                     style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 17,
+                      fontSize: 15,
                     ),
                     suffixIcon: IconButton(
                       color: Theme.of(context).focusColor,
@@ -111,6 +108,7 @@ class AdditionalMealView extends GetView<MealController> {
                         Icons.keyboard_arrow_down,
                         color: Colors.black,
                       ),
+                      onPressed: () {},
                     ),
                   ),
                   const SizedBox(
@@ -122,7 +120,7 @@ class AdditionalMealView extends GetView<MealController> {
                 "Danh sách nhân viên",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 20,
                     color: Colors.black),
               ),
               const SizedBox(
@@ -207,16 +205,16 @@ class AdditionalMealView extends GetView<MealController> {
                           child: ListView(
                             children: controller.employees.value.data
                                 .map((e) => EmployeeItem(
-                              employeeData: e,
-                              key: Key(e.code),
-                              onChanged: (e) {
-                                controller.employees.value.data
-                                    .firstWhere((element) =>
-                                element.code == e.code)
-                                    .isChoose = e.isChoose;
-                                controller.employees.refresh();
-                              },
-                            ))
+                                      employeeData: e,
+                                      key: Key(e.code),
+                                      onChanged: (e) {
+                                        controller.employees.value.data
+                                            .firstWhere((element) =>
+                                                element.code == e.code)
+                                            .isChoose = e.isChoose;
+                                        controller.employees.refresh();
+                                      },
+                                    ))
                                 .toList(),
                             controller: controller.employeeScrollCl,
                           ),
@@ -251,7 +249,7 @@ class AdditionalMealView extends GetView<MealController> {
                   Obx(() {
                     return Text(
                       "Đã chọn(${controller.employees.value.data.where((element) => element.isChoose).toList().length})",
-                      style: const TextStyle(fontSize: 18, color: Colors.black),
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
                     );
                   }),
                   BlockButtonWidget(

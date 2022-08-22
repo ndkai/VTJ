@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/attendance/controllers/attendance_controller.dart';
@@ -34,7 +36,6 @@ class AttendanceView extends GetView<AttendanceController> {
             children: [
               InkWell(
                 onTap: () {
-                  // ignore: missing_return
                   showScheduleGroupDialog(context, controller.scheduleGroup,
                       (v) {
                     controller.currentScheduleGroup.value = v;
@@ -60,7 +61,7 @@ class AttendanceView extends GetView<AttendanceController> {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
-                              fontSize: 20),
+                              fontSize: 18),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +72,7 @@ class AttendanceView extends GetView<AttendanceController> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue,
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   overflow: TextOverflow.fade),
                             ),
                             Text(
@@ -79,7 +80,7 @@ class AttendanceView extends GetView<AttendanceController> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue,
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   overflow: TextOverflow.fade),
                             ),
                           ],
@@ -110,7 +111,7 @@ class AttendanceView extends GetView<AttendanceController> {
                               .toIso8601String(),
                         )}",
                         style: const TextStyle(
-                            color: Colors.black54, fontSize: 17),
+                            color: Colors.black54, fontSize: 12),
                       );
                     }),
                     InkWell(

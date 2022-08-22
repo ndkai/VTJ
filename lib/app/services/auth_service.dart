@@ -1,17 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:vkhealth/app/repositories/user_repository.dart';
 
 import '../models/user_model.dart';
 
-class AuthService extends GetxService{
+class AuthService extends GetxService {
   final user = User().obs;
   GetStorage _box;
 
-  UserRepository _userRepository;
-
-  AuthService(){
-    _userRepository = UserRepository();
+  AuthService() {
     _box = GetStorage();
   }
 
@@ -24,8 +20,8 @@ class AuthService extends GetxService{
     user.listen((_user) {
       // ignore: avoid_print
       print("onchange user");
-       _box.write("current_user", _user.toJson());
-      });
+      _box.write("current_user", _user.toJson());
+    });
     await getCurrentUser();
     return this;
   }
@@ -48,6 +44,4 @@ class AuthService extends GetxService{
   bool get isAuth => user.value.auth ?? false;
 
   String get apiToken => (user.value.auth ?? false) ? user.value.token : '';
-
-  
 }

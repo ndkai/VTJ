@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/auth/controllers/auth_controller.dart';
 import 'package:vkhealth/app/modules/global_widgets/text_field_widget.dart';
-import 'package:vkhealth/app/routes/app_routes.dart';
 import 'package:vkhealth/common/helper.dart';
 
 import '../../global_widgets/buttons/block_button_widget.dart';
@@ -24,14 +22,27 @@ class LoginView extends GetView<AuthController> {
           child: ListView(
             primary: true,
             children: [
-              const SizedBox(height: 80,),
-              Image.asset("assets/img/titkul.png", height: 50,),
-              const SizedBox(height: 40,),
+              const SizedBox(
+                height: 80,
+              ),
+              Image.asset(
+                "assets/img/titkul.png",
+                height: 50,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
               Center(
-                child: Text("Đăng nhập".tr, style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold),),
+                child: Text(
+                  "Đăng nhập".tr,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
               ),
               Obx(() {
                 if (controller.loading.isTrue) {
@@ -45,13 +56,10 @@ class LoginView extends GetView<AuthController> {
                         hintText: "0946******",
                         initialValue: controller.loginRequest?.value?.username,
                         onSaved: (input) =>
-                        controller.loginRequest.value.username = input,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 17
-                        ),
-                        validator: (input) =>
-                        input.isEmpty
+                            controller.loginRequest.value.username = input,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 17),
+                        validator: (input) => input.isEmpty
                             ? "Tên đăng nhập không hợp lệ".tr
                             : null,
                         iconData: Icons.phone,
@@ -61,14 +69,12 @@ class LoginView extends GetView<AuthController> {
                           labelText: "Mật khẩu".tr,
                           hintText: "••••••••••••",
                           style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 17
-                          ),
-                          initialValue: controller.loginRequest?.value?.password,
+                              color: Colors.black, fontSize: 17),
+                          initialValue:
+                              controller.loginRequest?.value?.password,
                           onSaved: (input) =>
-                          controller.loginRequest.value.password = input,
-                          validator: (input) =>
-                          input.length < 3
+                              controller.loginRequest.value.password = input,
+                          validator: (input) => input.length < 3
                               ? "Mật khẩu lớn hơn 6 kí tự"
                               : null,
                           obscureText: controller.hidePassword.value,
@@ -77,14 +83,12 @@ class LoginView extends GetView<AuthController> {
                           suffixIcon: IconButton(
                             onPressed: () {
                               controller.hidePassword.value =
-                              !controller.hidePassword.value;
+                                  !controller.hidePassword.value;
                             },
-                            color: Theme
-                                .of(context)
-                                .focusColor,
-                            icon: Icon(controller.hidePassword.value ? Icons
-                                .visibility_outlined : Icons
-                                .visibility_off_outlined),
+                            color: Theme.of(context).focusColor,
+                            icon: Icon(controller.hidePassword.value
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined),
                           ),
                         ).marginSymmetric(horizontal: 10);
                       }),
@@ -100,15 +104,20 @@ class LoginView extends GetView<AuthController> {
                               ),
                               TextButton(
                                 onPressed: () {},
-                                child: const Text("Nhớ mật khẩu", style: TextStyle(
-                                    color: Colors.deepPurpleAccent,
-                                    fontWeight: FontWeight.w700),),
+                                child: const Text(
+                                  "Nhớ mật khẩu",
+                                  style: TextStyle(
+                                      color: Colors.deepPurpleAccent,
+                                      fontWeight: FontWeight.w700),
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ).paddingSymmetric(horizontal: 20),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       BlockButtonWidget(
                         onPressed: () {
                           controller.login(context);
@@ -116,19 +125,10 @@ class LoginView extends GetView<AuthController> {
                         color: Get.theme.colorScheme.secondary,
                         text: Text(
                           "Đăng nhập",
-                          style: Get.textTheme.headline6.merge(
-                              TextStyle(color: Get.theme.primaryColor)),
+                          style: Get.textTheme.headline6
+                              .merge(TextStyle(color: Get.theme.primaryColor)),
                         ),
                       ).paddingSymmetric(vertical: 10, horizontal: 20),
-                      TextButton(
-                        onPressed: () {
-                          Get.toNamed(Routes.FORGET_PASS);
-                        },
-                        child: const Text("Quên mật khẩu?", style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500)),
-                      ),
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.center,
                       //   children: [
@@ -164,6 +164,4 @@ class LoginView extends GetView<AuthController> {
       ),
     );
   }
-
 }
-

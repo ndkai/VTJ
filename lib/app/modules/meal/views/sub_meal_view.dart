@@ -5,14 +5,8 @@ import 'package:vkhealth/app/modules/meal/controllers/meal_controller.dart';
 import 'package:vkhealth/common/size_config.dart';
 
 import '../../../../common/helper.dart';
-import '../../global_widgets/circular_loading_widget.dart';
-import '../../global_widgets/dialog/choose_scheduleGroup/choose_schedule_group_dialog.dart';
-import '../../global_widgets/dialog/comfirm_dialog.dart';
 import '../../global_widgets/pages/base_page.dart';
-import 'components/meal_overall_widget.dart';
-import 'components/overall_meal_statistic_view.dart';
 import 'components/sub_meal_statistic_widget.dart';
-import 'components/toggle_widget.dart';
 import 'meals_functions_view.dart';
 
 class SubMealView extends GetView<MealController> {
@@ -41,8 +35,7 @@ class SubMealView extends GetView<MealController> {
                     data: data.childUnits,
                   )
                 ],
-              ).marginOnly(top: 15))
-      ),
+              ).marginOnly(top: 15))),
     );
   }
 }

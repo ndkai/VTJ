@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_void_to_null
+
 import 'package:vkhealth/app/models/response_models/attendance/schedule_swagger.dart';
 
 class UserSwagger {
@@ -26,16 +28,20 @@ class User {
   bool auth;
   String dateExpired;
 
-  User({this.token, this.tokenType, this.expiresIn, this.userInfo, this.dateExpired});
+  User(
+      {this.token,
+      this.tokenType,
+      this.expiresIn,
+      this.userInfo,
+      this.dateExpired});
 
   User.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     tokenType = json['tokenType'];
     dateExpired = json['dateExpired'];
     expiresIn = json['expiresIn'];
-    userInfo = json['userInfo'] != null
-        ? UserInfo.fromJson(json['userInfo'])
-        : null;
+    userInfo =
+        json['userInfo'] != null ? UserInfo.fromJson(json['userInfo']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -61,11 +67,11 @@ class UserInfo {
 
   UserInfo(
       {this.id,
-        this.username,
-        this.fullname,
-        this.role,
-        this.permissions,
-        this.employee});
+      this.username,
+      this.fullname,
+      this.role,
+      this.permissions,
+      this.employee});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -78,9 +84,8 @@ class UserInfo {
         permissions.add(Role.fromJson(v));
       });
     }
-    employee = json['employee'] != null
-        ? Employee.fromJson(json['employee'])
-        : null;
+    employee =
+        json['employee'] != null ? Employee.fromJson(json['employee']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -136,14 +141,14 @@ class Employee {
 
   Employee(
       {this.id,
-        this.code,
-        this.name,
-        this.image,
-        this.position,
-        this.site,
-        this.unit,
-        this.scheduleGroupId,
-        this.scheduleGroup});
+      this.code,
+      this.name,
+      this.image,
+      this.position,
+      this.site,
+      this.unit,
+      this.scheduleGroupId,
+      this.scheduleGroup});
 
   Employee.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -151,16 +156,16 @@ class Employee {
     name = json['name'];
     scheduleGroupId = json['scheduleGroupId'];
     image = json['image'];
-    if(json['position'] != null){
+    if (json['position'] != null) {
       position = Position.fromJson(json['position']);
     }
-    if(json['site'] != null){
+    if (json['site'] != null) {
       site = Site.fromJson(json['site']);
     }
-    if(json['unit'] != null){
+    if (json['unit'] != null) {
       unit = Unit.fromJson(json['unit']);
     }
-    if(json['scheduleGroup'] != null){
+    if (json['scheduleGroup'] != null) {
       scheduleGroup = ScheduleGroup.fromJson(json['scheduleGroup']);
     }
   }
@@ -222,11 +227,11 @@ class Site {
 
   Site(
       {this.id,
-        this.code,
-        this.name,
-        this.address,
-        this.latitude,
-        this.longitude});
+      this.code,
+      this.name,
+      this.address,
+      this.latitude,
+      this.longitude});
 
   Site.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -261,13 +266,13 @@ class Unit {
 
   Unit(
       {this.id,
-        this.code,
-        this.name,
-        this.type,
-        this.prescribedPersonnel,
-        this.actualPersonnel,
-        this.unitPriceOfMeal,
-        this.childUnits});
+      this.code,
+      this.name,
+      this.type,
+      this.prescribedPersonnel,
+      this.actualPersonnel,
+      this.unitPriceOfMeal,
+      this.childUnits});
 
   Unit.fromJson(Map<String, dynamic> json) {
     id = json['id'];

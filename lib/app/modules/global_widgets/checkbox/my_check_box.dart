@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyCheckBox extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
-  const MyCheckBox({Key key, this.value = false, this.onChanged}) : super(key: key);
+  const MyCheckBox({Key key, this.value = false, this.onChanged})
+      : super(key: key);
 
   @override
   State<MyCheckBox> createState() => _MyCheckBoxState();
@@ -18,12 +18,16 @@ class _MyCheckBoxState extends State<MyCheckBox> {
     super.initState();
     value = widget.value;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Checkbox(value: value, onChanged: (b){
-      setState(() {
-        value = b;
-      });
-      widget.onChanged(b);});
+    return Checkbox(
+        value: value,
+        onChanged: (b) {
+          setState(() {
+            value = b;
+          });
+          widget.onChanged(b);
+        });
   }
 }

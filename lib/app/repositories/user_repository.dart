@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:vkhealth/app/models/request_models/auth/login_request.dart';
 import 'package:vkhealth/app/models/request_models/auth/register_request.dart';
 import 'package:vkhealth/app/models/request_models/user/password_change.dart';
+import 'package:vkhealth/app/models/response_models/user/employeeData.dart';
 import 'package:vkhealth/app/models/response_models/user/profile.dart';
 import 'package:vkhealth/app/providers/dotnet_provider.dart';
 
-import '../models/response_models/user/employee_swagger.dart';
 import '../models/user_model.dart';
 
 class UserRepository {
@@ -17,7 +17,6 @@ class UserRepository {
     _dotnetProvider = Get.find<DotnetProvider>();
     return _dotnetProvider.login(request);
   }
-
 
   Future<bool> signup(RegisterRequest request) {
     _dotnetProvider = Get.find<DotnetProvider>();
@@ -34,7 +33,7 @@ class UserRepository {
     return _dotnetProvider.resetPass(newPass);
   }
 
-  Future<EmployeeSwagger> getEmployeeInfo(String code) {
+  Future<EmployeeUserData> getEmployeeInfo(String code) {
     _dotnetProvider = Get.find<DotnetProvider>();
     return _dotnetProvider.getEmployeeInfo(code);
   }
@@ -58,6 +57,4 @@ class UserRepository {
     _dotnetProvider = Get.find<DotnetProvider>();
     return _dotnetProvider.confirmOtp(phoneNumber, otp);
   }
-
-
 }
