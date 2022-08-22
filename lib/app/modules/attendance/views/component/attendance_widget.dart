@@ -131,7 +131,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
 
   Widget _buildShowDialog(Employee employee, EmployeeAttendance attendance) {
     return Container(
-      height: SizeConfig.screenHeight * 0.2,
+      height: SizeConfig.screenHeight * 0.15,
       width: SizeConfig.screenWidth * 0.5,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
           ),
           Text(
             "${employee.name}(${employee.code})",
-            style: const TextStyle(color: Colors.black, fontSize: 20),
+            style: const TextStyle(color: Colors.black, fontSize: 13),
           ),
           const SizedBox(
             height: 2,
@@ -166,14 +166,14 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
             children: [
               const Icon(
                 Icons.group,
-                size: 16,
+                size: 13,
               ),
               const SizedBox(
                 width: 3,
               ),
               Text(
                 employee.position != null ? employee.position.name : "",
-                style: const TextStyle(color: Colors.grey, fontSize: 15),
+                style: const TextStyle(color: Colors.grey, fontSize: 10),
               ),
             ],
           ),
@@ -182,14 +182,14 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
             children: [
               const Icon(
                 Icons.wysiwyg,
-                size: 16,
+                size: 13,
               ),
               const SizedBox(
                 width: 3,
               ),
               Text(
                 employee.unit != null ? employee.unit.name : "",
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
+                style: const TextStyle(color: Colors.grey, fontSize: 10),
               ),
             ],
           ),
@@ -198,14 +198,14 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
             children: [
               const Icon(
                 Icons.account_balance_outlined,
-                size: 16,
+                size: 13,
               ),
               const SizedBox(
                 width: 3,
               ),
               Text(
                 employee.site != null ? employee.site.name : "",
-                style: const TextStyle(color: Colors.grey, fontSize: 15),
+                style: const TextStyle(color: Colors.grey, fontSize: 10),
               ),
             ],
           ),
@@ -271,7 +271,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 11,
+                            fontSize: 10,
                             color: Colors.black,
                           ),
                         ),
@@ -297,7 +297,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 11,
+                        fontSize: 10,
                         color: Colors.black,
                       ),
                     ),
@@ -312,7 +312,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                                  fontSize: 10,
                                   color: Colors.green,
                                 )),
                           )
@@ -356,7 +356,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
   }
 
   String checkingDataText(Attendances currentAttendance) {
-    String result = "-- -- -> -- --";
+    String result = "---- -> ----";
     if (currentAttendance == null) {
       return "";
     }
@@ -372,7 +372,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
           result =
               "$result ${dateTime.hour < 10 ? "0${dateTime.hour}" : dateTime.hour} : ${dateTime.minute < 10 ? "0${dateTime.minute}" : dateTime.minute}";
         } else {
-          result = "$result --  --";
+          result = "$result ----";
         }
       } else if (currentAttendance.statistic.checkOut != null) {
         DateTime dateTime =
@@ -420,7 +420,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: 11,
                 color: Colors.grey,
               ),
             ),
@@ -432,7 +432,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
               ),
             )

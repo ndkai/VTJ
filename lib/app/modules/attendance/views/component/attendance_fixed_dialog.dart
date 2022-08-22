@@ -10,12 +10,10 @@ import '../../../global_widgets/buttons/block_button_widget.dart';
 import '../../../global_widgets/text_field_widget.dart';
 
 class AttendanceFixedDialog extends StatefulWidget {
-  final CheckIn checkIn;
-  final CheckIn checkout;
   final DateTime date;
   final Function(String note, DateTime ciTime, DateTime coTime) onTapDone;
   const AttendanceFixedDialog(
-      {Key key, this.checkIn, this.checkout, this.onTapDone, this.date})
+      {Key key,  this.onTapDone, this.date})
       : super(key: key);
 
   @override
@@ -49,7 +47,7 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.screenHeight * 0.8,
+      height: SizeConfig.screenHeight * 0.6,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +56,7 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
               "Sửa chấm công",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -89,11 +87,11 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
               suffixIcon: const InkWell(
                 child: Icon(Icons.lock_clock),
               ),
-              labelStyle: const TextStyle(color: Colors.grey, fontSize: 22),
+              labelStyle: const TextStyle(color: Colors.grey, fontSize: 14),
               // controller: controller.genderEdt,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 17,
+                fontSize: 12,
               ),
             ),
             // Row(
@@ -127,11 +125,11 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
               suffixIcon: const InkWell(
                 child: Icon(Icons.lock_clock),
               ),
-              labelStyle: const TextStyle(color: Colors.grey, fontSize: 22),
+              labelStyle: const TextStyle(color: Colors.grey, fontSize: 14),
               // controller: controller.genderEdt,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 17,
+                fontSize: 12,
               ),
             ),
             Row(
@@ -145,7 +143,7 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
                     }),
                 const Text(
                   "Bắt đầu vào ngày hôm sau",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(color: Colors.black, fontSize: 12),
                 ),
               ],
             ),
@@ -153,7 +151,7 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
               "Lý do",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 22,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -162,7 +160,7 @@ class _AttendanceFixedDialogState extends State<AttendanceFixedDialog> {
             TextFormField(
               maxLines: 3,
               controller: reasonCl,
-              style: const TextStyle(color: Colors.black, fontSize: 18),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
               decoration: const InputDecoration(border: OutlineInputBorder()),
             ),
             const SizedBox(

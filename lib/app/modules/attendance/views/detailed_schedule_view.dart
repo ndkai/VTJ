@@ -153,8 +153,6 @@ class DetailedScheduleView extends GetView<AttendanceController> {
                             builder: (BuildContext dialogContext) {
                               return AlertDialog(
                                   content: AttendanceFixedDialog(
-                                checkIn: employeeAttendance.statistic.checkIn,
-                                checkout: employeeAttendance.statistic.checkOut,
                                 date: DateTime.parse(employeeAttendance.date),
                                 onTapDone: (note, ci, co) {
                                   controller.attendanceManual(context,

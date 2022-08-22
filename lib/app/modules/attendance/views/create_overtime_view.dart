@@ -349,7 +349,7 @@ class CreateOvertimeView extends GetView<AttendanceController> {
                 BlockButtonWidget(
                   onPressed: () async {
                     showLoadingDialog(context);
-                    await controller.overallCreateSchedule(context);
+                    await controller.overTimeBatch(context);
                     Navigator.of(context).pop();
                   },
                   color: Get.theme.colorScheme.secondary,

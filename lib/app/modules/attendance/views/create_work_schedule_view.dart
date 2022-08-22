@@ -416,7 +416,7 @@ class CreateWorkScheduleView extends GetView<AttendanceController> {
                   BlockButtonWidget(
                     onPressed: () async {
                       showLoadingDialog(context);
-                      await controller.overTimeBatch(context);
+                      await controller.overallCreateSchedule(context);
                       Navigator.of(context).pop();
                     },
                     color: Get.theme.colorScheme.secondary,

@@ -19,7 +19,7 @@
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Chúng tôi muốn sử dụng vị trí của bạn khi mở và chạy nền</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Chúng tôi muốn sử dụng cị trí của bạn khi chạy nền</string>
+	<string>Chúng tôi muốn sử dụng vị trí của bạn khi chạy nền</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Chúng tôi muốn sử dụng vị trí của bạn khi mở</string>
 	<key>NSPhotoLibraryUsageDescription</key>

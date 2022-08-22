@@ -653,9 +653,11 @@ class DotnetProvider extends GetxService with ApiProvider {
   Future<void> overTimeBatch(OverallScheduleRequest request) async {
     dio.Response response;
     try {
+      print("llllc ${request.toJson()}");
       response = await _httpClient.dio.post(
           "${ApiConstants.mainApi}/Schedules/AddOvertimeBatch",
-          data: request.toJson());
+          data: request.toJson()
+      );
       print('provider - overTimeBatch ${response.data}');
     } catch (e) {
       print('provider - overTimeBatch er $e');

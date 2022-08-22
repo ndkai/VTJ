@@ -3,7 +3,7 @@ class GetEmployeeRequest {
   int pageSize;
   String keyword;
 
-  GetEmployeeRequest({this.pageIndex, this.pageSize, this.keyword});
+  GetEmployeeRequest({this.pageIndex = 0, this.pageSize = 100000, this.keyword});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
