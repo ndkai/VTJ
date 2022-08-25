@@ -1,32 +1,32 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:vkhealth/app/models/request_models/meal/small_unit_swagger.dart';
 
 import '../../../../../common/size_config.dart';
 
-class MealTypeSelectBody extends StatefulWidget {
-  final Function(String) onSuccess;
-  final List<String> list;
-  const MealTypeSelectBody({Key key, this.onSuccess, this.list})
-      : super(key: key);
+class SmallUnitBody extends StatefulWidget {
+  final Function(SmallUnit) onSuccess;
+  final List<SmallUnit> list;
+  const SmallUnitBody({Key key, this.onSuccess, this.list}) : super(key: key);
 
   @override
-  _MealTypeSelectBodyState createState() => _MealTypeSelectBodyState();
+  _SmallUnitBodyState createState() => _SmallUnitBodyState();
 }
 
-class _MealTypeSelectBodyState extends State<MealTypeSelectBody> {
+class _SmallUnitBodyState extends State<SmallUnitBody> {
   int val = -1;
-  String shiftData;
+  SmallUnit shiftData;
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.4)),
         child: SizedBox(
-          height: SizeConfig.screenHeight * 0.45,
+          height: SizeConfig.screenHeight * 0.5,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: SizeConfig.screenWidth * 0.9,
@@ -97,7 +97,7 @@ class _MealTypeSelectBodyState extends State<MealTypeSelectBody> {
             removeLeft: true,
             child: ListTile(
               title: Text(
-                e,
+                e.name,
                 style: const TextStyle(color: Colors.black),
               ),
               leading: Radio(

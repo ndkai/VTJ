@@ -146,6 +146,7 @@ class CreateWorkScheduleView extends GetView<AttendanceController> {
               ),
               Obx(() {
                 return Wrap(
+                  // alignment: WrapAlignment.spaceEvenly,
                   children: [0, 1, 2, 3, 4, 5, 6]
                       .map((e) => ChoiceChip(
                             selected: controller.dayoffWeek.contains(e),
@@ -161,9 +162,9 @@ class CreateWorkScheduleView extends GetView<AttendanceController> {
                             label: Text(
                               AppConstants.dateInWeek[e],
                               style: const TextStyle(
-                                  color: Colors.black, fontSize: 16),
+                                  color: Colors.black, fontSize: 13),
                             ),
-                          ).marginAll(3).paddingAll(5))
+                          ).marginAll(1).paddingAll(2))
                       .toList(),
                 );
               }),

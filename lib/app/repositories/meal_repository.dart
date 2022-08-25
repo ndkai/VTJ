@@ -1,7 +1,8 @@
-
 import 'package:get/get.dart';
+import 'package:vkhealth/app/models/request_models/meal/batch_for_anonymous.dart';
 import 'package:vkhealth/app/models/request_models/meal/meal_sign_up-reuquest.dart';
 import 'package:vkhealth/app/models/request_models/meal/meal_statistic.dart';
+import 'package:vkhealth/app/models/request_models/meal/small_unit_swagger.dart';
 import 'package:vkhealth/app/models/response_models/meal/meal_overview.dart';
 import 'package:vkhealth/app/providers/dotnet_provider.dart';
 
@@ -14,31 +15,39 @@ import '../models/response_models/user/employee_swagger.dart';
 class MealRepository {
   DotnetProvider _dotnetProvider;
 
-  MealRepository(){
+  MealRepository() {
     _dotnetProvider = Get.find<DotnetProvider>();
   }
 
-  Future<EmployeeSwagger> getEmployees(GetEmployeeRequest request){
+  Future<EmployeeSwagger> getEmployees(GetEmployeeRequest request) {
     return _dotnetProvider.getEmployee(request);
   }
 
-  Future<List<ScheduleGroup>> getScheduleGroup(){
+  Future<List<ScheduleGroup>> getScheduleGroup() {
     return _dotnetProvider.getScheduleGroup();
   }
 
-  Future<MealOverView> getMealOverview(MealRequest request){
+  Future<MealOverView> getMealOverview(MealRequest request) {
     return _dotnetProvider.getMealOverview(request);
   }
 
-  Future<void> postMeal4Employee(MealSignUpRequest request){
+  Future<void> postMeal4Employee(MealSignUpRequest request) {
     return _dotnetProvider.postMeal4Employee(request);
   }
 
-  Future<void> confirmMeal(MealBatchRequest request){
+  Future<void> confirmMeal(MealBatchRequest request) {
     return _dotnetProvider.confirmMeal(request);
   }
 
-  Future<MealStatistic> getMealStatistic(){
+  Future<MealStatistic> getMealStatistic() {
     return _dotnetProvider.getMealStatistic();
+  }
+
+  Future<SmallUnitSwagger> getSmallUnit(int id) {
+    return _dotnetProvider.getSmallUnit(id);
+  }
+
+  Future<void> batchForAnonymous(BatchForAnonymousRequest request) {
+    return _dotnetProvider.batchForAnonymous(request);
   }
 }

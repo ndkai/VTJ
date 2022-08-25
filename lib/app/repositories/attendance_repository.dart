@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:vkhealth/app/models/request_models/attendance/attendance_resquest.dart';
 import 'package:vkhealth/app/models/request_models/attendance/create_shift_request.dart';
@@ -17,51 +16,59 @@ import '../models/response_models/attendance/shift_response.dart';
 class AttendanceRepository {
   DotnetProvider _dotnetProvider;
 
-  AttendanceRepository(){
+  AttendanceRepository() {
     _dotnetProvider = Get.find<DotnetProvider>();
   }
 
-  Future<List<EmployeeAttendance>> getEmployeeAttendance(String fromDate, String toDate,String scheduleGroupId, String keyword){
-    return _dotnetProvider.getEmployeeAttendance(fromDate, toDate, scheduleGroupId, keyword);
+  Future<List<EmployeeAttendance>> getEmployeeAttendance(
+      String fromDate, String toDate, String scheduleGroupId, String keyword) {
+    return _dotnetProvider.getEmployeeAttendance(
+        fromDate, toDate, scheduleGroupId, keyword);
   }
 
-  Future<List<ScheduleGroup>> getScheduleGroup(){
+  Future<List<ScheduleGroup>> getScheduleGroup() {
     return _dotnetProvider.getScheduleGroup();
   }
 
-  Future<EmployeeSwagger> getEmployees(GetEmployeeRequest request){
+  Future<EmployeeSwagger> getEmployees(GetEmployeeRequest request) {
     return _dotnetProvider.getEmployee(request);
   }
 
-  Future<AttendanceDetailSwagger> getAttendanceDetailed(AttendanceRequest request){
+  Future<AttendanceDetailSwagger> getAttendanceDetailed(
+      AttendanceRequest request) {
     return _dotnetProvider.getDetailedAttendance(request);
   }
 
-  Future<void> attendanceManual(EmployeeManualRequest request){
+  Future<void> attendanceManual(EmployeeManualRequest request) {
     return _dotnetProvider.attendanceManual(request);
   }
 
-  Future<void> overtimeSignUp(OverTimeRequest request){
+  Future<void> overtimeSignUp(OverTimeRequest request) {
     return _dotnetProvider.overtimeSignUp(request);
   }
 
-  Future<void> deleteSchedule(String id){
+  Future<void> deleteSchedule(String id) {
     return _dotnetProvider.deleteSchedule(id);
   }
 
-  Future<void> createSchedule(CreateScheduleRequest request){
+  Future<void> createSchedule(CreateScheduleRequest request) {
     return _dotnetProvider.createSchedule(request);
   }
 
-  Future<ShiftResponse> getShift(){
+  Future<ShiftResponse> getShift() {
     return _dotnetProvider.getShift();
   }
 
-  Future<void> overallCreateSchedule(OverallScheduleRequest request){
+  Future<void> overallCreateSchedule(OverallScheduleRequest request) {
     return _dotnetProvider.overallCreateSchedule(request);
   }
 
-  Future<void> overTimeBatch(OverallScheduleRequest request){
+  Future<void> overTimeBatch(OverallScheduleRequest request) {
     return _dotnetProvider.overTimeBatch(request);
+  }
+
+  Future<AttendanceDetailSwagger> getDetailedAttendance(
+      AttendanceRequest request) {
+    return _dotnetProvider.getDetailedAttendance(request);
   }
 }

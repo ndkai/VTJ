@@ -3,30 +3,30 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../common/size_config.dart';
+import '../../../../models/request_models/meal/unit.dart';
 
-class MealTypeSelectBody extends StatefulWidget {
-  final Function(String) onSuccess;
-  final List<String> list;
-  const MealTypeSelectBody({Key key, this.onSuccess, this.list})
-      : super(key: key);
+class AppUnitBody extends StatefulWidget {
+  final Function(AppUnit) onSuccess;
+  final List<AppUnit> list;
+  const AppUnitBody({Key key, this.onSuccess, this.list}) : super(key: key);
 
   @override
-  _MealTypeSelectBodyState createState() => _MealTypeSelectBodyState();
+  _AppUnitBodyState createState() => _AppUnitBodyState();
 }
 
-class _MealTypeSelectBodyState extends State<MealTypeSelectBody> {
+class _AppUnitBodyState extends State<AppUnitBody> {
   int val = -1;
-  String shiftData;
+  AppUnit shiftData;
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SizeConfig.screenWidth * 0.4)),
         child: SizedBox(
-          height: SizeConfig.screenHeight * 0.45,
+          height: SizeConfig.screenHeight * 0.5,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: SizeConfig.screenWidth * 0.9,
@@ -97,7 +97,7 @@ class _MealTypeSelectBodyState extends State<MealTypeSelectBody> {
             removeLeft: true,
             child: ListTile(
               title: Text(
-                e,
+                e.name,
                 style: const TextStyle(color: Colors.black),
               ),
               leading: Radio(

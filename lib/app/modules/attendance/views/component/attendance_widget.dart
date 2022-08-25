@@ -55,7 +55,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
   Widget table() {
     return HorizontalDataTable(
       leftHandSideColumnWidth: 60,
-      rightHandSideColumnWidth: week.days.length * 70.0,
+      rightHandSideColumnWidth: week.days.length * 100.0,
       isFixedHeader: true,
       headerWidgets: _getTitleWidget(),
       leftSideItemBuilder: _generateFirstColumnRow,
@@ -80,7 +80,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
     ));
 
     data.addAll(
-        week.days.map((e) => _getSecondTitleItemWidget(e, 60)).toList());
+        week.days.map((e) => _getSecondTitleItemWidget(e, 100)).toList());
     return data;
   }
 
@@ -228,7 +228,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
               currentAttendance,
             ),
           ),
-          width: 60,
+          width: 100,
           height: 100,
           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
           alignment: Alignment.centerLeft,
@@ -245,10 +245,12 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
         ? currentAttendance.schedule != null
             ? InkWell(
                 onTap: () {
-                  Helper.changePage(
-                      context,
-                      DetailedScheduleView(
-                          currentAttendance, employeeAttendance.employee));
+                  Helper.changePageWithPermission(() {
+                    Helper.changePage(
+                        context,
+                        DetailedScheduleView(
+                            currentAttendance, employeeAttendance.employee));
+                  }, "ATTENDANCE_DETAIL_PAGE");
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -277,18 +279,6 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                         ),
                       ],
                     ),
-                    currentAttendance.schedule == null ||
-                            currentAttendance.schedule.overtimeShift == null
-                        ? Container()
-                        : const Text(
-                            "Tăng ca",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: Colors.black,
-                            ),
-                          ).marginOnly(top: 5),
                     const SizedBox(
                       height: 8,
                     ),
@@ -302,7 +292,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                       ),
                     ),
                     const SizedBox(
-                      height: 6,
+                      height: 3,
                     ),
                     currentAttendance.schedule.timeOff != null
                         ? Center(
@@ -316,7 +306,19 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                   color: Colors.green,
                                 )),
                           )
-                        : Container()
+                        : Container(),
+                    currentAttendance.schedule == null ||
+                            currentAttendance.schedule.overtimeShift == null
+                        ? Container()
+                        : const Text(
+                            "Tăng ca",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: Colors.black,
+                            ),
+                          ).marginOnly(top: 5),
                   ],
                 ),
               )

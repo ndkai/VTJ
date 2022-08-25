@@ -51,6 +51,7 @@ dependencies:
   #System
   file_picker: ^4.6.1
   provider: ^6.0.3
+  uuid: ^3.0.6
 
 
 dev_dependencies:

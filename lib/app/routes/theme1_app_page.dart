@@ -20,7 +20,7 @@ import '../modules/auth/views/register_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/timeoff/bindings/timeoff_binding.dart';
-import '../modules/timeoff/views/user/user_timeoff_manage_view.dart';
+import '../modules/timeoff/views/admin/admin_timeoff_manage_view.dart';
 import 'app_routes.dart';
 
 class Theme1AppPages {
@@ -36,14 +36,14 @@ class Theme1AppPages {
         name: Routes.LOGIN,
         page: () => const LoginView(),
         binding: AuthBinding()),
-    GetPage(
-        name: Routes.TIMEOFF,
-        page: () => const UserTimeOffViewManager(),
-        binding: TimeoffBinding()),
     // GetPage(
     //     name: Routes.TIMEOFF,
-    //     page: () => const AdminTimeOffViewManager(),
+    //     page: () => const UserTimeOffViewManager(),
     //     binding: TimeoffBinding()),
+    GetPage(
+        name: Routes.TIMEOFF,
+        page: () => const AdminTimeOffViewManager(),
+        binding: TimeoffBinding()),
     GetPage(
         name: Routes.CONFIRM_OTP,
         page: () => const OtpView(),

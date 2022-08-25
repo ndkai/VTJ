@@ -23,12 +23,15 @@ class MealManagePage extends GetView<MealController> {
   Widget build(BuildContext context) {
     controller.getScheduleGroup(context);
     return BasePage(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Helper.changePage(context, const MealFunctionsView());
-        },
-      ),
+      floatingActionButton:
+          Helper.checkHavePermission("MEAL_SESSION_SETTING_PAGE")
+              ? FloatingActionButton(
+                  child: const Icon(Icons.add),
+                  onPressed: () {
+                    Helper.changePage(context, const MealFunctionsView());
+                  },
+                )
+              : null,
       title: "Quản lý cơm",
       child: SizedBox(
         height: SizeConfig.screenHeight * 0.91,
@@ -191,6 +194,32 @@ class MealManagePage extends GetView<MealController> {
           ],
         ),
         const SizedBox(
+          height: 30,
+        ),
+        Row(
+          children: [
+            Image.asset(
+              "assets/icon/vegan.png",
+              width: 20,
+            ),
+            const Text(
+              "  Cơm chay",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Image.asset(
+              "assets/icon/carnivore.png",
+              width: 20,
+            ),
+            const Text(
+              "  Cơm mặn",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            )
+          ],
+        ),
+        const SizedBox(
           height: 20,
         ),
         Obx(() {
@@ -242,7 +271,7 @@ class MealManagePage extends GetView<MealController> {
                           Helper.getVietnameseTime(
                               controller.currentDate.value.toIso8601String()),
                           style: const TextStyle(
-                              color: Colors.black54, fontSize: 17),
+                              color: Colors.black54, fontSize: 14),
                         );
                       }),
                       InkWell(

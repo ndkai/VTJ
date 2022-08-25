@@ -85,37 +85,26 @@ class AttendanceController extends GetxController {
       return;
     }
     try {
-      if (overtimeCheck.value) {
-        if (Helper.hourComparison(startTime.value, endTime.value)) {
-          Get.showSnackbar(Ui.RemindSnackBar(
-              message: "Thời gian kết thúc phải trước thời gian bắt đầu"));
-          return;
-        }
-        await _attendanceRepository.overTimeBatch(OverallScheduleRequest(
-            fromDate: fromDate.value.toIso8601String(),
-            toDate: toDate.value.toIso8601String(),
-            employeeIds:
-                employees.value.data.map((element) => element.id).toList(),
-            daysOfWeek: dayoffWeek,
-            overtimeShift: OvertimeShift(
-                factor: factor.value,
-                timeBegin: Helper.getHour(startTime.value),
-                timeEnd: Helper.getHour(endTime.value),
-                isAutomaticallyRegisterMeal: mealSignUp.value,
-                type: 1,
-                workingHours: endTime.value.hour - startTime.value.hour)));
-      } else {
-        await _attendanceRepository.overTimeBatch(OverallScheduleRequest(
+      if (Helper.hourComparison(startTime.value, endTime.value)) {
+        Get.showSnackbar(Ui.RemindSnackBar(
+            message: "Thời gian kết thúc phải trước thời gian bắt đầu"));
+        return;
+      }
+      await _attendanceRepository.overTimeBatch(OverallScheduleRequest(
           fromDate: fromDate.value.toIso8601String(),
           toDate: toDate.value.toIso8601String(),
           employeeIds:
               employees.value.data.map((element) => element.id).toList(),
           daysOfWeek: dayoffWeek,
-        ));
-      }
-
-      chooseShift.value = shiftResponse.value.data.first;
+          overtimeShift: OvertimeShift(
+              factor: factor.value,
+              timeBegin: Helper.getHour(startTime.value),
+              timeEnd: Helper.getHour(endTime.value),
+              isAutomaticallyRegisterMeal: mealSignUp.value,
+              type: 0,
+              workingHours: endTime.value.hour - startTime.value.hour)));
       Get.showSnackbar(Ui.SuccessSnackBar(message: "Tạo thành công"));
+      chooseShift.value = shiftResponse.value.data.first;
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: "Tạo thất bại"));
     } finally {
@@ -161,8 +150,10 @@ class AttendanceController extends GetxController {
                 shiftId: chooseShift.value.id,
                 fromDate: fromDate.value.toIso8601String(),
                 toDate: toDate.value.toIso8601String(),
-                employeeIds:
-                    employees.value.data.where((element) => element.isChoose).map((element) => element.id).toList(),
+                employeeIds: employees.value.data
+                    .where((element) => element.isChoose)
+                    .map((element) => element.id)
+                    .toList(),
                 daysOfWeek: dayoffWeek,
                 overtimeShift: OvertimeShift(
                     factor: factor.value,
@@ -177,8 +168,10 @@ class AttendanceController extends GetxController {
           shiftId: chooseShift.value.id,
           fromDate: fromDate.value.toIso8601String(),
           toDate: toDate.value.toIso8601String(),
-          employeeIds:
-          employees.value.data.where((element) => element.isChoose).map((element) => element.id).toList(),
+          employeeIds: employees.value.data
+              .where((element) => element.isChoose)
+              .map((element) => element.id)
+              .toList(),
           daysOfWeek: dayoffWeek,
         ));
       }
@@ -192,6 +185,13 @@ class AttendanceController extends GetxController {
       employees.value.data.clear();
       getEmployeesAttendance(context);
     }
+  }
+
+  Future<void> getShift() async {
+    try {
+      shiftResponse.value = await _attendanceRepository.getShift();
+      chooseShift.value = shiftResponse.value.data.first;
+    } finally {}
   }
 
   Future<void> createSchedule(
@@ -232,13 +232,6 @@ class AttendanceController extends GetxController {
     }
   }
 
-  Future<void> getShift() async {
-    try {
-      shiftResponse.value = await _attendanceRepository.getShift();
-      chooseShift.value = shiftResponse.value.data.first;
-    } finally {}
-  }
-
   Future<void> deleteSchedule(BuildContext context, String id) async {
     try {
       // showLoadingDialog(context);
@@ -247,15 +240,16 @@ class AttendanceController extends GetxController {
       getEmployeesAttendance(context);
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: "Xóa thất bại"));
-    } finally {}
+    } finally {
+      Navigator.of(context).pop();
+    }
   }
 
   Future<void> overtimeSignUpWhenHaveSchedule(
       BuildContext context, Attendances attendances) async {
     try {
       // showLoadingDialog(context);
-      List<String> shiftTime = attendances.schedule.shift.timeBegin
-          .split("");
+      List<String> shiftTime = attendances.schedule.shift.timeBegin.split("");
       if (Helper.hourComparison(startTime.value, endTime.value)) {
         Get.showSnackbar(Ui.RemindSnackBar(
             message: "Thời gian kết thúc phải trước thời gian bắt đầu"));
@@ -287,14 +281,13 @@ class AttendanceController extends GetxController {
     }
   }
 
-  Future<void> attendanceManual(
-    BuildContext context, {
-    String note,
-    String employeeId,
-    DateTime ciTime,
-    DateTime coTime,
-        String id, String date
-  }) async {
+  Future<void> attendanceManual(BuildContext context,
+      {String note,
+      String employeeId,
+      DateTime ciTime,
+      DateTime coTime,
+      String id,
+      String date}) async {
     try {
       // showLoadingDialog(context);
       await _attendanceRepository.attendanceManual(EmployeeManualRequest(
@@ -317,7 +310,8 @@ class AttendanceController extends GetxController {
           await _attendanceRepository.getEmployeeAttendance(
               Helper.getApiDate(currentWeek.value.days.first),
               Helper.getApiDate(currentWeek.value.days.last),
-              currentScheduleGroup.value.id,"");
+              currentScheduleGroup.value.id,
+              "");
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
     } finally {
@@ -330,11 +324,11 @@ class AttendanceController extends GetxController {
       // showLoadingDialog(context);
       getAttendanceLoading.value = true;
       employeesAttendance.value =
-      await _attendanceRepository.getEmployeeAttendance(
-          Helper.getApiDate(currentWeek.value.days.first),
-          Helper.getApiDate(currentWeek.value.days.last),
-          currentScheduleGroup.value.id,
-          currentUser.value.userInfo.employee.code);
+          await _attendanceRepository.getEmployeeAttendance(
+              Helper.getApiDate(currentWeek.value.days.first),
+              Helper.getApiDate(currentWeek.value.days.last),
+              currentScheduleGroup.value.id,
+              currentUser.value.userInfo.employee.code);
     } catch (e) {
       Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
     } finally {

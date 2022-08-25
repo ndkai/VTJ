@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:vkhealth/app/models/response_models/attendance/employee_attendance.dart';
 import 'package:vkhealth/common/size_config.dart';
 import 'package:vkhealth/common/ui.dart';
 
@@ -12,8 +11,7 @@ import '../../../global_widgets/text_field_widget.dart';
 class AttendanceFixedDialog extends StatefulWidget {
   final DateTime date;
   final Function(String note, DateTime ciTime, DateTime coTime) onTapDone;
-  const AttendanceFixedDialog(
-      {Key key,  this.onTapDone, this.date})
+  const AttendanceFixedDialog({Key key, this.onTapDone, this.date})
       : super(key: key);
 
   @override

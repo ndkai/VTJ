@@ -121,9 +121,11 @@ class _TimeOffOverviewWidgetState extends State<TimeOffOverviewWidget> {
         child: Center(
           child: meal == null
               ? const Text("")
-              : Text(
-                  meal.mealType == 0 ? "Cơm chay" : "Cơm mặn",
-                  style: const TextStyle(color: Colors.black, fontSize: 13),
+              : Image.asset(
+                  meal.mealType == 0
+                      ? "assets/icon/vegan.png"
+                      : "assets/icon/carnivore.png",
+                  width: 30,
                 ),
         ),
         width: 70,

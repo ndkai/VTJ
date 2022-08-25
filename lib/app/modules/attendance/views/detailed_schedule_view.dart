@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/models/response_models/attendance/employee_attendance.dart';
+import 'package:vkhealth/app/modules/attendance/views/detailed_attendance_view.dart';
 
 import '../../../../common/helper.dart';
+import '../../../../common/size_config.dart';
 import '../../../models/user_model.dart';
 import '../../global_widgets/circular_loading_widget.dart';
+import '../../global_widgets/dialog/comfirm_dialog.dart';
 import '../../global_widgets/pages/base_page.dart';
 import '../../global_widgets/text_field_widget.dart';
 import '../controllers/attendance_controller.dart';
 import 'component/attendance_fixed_dialog.dart';
 import 'component/data_item.dart';
+import 'date_over_time_view.dart';
 
 class DetailedScheduleView extends GetView<AttendanceController> {
   final Attendances employeeAttendance;
@@ -24,6 +28,54 @@ class DetailedScheduleView extends GetView<AttendanceController> {
         employeeAttendance.schedule.employeeId, employeeAttendance.date);
     return BasePage(
       title: "Chi tiết lịch làm việc",
+      showHelp: true,
+      helpWidget: InkWell(
+        onTap: () {
+          showDialog<void>(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                content: SizedBox(
+                  height: 200,
+                  child: Column(
+                    children: [
+                      item("Chi tiết chấm công", Icons.remove_red_eye_outlined,
+                          onTap: () {
+                        Navigator.of(context).pop();
+                        Helper.changePage(
+                            context,
+                            DetailedAttendanceView(
+                                controller.attendanceDetailSwagger.value,
+                                employee));
+                      }),
+                      item("Đăng kí tăng ca", Icons.add,
+                          iconColor: Colors.green, onTap: () {
+                        Navigator.of(context).pop();
+                        Helper.changePage(context,
+                            DateOverTimeView(employeeAttendance, employee));
+                      }),
+                      item("Hủy lịch làm việc", Icons.close,
+                          iconColor: Colors.red, onTap: () {
+                        Navigator.of(context).pop();
+                        showComfirmDialog(
+                            context, "Có chắc chắn muốn xóa không?",
+                            onSuccessTap: () {
+                          controller.deleteSchedule(
+                              context, employeeAttendance.schedule.id);
+                        });
+                      }),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: const Icon(
+          Icons.more_vert,
+          color: Colors.black,
+        ),
+      ),
       child: Obx(() {
         if (controller.attendanceDetailedLoading.value) {
           return const CircularLoadingWidget(
@@ -272,19 +324,61 @@ class DetailedScheduleView extends GetView<AttendanceController> {
                   const SizedBox(
                     height: 40,
                   ),
-                  // BlockButtonWidget(
-                  //   onPressed: () {},
-                  //   color: Get.theme.colorScheme.secondary,
-                  //   text: Text(
-                  //     "Xác nhận",
-                  //     style: Get.textTheme.headline6
-                  //         .merge(TextStyle(color: Get.theme.primaryColor)),
-                  //   ),
-                  // ).paddingSymmetric(vertical: 10, horizontal: 20),
+                  // SizedBox(
+                  //   width: 200,
+                  //   child: BlockButtonWidget(
+                  //     onPressed: () {
+                  //       showComfirmDialog(
+                  //           context, "Có chắc chắn muốn xóa không?",
+                  //           onSuccessTap: () {
+                  //         controller.deleteSchedule(
+                  //             context, employeeAttendance.schedule.id);
+                  //       });
+                  //     },
+                  //     color: Colors.red,
+                  //     text: Text(
+                  //       "Xóa lịch",
+                  //       style: Get.textTheme.headline6
+                  //           .merge(TextStyle(color: Get.theme.primaryColor)),
+                  //     ),
+                  //   ).paddingSymmetric(vertical: 10, horizontal: 20),
+                  // )
                 ],
               ));
         }
       }),
+    );
+  }
+
+  Widget item(
+    String title,
+    IconData icon, {
+    Function onTap,
+    Color textColor = Colors.black,
+    Color iconColor = Colors.black,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: SizeConfig.screenWidth,
+        padding: const EdgeInsets.only(bottom: 20, top: 20),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: iconColor,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                  fontSize: 18, color: textColor, fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

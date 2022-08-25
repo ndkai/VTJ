@@ -28,12 +28,12 @@ class AdminHaveSalaryDOView extends GetView<TimeOffController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 20,
+              height: 18,
             ),
             Text("Chọn nhân viên".tr,
                     style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold))
                 .marginOnly(left: 10),
             Container(
@@ -146,7 +146,7 @@ class AdminHaveSalaryDOView extends GetView<TimeOffController> {
                     return Container();
                   }),
                   const SizedBox(
-                    height: 20,
+                    height: 18,
                   ),
                 ],
               ),
@@ -154,7 +154,7 @@ class AdminHaveSalaryDOView extends GetView<TimeOffController> {
             Text("Thông tin chung".tr,
                     style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold))
                 .marginOnly(left: 10),
             InkWell(
@@ -169,7 +169,7 @@ class AdminHaveSalaryDOView extends GetView<TimeOffController> {
               child: TextFieldWidget(
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 17,
+                  fontSize: 14,
                 ),
                 labelText: "Loại nghỉ phép".tr,
                 initialValue: "Chọn loại nghỉ phép",
@@ -303,7 +303,7 @@ class AdminHaveSalaryDOView extends GetView<TimeOffController> {
                 ),
               )
                   .paddingSymmetric(vertical: 10, horizontal: 10)
-                  .marginOnly(top: 20),
+                  .marginOnly(top: 18),
             )
           ],
         ),

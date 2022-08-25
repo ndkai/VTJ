@@ -12,7 +12,9 @@ import 'package:vkhealth/app/models/request_models/attendance/attendance_resques
 import 'package:vkhealth/app/models/request_models/attendance/manuala_reuquest.dart';
 import 'package:vkhealth/app/models/request_models/auth/login_request.dart';
 import 'package:vkhealth/app/models/request_models/auth/register_request.dart';
+import 'package:vkhealth/app/models/request_models/meal/batch_for_anonymous.dart';
 import 'package:vkhealth/app/models/request_models/meal/meal_statistic.dart';
+import 'package:vkhealth/app/models/request_models/meal/small_unit_swagger.dart';
 import 'package:vkhealth/app/models/request_models/timeoff/time_off_request.dart';
 import 'package:vkhealth/app/models/request_models/timeoff/time_off_type.dart';
 import 'package:vkhealth/app/models/request_models/user/password_change.dart';
@@ -533,7 +535,8 @@ class DotnetProvider extends GetxService with ApiProvider {
   Future<EmployeeSwagger> getEmployee(GetEmployeeRequest request) async {
     dio.Response response;
     try {
-      response = await _httpClient.dio.get("${ApiConstants.mainApi}/Employees",
+      response = await _httpClient.dio.get(
+          "${ApiConstants.mainApi}/Employees?isEmployeeAdditional=false&pageIndex=0&pageSize=2147483647",
           queryParameters: request.toJson());
     } catch (e) {
       print('provider - getEmployees $e');
@@ -653,11 +656,9 @@ class DotnetProvider extends GetxService with ApiProvider {
   Future<void> overTimeBatch(OverallScheduleRequest request) async {
     dio.Response response;
     try {
-      print("llllc ${request.toJson()}");
       response = await _httpClient.dio.post(
           "${ApiConstants.mainApi}/Schedules/AddOvertimeBatch",
-          data: request.toJson()
-      );
+          data: request.toJson());
       print('provider - overTimeBatch ${response.data}');
     } catch (e) {
       print('provider - overTimeBatch er $e');
@@ -727,6 +728,33 @@ class DotnetProvider extends GetxService with ApiProvider {
       return MealStatistic.fromJson(response.data);
     } catch (e) {
       print('provider - getMealStatistic er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+  Future<SmallUnitSwagger> getSmallUnit(int id) async {
+    dio.Response response;
+    try {
+      response = await _httpClient.dio.get(
+        "${ApiConstants.mainApi}/Units?type=$id&pageIndex=0&pageSize=2147483647",
+      );
+      print('provider - getSmallUnit ${response.data}');
+      return SmallUnitSwagger.fromJson(response.data);
+    } catch (e) {
+      print('provider - getSmallUnit er $e');
+      throw Exception("Lấy thông tin thất bại");
+    }
+  }
+
+  Future<void> batchForAnonymous(BatchForAnonymousRequest request) async {
+    dio.Response response;
+    try {
+      response = await _httpClient.dio.post(
+          "${ApiConstants.mainApi}/Meals/BatchForAnonymous",
+          data: request.toJson());
+      print('provider - batchForAnonymous ${response.data}');
+    } catch (e) {
+      print('provider - batchForAnonymous er $e');
       throw Exception("Lấy thông tin thất bại");
     }
   }

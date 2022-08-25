@@ -10,17 +10,17 @@ class OverallScheduleRequest {
 
   OverallScheduleRequest(
       {this.fromDate,
-        this.toDate,
-        this.daysOfWeek,
-        this.shiftId,
-        this.employeeIds,
-        this.overtimeShift});
+      this.toDate,
+      this.daysOfWeek,
+      this.shiftId,
+      this.employeeIds,
+      this.overtimeShift});
 
   OverallScheduleRequest.fromJson(Map<String, dynamic> json) {
     fromDate = json['fromDate'];
     toDate = json['toDate'];
     daysOfWeek = json['daysOfWeek'].cast<int>();
-    if(shiftId != null){
+    if (shiftId != null) {
       shiftId = json['shiftId'];
     }
 
@@ -35,7 +35,9 @@ class OverallScheduleRequest {
     data['fromDate'] = fromDate;
     data['toDate'] = toDate;
     data['daysOfWeek'] = daysOfWeek;
-    data['shiftId'] = shiftId;
+    if (shiftId != null) {
+      data['shiftId'] = shiftId;
+    }
     data['employeeIds'] = employeeIds;
     if (overtimeShift != null) {
       data['overtimeShift'] = overtimeShift.toJson();

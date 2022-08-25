@@ -42,32 +42,44 @@ class HomeView extends GetView<HomeController> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Wrap(
+                      alignment: WrapAlignment.spaceAround,
                       children: [
-                        HomeFunctionCard(
-                            title: "Lịch làm việc",
-                            onTap: () {
-                              // Get.toNamed(Routes.E_ATTENDANCE);
-                              Get.toNamed(Routes.ATTENDANCE);
-                            },
-                            image: "assets/icon/calendar.png",
-                            bgColor: Ui.parseColor("#219653")),
-                        HomeFunctionCard(
-                          title: "Quản lý nghỉ phép",
-                          onTap: () {
-                            Get.toNamed(Routes.TIMEOFF);
-                          },
-                          image: "assets/icon/calendar-tick.png",
-                          bgColor: Ui.parseColor("#E86993"),
-                        ),
-                        HomeFunctionCard(
-                            title: "Quản lý cơm",
-                            onTap: () {
-                              Get.toNamed(Routes.MEAL_MANAGE);
-                            },
-                            image: "assets/icon/meal.png",
-                            bgColor: Ui.parseColor("#F47048")),
+                        Helper.checkHavePermission("ATTENDANCE_PAGE")
+                            ? HomeFunctionCard(
+                                title: "Lịch làm việc",
+                                onTap: () {
+                                  // Get.toNamed(Routes.E_ATTENDANCE);
+                                  Helper.changePageWithPermission(() {
+                                    Get.toNamed(Routes.ATTENDANCE);
+                                  }, "ATTENDANCE_PAGE", showMessage: true);
+                                },
+                                image: "assets/icon/calendar.png",
+                                bgColor: Ui.parseColor("#219653"))
+                            : Container(),
+                        Helper.checkHavePermission("TIME_OFF_PAGE")
+                            ? HomeFunctionCard(
+                                title: "Quản lý nghỉ phép",
+                                onTap: () {
+                                  Helper.changePageWithPermission(() {
+                                    Get.toNamed(Routes.TIMEOFF);
+                                  }, "TIME_OFF_PAGE");
+                                },
+                                image: "assets/icon/calendar-tick.png",
+                                bgColor: Ui.parseColor("#E86993"),
+                              )
+                            : Container(),
+                        Helper.checkHavePermission("MEAL_PAGE")
+                            ? HomeFunctionCard(
+                                title: "Quản lý cơm",
+                                onTap: () {
+                                  Helper.changePageWithPermission(() {
+                                    Get.toNamed(Routes.MEAL_MANAGE);
+                                  }, "MEAL_PAGE");
+                                },
+                                image: "assets/icon/meal.png",
+                                bgColor: Ui.parseColor("#F47048"))
+                            : Container(),
                       ],
                     ).marginOnly(bottom: 20),
                     // const Text(

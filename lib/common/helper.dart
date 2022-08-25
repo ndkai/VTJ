@@ -39,22 +39,28 @@ class Helper {
     return false;
   }
 
-  static void changePageWithPermission(Function function, String pageCode) {
+  static void changePageWithPermission(Function function, String pageCode,
+      {bool showMessage = false}) {
     final authService = Get.find<AuthService>();
     List<Role> permissions = authService.user.value.userInfo.permissions;
-    if (permissions.firstWhere((element) => element.code == pageCode) != null) {
+    if (!permissions.where((element) => element.code == pageCode).isBlank) {
       function();
     } else {
-      Get.showSnackbar(
-          Ui.RemindSnackBar(message: "Không có quyền truy cập chức năng này"));
+      if (showMessage) {
+        Get.showSnackbar(Ui.RemindSnackBar(
+            message: "Không có quyền truy cập chức năng này"));
+      }
     }
   }
 
   static bool checkHavePermission(String pageCode) {
     final authService = Get.find<AuthService>();
     List<Role> permissions = authService.user.value.userInfo.permissions;
-    return permissions.firstWhere((element) => element.code == pageCode) !=
-        null;
+    if (!permissions.where((element) => element.code == pageCode).isBlank) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static String getWeekDateString(int wd) {
@@ -120,9 +126,9 @@ class Helper {
   static String getHour(TimeOfDay tod, {bool showSecond = false}) {
     try {
       if (showSecond) {
-        return "${tod.hour > 10 ? tod.hour : "0${tod.hour}"}:${tod.minute > 10 ? tod.minute : "0${tod.minute}"}";
+        return "${tod.hour >= 10 ? tod.hour : "0${tod.hour}"}:${tod.minute >= 10 ? tod.minute : "0${tod.minute}"}";
       }
-      return "${tod.hour > 10 ? tod.hour : "0${tod.hour}"}:${tod.minute > 10 ? tod.minute : "0${tod.minute}"}";
+      return "${tod.hour >= 10 ? tod.hour : "0${tod.hour}"}:${tod.minute >= 10 ? tod.minute : "0${tod.minute}"}";
     } catch (e) {
       return "";
     }
@@ -132,9 +138,9 @@ class Helper {
       {bool showSecond = false}) {
     try {
       if (showSecond) {
-        return "${datetime.hour > 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute > 10 ? datetime.minute : "0${datetime.minute}"}";
+        return "${datetime.hour >= 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute >= 10 ? datetime.minute : "0${datetime.minute}"}";
       }
-      return "${datetime.hour > 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute > 10 ? datetime.minute : "0${datetime.minute}"}";
+      return "${datetime.hour >= 10 ? datetime.hour : "0${datetime.hour}"}:${datetime.minute >= 10 ? datetime.minute : "0${datetime.minute}"}";
     } catch (e) {
       return "";
     }

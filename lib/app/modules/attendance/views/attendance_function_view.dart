@@ -45,10 +45,7 @@ class AttendanceFunctionView extends GetView<AttendanceController> {
                 Border(bottom: BorderSide(color: Colors.black38, width: 0.5))),
         child: Text(
           title,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.black87,
-          ),
+          style: const TextStyle(fontSize: 18, color: Colors.black54),
         ),
       ),
     );

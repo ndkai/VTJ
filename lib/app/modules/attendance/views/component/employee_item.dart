@@ -63,6 +63,6 @@ class _EmployeeItemState extends State<EmployeeItem> {
           },
         ),
       ],
-    );
+    ).marginSymmetric(horizontal: 10);
   }
 }

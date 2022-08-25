@@ -114,9 +114,9 @@ class CreateOvertimeView extends GetView<AttendanceController> {
                           label: Text(
                             AppConstants.dateInWeek[e],
                             style: const TextStyle(
-                                color: Colors.black, fontSize: 16),
+                                color: Colors.black, fontSize: 13),
                           ),
-                        ).marginAll(3))
+                        ).marginAll(1).paddingAll(2))
                     .toList(),
               );
             }),
@@ -227,7 +227,7 @@ class CreateOvertimeView extends GetView<AttendanceController> {
                   title: "Nhập mã, tên để tìm kiếm",
                   height: 40,
                   width: SizeConfig.screenWidth * 0.7,
-                  onSummited: (s) {
+                  onChanged: (s) {
                     controller.getEmployeesByName(s);
                   },
                 ),
@@ -284,16 +284,16 @@ class CreateOvertimeView extends GetView<AttendanceController> {
                     children: [
                       NotificationListener<ScrollEndNotification>(
                         onNotification: (scrollEnd) {
-                          final metrics = scrollEnd.metrics;
-                          if (metrics.atEdge) {
-                            bool isEnd = metrics.pixels ==
-                                controller
-                                    .employeeScrollCl.position.maxScrollExtent;
-                            if (isEnd) {
-                              controller.loadMoreEmployee.value = true;
-                              controller.getEmployees();
-                            }
-                          }
+                          // final metrics = scrollEnd.metrics;
+                          // if (metrics.atEdge) {
+                          //   bool isEnd = metrics.pixels ==
+                          //       controller
+                          //           .employeeScrollCl.position.maxScrollExtent;
+                          //   if (isEnd) {
+                          //     controller.loadMoreEmployee.value = true;
+                          //     controller.getEmployees();
+                          //   }
+                          // }
                           return true;
                         },
                         child: ListView(
