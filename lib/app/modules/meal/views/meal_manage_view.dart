@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vkhealth/app/modules/meal/controllers/meal_controller.dart';
+import 'package:vkhealth/app/modules/meal/views/meal_sign_up_view.dart';
 import 'package:vkhealth/app/modules/meal/views/sub_meal_view.dart';
 import 'package:vkhealth/common/size_config.dart';
 
@@ -14,7 +15,6 @@ import '../../global_widgets/pages/base_page.dart';
 import 'components/meal_overall_widget.dart';
 import 'components/overall_meal_statistic_view.dart';
 import 'components/toggle_widget.dart';
-import 'meals_functions_view.dart';
 
 class MealManagePage extends GetView<MealController> {
   const MealManagePage({Key key}) : super(key: key);
@@ -28,7 +28,7 @@ class MealManagePage extends GetView<MealController> {
               ? FloatingActionButton(
                   child: const Icon(Icons.add),
                   onPressed: () {
-                    Helper.changePage(context, const MealFunctionsView());
+                    Helper.changePage(context, const MealSignUpView());
                   },
                 )
               : null,
@@ -43,6 +43,8 @@ class MealManagePage extends GetView<MealController> {
                 primary: true,
                 children: [
                   ToggleWidget(
+                    fn: "Đăng kí",
+                    sn: "Thống kê",
                     onChanged: (n) {
                       controller.selectedStatic.value = n;
                     },

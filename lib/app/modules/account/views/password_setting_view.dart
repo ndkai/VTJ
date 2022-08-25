@@ -12,7 +12,6 @@ class PasswordSettingView extends GetView<AccountController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.formKey = GlobalKey<FormState>();
     return BasePage(
       title: "Cài đặt mật khẩu",
       child: SizedBox(

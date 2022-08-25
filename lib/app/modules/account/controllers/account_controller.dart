@@ -32,8 +32,8 @@ class AccountController extends GetxController {
   var oldPass = "".obs;
   var newPass = "".obs;
   var cnPass = "".obs;
-  GlobalKey<FormState> formKey;
-  GlobalKey<FormState> infoFormKey;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> infoFormKey = GlobalKey<FormState>();
   Wards ward;
   GetStorage _box;
   UserRepository _userRepository;
@@ -76,6 +76,11 @@ class AccountController extends GetxController {
   Future<void> changePass(BuildContext context) async {
     Get.focusScope.unfocus();
     formKey.currentState.save();
+    if (cnPass.value != newPass.value) {
+      Get.showSnackbar(
+          Ui.RemindSnackBar(message: "Mật khẩu xác nhận không đúng"));
+      return;
+    }
     if (formKey.currentState.validate()) {
       try {
         showLoadingDialog(context);

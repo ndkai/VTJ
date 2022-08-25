@@ -310,7 +310,7 @@ class DotnetProvider extends GetxService with ApiProvider {
     dio.Response response;
     try {
       response = await _httpClient.dio.put(
-          "${ApiConstants.userAPi}/Users/ChangePassword",
+          "${ApiConstants.mainApi}/Users/ChangePassword",
           data: passwordChange.toJson());
     } catch (e) {
       if (e is dio.DioError) {

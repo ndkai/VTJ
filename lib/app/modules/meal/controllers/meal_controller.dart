@@ -20,6 +20,7 @@ import '../../../repositories/meal_repository.dart';
 
 class MealController extends GetxController {
   final selectedStatic = 0.obs;
+  final selectedSign = 0.obs;
   final getMealOverviewLoading = false.obs;
   final currentDate = DateTime.now().obs;
   final chooseAll = false.obs;
@@ -52,26 +53,26 @@ class MealController extends GetxController {
   }
 
   Future<void> batchForAnonymous(BuildContext context) async {
+    if (currentSmallUnit.value.id == null || currentSmallUnit.value == null) {
+      Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn đơn vị"));
+      return;
+    }
+
+    if (chooseShift.value.id == null || chooseShift.value == null) {
+      Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn ca"));
+      return;
+    }
+
+    if (chooseMealTypeCl.text.isEmpty) {
+      Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn loại cơm"));
+      return;
+    }
+
+    if (amountCl.text.isEmpty) {
+      Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa nhập số lượng"));
+      return;
+    }
     try {
-      if (currentSmallUnit.value.id == null || currentSmallUnit.value == null) {
-        Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn đơn vị"));
-        return;
-      }
-
-      if (chooseShift.value.id == null || chooseShift.value == null) {
-        Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn ca"));
-        return;
-      }
-
-      if (chooseMealTypeCl.text.isEmpty) {
-        Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa chọn loại cơm"));
-        return;
-      }
-
-      if (amountCl.text.isEmpty) {
-        Get.showSnackbar(Ui.RemindSnackBar(message: "Chưa nhập số lượng"));
-        return;
-      }
       showLoadingDialog(context);
       await _mealRepository.batchForAnonymous(BatchForAnonymousRequest(
           date: fromDate.value.toIso8601String(),
@@ -87,6 +88,7 @@ class MealController extends GetxController {
     } catch (e) {
       Get.showSnackbar(Ui.SuccessSnackBar(message: "Tạo thất bại"));
     } finally {
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     }
   }
