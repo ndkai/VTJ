@@ -18,9 +18,41 @@ class HomeView extends GetView<HomeController> {
       child: Scaffold(
           body: Stack(
         children: [
-          Image.asset(
-            "assets/img/bg1.png",
-            width: SizeConfig.screenWidth,
+          Container(
+            child: Stack(
+              children: [
+                Image.asset(
+                  "assets/img/home_bg.png",
+                  width: SizeConfig.screenWidth,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Text(
+                      "Xin chào quay lại!",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      (controller.currentUser.value.userInfo.employee!= null && controller.currentUser.value.userInfo != null)
+                          ? controller.currentUser.value.userInfo.employee.name
+                          : "",
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      softWrap: true,
+                    ),
+                  ],
+                ).marginOnly(left: 10)
+              ],
+            ),
           ),
           Container(
             margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.3),

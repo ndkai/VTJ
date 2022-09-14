@@ -1,31 +1,38 @@
 // ignore_for_file: avoid_print, duplicate_ignore
-
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../common/api_constant.dart';
 
-class ApiClient{
+class ApiClient {
   final Dio dio;
 
   ApiClient(this.dio);
 
-  ApiClient setupToken(String accessToken){
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+  ApiClient setupToken(String accessToken) {
+    if (defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
 
-    dio.options = BaseOptions(
-        receiveTimeout: ApiConstants.timeout,
-        connectTimeout: ApiConstants.timeout);
-    dio.options.headers["Authorization"] = "Bearer $accessToken";
-    return ApiClient(dio);
+      dio.options = BaseOptions(
+          receiveTimeout: ApiConstants.timeout,
+          connectTimeout: ApiConstants.timeout);
+      dio.options.headers["Authorization"] = "Bearer $accessToken";
+      return ApiClient(dio);
+    } else {
+      dio.options.headers["Authorization"] = "Bearer $accessToken";
+      return ApiClient(dio);
+    }
   }
+
   showResponseConsole(Response response) {
     if (response.data is Map<dynamic, dynamic>) {
       var data = Map<String, dynamic>.from(response.data);
@@ -36,5 +43,4 @@ class ApiClient{
       print("RESPONSE: $data");
     }
   }
-
 }

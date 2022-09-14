@@ -32,8 +32,8 @@ class RootController extends GetxController {
 
   List<Widget> pages = [
     const HomeView(),
-    const NotificationView(),
     const SearchView(),
+    const NotificationView(),
     const AccountView()
   ];
 
@@ -43,7 +43,7 @@ class RootController extends GetxController {
     currentIndex.value = _index;
   }
 
-  void inputPageController(){
+  void inputPageController() {
     Get.lazyPut<AccountController>(() => AccountController());
     Get.lazyPut<HomeController>(() => HomeController());
   }

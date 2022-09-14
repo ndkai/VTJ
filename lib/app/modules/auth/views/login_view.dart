@@ -53,7 +53,7 @@ class LoginView extends GetView<AuthController> {
                     children: [
                       TextFieldWidget(
                         labelText: "Tên đăng nhập".tr,
-                        hintText: "0946******",
+                        hintText: "VT-***",
                         initialValue: controller.loginRequest?.value?.username,
                         onSaved: (input) =>
                             controller.loginRequest.value.username = input,
@@ -100,7 +100,13 @@ class LoginView extends GetView<AuthController> {
                               SizedBox(
                                 height: 20.0,
                                 width: 20.0,
-                                child: Checkbox(value: true, onChanged: (s) {}),
+                                child: Obx(() {
+                                  return Checkbox(
+                                      value: controller.remember.value,
+                                      onChanged: (s) {
+                                        controller.remember.value = s;
+                                      });
+                                }),
                               ),
                               TextButton(
                                 onPressed: () {},

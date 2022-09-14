@@ -12,11 +12,13 @@ import '../../../models/provice.dart';
 import '../../../models/user_model.dart';
 import '../../../routes/app_routes.dart';
 import '../../../services/auth_service.dart';
+import '../../../services/setting_service.dart';
 import '../../global_widgets/dialog/loading_dialog.dart';
 
 class AuthController extends GetxController {
   final Rx<LoginRequest> loginRequest = LoginRequest().obs;
   final authService = Get.find<AuthService>();
+  final settingService = Get.find<SettingsService>();
   final Rx<User> currentUser = Get.find<AuthService>().user;
   final loading = false.obs;
   final hidePassword = true.obs;
@@ -25,14 +27,18 @@ class AuthController extends GetxController {
   final phoneNumber = "".obs;
   final otp = "".obs;
   final newPass = "".obs;
+  final remember = true.obs;
   GlobalKey<FormState> loginFormKey;
   GlobalKey<FormState> forgotPasswordFormKey;
   UserRepository _userRepository;
-  GetStorage _box;
+  GetStorage box;
 
   AuthController() {
     _userRepository = UserRepository();
-    _box = GetStorage();
+    box = GetStorage();
+    try {
+      loginRequest.value.username = box.read("LOGIN-USERNAME");
+    } catch (e) {}
   }
 
   Future<void> generateOTP(BuildContext context) async {
@@ -80,6 +86,9 @@ class AuthController extends GetxController {
       loginFormKey.currentState.save();
       loading.value = true;
       try {
+        if (remember.value) {
+          box.write("LOGIN-USERNAME", loginRequest.value.username);
+        }
         User user = await _userRepository.login(loginRequest.value);
         currentUser.value = user;
         currentUser.value.dateExpired = user.dateExpired;

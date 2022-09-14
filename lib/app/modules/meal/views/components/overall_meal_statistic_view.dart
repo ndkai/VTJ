@@ -241,9 +241,6 @@ class _OverallMealStatisticViewState extends State<OverallMealStatisticView> {
     return Container(
         width: 144,
         height: 110,
-        decoration: const BoxDecoration(
-            border:
-                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
         child: Column(
@@ -301,9 +298,6 @@ class _OverallMealStatisticViewState extends State<OverallMealStatisticView> {
   Widget _getEmployeeTitleWidget(String label) {
     return Container(
         width: 202,
-        decoration: const BoxDecoration(
-            border:
-                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         height: 110,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
@@ -376,9 +370,6 @@ class _OverallMealStatisticViewState extends State<OverallMealStatisticView> {
   Widget _getShiftTitleItemWidget(String label, double width) {
     return Container(
         width: 500,
-        decoration: const BoxDecoration(
-            border:
-                Border.symmetric(vertical: BorderSide(color: Colors.black38))),
         height: 110,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         alignment: Alignment.centerLeft,
